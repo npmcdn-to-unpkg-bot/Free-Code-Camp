@@ -1,0 +1,112 @@
+<!--
+Diff Two Arrays
+Compare two arrays and return a new array with any items only found in one of
+ the two given arrays, but not both. In other words, return the symmetric difference
+ of the two arrays.
+
+
+Here are some helpful links:
+
+Comparison Operators
+Array.slice()
+Array.filter()
+Array.indexOf()
+Array.concat()
+
+diff([1, 2, 3, 5], [1, 2, 3, 4, 5]) should return an array.
+["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"] should return ["pink wool"].
+["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"] should return ["diorite", "pink wool"].
+["andesite", "grass", "dirt", "dead shrub"], ["andesite", "grass", "dirt", "dead shrub"] should return [].
+[1, 2, 3, 5], [1, 2, 3, 4, 5] should return [4].
+[1, "calf", 3, "piglet"], [1, "calf", 3, 4] should return ["piglet", 4].
+[], ["snuffleupagus", "cookie monster", "elmo"] should return ["snuffleupagus", "cookie monster", "elmo"].
+[1, "calf", 3, "piglet"], [7, "filly"] should return [1, "calf", 3, "piglet", 7, "filly"].
+-->
+<script>
+
+function diff(arr1, arr2) {
+var retArr=[];
+  arr1.filter(function(item,index) {
+    
+    if (arr2.indexOf(item)===-1){
+      retArr.push(item);
+    }
+  });
+  arr2.filter(function(item,index) {
+    if (arr1.indexOf(item)===-1){
+      retArr.push(item);
+    }
+  });
+  return retArr;
+}  
+
+diff([1, 2, 3, 5], [1, 2, 3, 4, 5]);
+</script>
+
+
+<!-- bonfire solutions
+function getDiff(firstArr, secondArr){  
+ for(var elem in secondArr){
+    if(firstArr.indexOf(secondArr[elem]) === -1){
+      newArr.push(secondArr[elem]);
+    }
+  } 
+}
+
+  getDiff(arr1, arr2);
+  getDiff(arr2, arr1);
+
+  return newArr;
+}
+
+
+<!--
+
+Hardcoding the two checks.
+
+function diff(arr1, arr2) {  
+  var newArr = [];
+
+  for(var elem in arr2){
+    if(arr1.indexOf(arr2[elem]) === -1){
+      newArr.push(arr2[elem]);
+    }
+  }
+
+  for(var item in arr1){
+    console.log("loop: " + arr1[item]);
+    if(arr2.indexOf(arr1[item]) === -1){
+      newArr.push(arr1[item]);
+    }
+  }
+
+  console.log("returned: " + newArr);
+  return newArr;
+}
+
+diff(['diorite', 'andesite', 'grass', 'dirt', 'dead shrub'], ['andesite', 'grass', 'dirt', 'pink wool', 'dead shrub']);  
+Making it into a function.
+
+function diff(arr1, arr2) {  
+  var newArr = [];
+
+
+
+
+diff(['diorite', 'andesite', 'grass', 'dirt', 'dead shrub'], ['andesite', 'grass', 'dirt', 'pink wool', 'dead shrub']);  
+
+
+Pascal came up with this one. But I thought it would be nice to include it here because it's awesome.
+
+function diff(arr1, arr2) {  
+  return arr1.concat(arr2).filter(function(item) { 
+    return !(arr1.indexOf(item) >= 0 && arr2.indexOf(item) >= 0);
+  });
+}
+
+diff(['diorite', 'andesite', 'grass', 'dirt', 'dead shrub'], ['andesite', 'grass', 'dirt', 'pink wool', 'dead shrub']);  
+-->
+
+
+
+

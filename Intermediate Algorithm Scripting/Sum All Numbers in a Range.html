@@ -1,0 +1,50 @@
+<!--
+Sum All Numbers in a Range
+We'll pass you an array of two numbers. Return the sum of those two numbers
+ and all numbers between them.
+
+The lowest number will not always come first.
+
+Here are some helpful links:
+
+Math.max()
+Math.min()
+Array.reduce()
+
+sumAll([1, 4]) should return a number.
+sumAll([1, 4]) should return 10.
+sumAll([4, 1]) should return 10.
+sumAll([5, 10]) should return 45.
+sumAll([10, 5]) should return 45.
+-->
+
+<script>
+  /*var total=[0,1,2,3,4].reduce(function(a,b) {
+  *	return a+b;
+  *	});
+  *console.log(total);
+  */
+  
+  function sumAll(arr) {
+  arr=arr.sort(function (a,b) {return a-b});
+  //console.log(arr);
+  var minimum=arr[0];
+  var maximum=arr[1];
+  //console.log(" minmum " + minimum + " maximum " + maximum);
+  var num;
+  var retArr=[];
+  for (var i=minimum+1;i<maximum;i++) {
+  	retArr.push(i);
+  	}
+  	//console.log(retArr);
+  	arr=arr.concat(retArr).reduce(function(a,b) { return a+b});
+  	console.log(arr);
+  	return arr;
+  
+     }
+  
+  sumAll([1, 4]);
+  sumAll([4, 1]);
+  sumAll([5, 10]);
+  sumAll([10, 5]);
+</script>

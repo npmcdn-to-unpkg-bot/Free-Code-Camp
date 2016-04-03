@@ -1,0 +1,50 @@
+
+
+<!--
+Confirm the Ending 
+Check if a string (first argument, str) ends with the given target string (second argument, target).
+
+Remember to use Read-Search-Ask if you get stuck. Write your own code.
+
+Here are some helpful links:
+
+String.substr()
+
+-->
+
+
+<script>
+function end(str, target) {
+  var t = target.length;
+
+  splitString = str.split(" ");
+
+  var lastWord = splitString[splitString.length - 1];
+
+  var convertedString = str.substring(lastWord.length - target.length);
+
+  if (convertedString == target) {
+    return true;
+  } else {
+    var check = convertedString.length - target.length;
+    checkArray = convertedString.substring(check);
+
+    if (checkArray == target) {
+      return true;
+    }
+
+  }
+
+  return false;
+
+}
+
+end("Bastian", "n");
+end("Connor", "n");
+end("Walking on water and developing software from a specification are easy if both are frozen", "specification");
+end("He has to give me a new name", "name");
+end("He has to give me a new name", "me");
+end("He has to give me a new name", "na");
+end("If you want to save our world, you must hurry. We dont know how much longer we can withstand the nothing", "mountain");
+//end("Walking on water and developing software from a specification are easy if both are frozen", "specification")
+</script>
