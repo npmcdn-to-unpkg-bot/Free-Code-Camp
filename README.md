@@ -26,10 +26,11 @@ Get Started with Free Code Camp
 Intermediate Front End Development Projects
 API Projects
 
-##To Do:
+Shopping list:
 
-*Data Visualization
-*Back End Web Development
+  * Data Visualization
+  * Backend Web Development
+  * Non-profit Coding Experience
 
 
 ##Contact Me:##
