@@ -1,0 +1,20 @@
+.active {
+  color: red;
+}
+
+#displayMe {
+  font-family: georgia;
+}
+
+th {
+  font-size: 21px;
+  cursor: pointer;
+}
+
+td {
+  font-size: 18px;
+}
+
+.glyphicon {
+  display: none;
+}

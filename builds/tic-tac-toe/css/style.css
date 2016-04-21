@@ -1,0 +1,19 @@
+table {
+  border: 3px solid black;
+  
+}
+
+td {
+  font-size: 100px;
+  font-weight: bold;
+  border: 2px solid black;
+  cursor: pointer;
+  height: 200px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.center {
+  float: none !important;
+  margin: auto;
+}
