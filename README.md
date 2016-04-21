@@ -26,7 +26,7 @@ Get Started with Free Code Camp
 Intermediate Front End Development Projects
 API Projects
 
-##To Do##:
+##To Do:
 
   * Data Visualization
   * Backend Web Development
