@@ -28,8 +28,8 @@ API Projects
 
 ##To Do:
 
-Data Visualization
-Back End Web Development
+*Data Visualization
+*Back End Web Development
 
 
 ##Contact Me:##
