@@ -18,8 +18,6 @@
   <body>
 
     <!-- clear buttons after tie  and fix button width-->
-<!doctype html>
-
 <html lang="en">
 <meta charset="utf-8">
 
@@ -27,20 +25,42 @@
 <head>
   <title>Tic Tac Toe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="style.css"></link>
   <div class="container">
     <div class="page-header text-center">
-      <h1>Let's Play Tic Tac Toe!</h1>
+      <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#startModal"><h1>Let's Play Tic Tac Toe!</h1></button>
+      <div id="startModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header" id="modalHeader">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title"><strong>Choose 1 or 2 to start game</strong></h4>
+              </div>
+                <div class="modal-body" id="startModalBody">
+                  <form id="choiceForm">
+                    <input type="radio" name="choice" value="1"> <span class="radioText"> 1</span></input><br>
+                    <input type="radio" name="choice" value="2"><span class="radioText"> 2</span></input><br>
+                    <button type="button" class="btn btn-success" id="startGame">Submit Choice</button>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
-  </div>
+
+
 </head>
 
 <body>
+
 
   <div class="container-fluid">
     <table class="center col-xs-12 col-sm-9 col-md-6">
@@ -63,8 +83,16 @@
 
     </table>
   </div>
-  <script src="tic tac toe.js"></script>
-
+  <br>
+  <br>
+  <div class="container bg-info col-sm-3" id="gameData">
+    <h3>Game Data:</h3>
+    <h4 id="displayMe">First Player:  </h4>
+    <h4 id="numberGames">Game #: </h4>
+    <h4 id="wins"> Wins: </h4>
+    <h4 id="losses">Losses: </h4>
+    <h4 id="ties">Ties:</h4>
+  </div>
 
 </body>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
