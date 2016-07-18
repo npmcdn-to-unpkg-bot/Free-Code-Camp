@@ -22,15 +22,18 @@ where([{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }], { "a": 1, "c
 function where(collection, source) {
  	
 	var k= Object.keys(source);
+	console.log('k', k);
 		var arr= collection.filter(function (item) {
-		 return item[k]===source[k];
+		console.log('source[k]', source[k])
+		 return item[k] === source[k];
+		 
 		});
-		console.log(arr);
+		console.log('rturned array', arr);
 		return arr;
 }	
 		
 // where([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" }) 
-
+where([{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }], { "a": 1, "b": 2 }) //should return [{ "a": 1, "b": 2 }, { "a": 1, "b": 2, "c": 2 }].
 where([{ "a": 1 }, { "a": 1 }, { "a": 1, "b": 2 }], { "a": 1 }) //should return [{ "a": 1 }, { "a": 1 }, { "a": 1, "b": 2 }].
 
 /*

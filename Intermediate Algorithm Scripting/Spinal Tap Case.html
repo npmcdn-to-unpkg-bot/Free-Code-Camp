@@ -15,8 +15,15 @@ spinalCase("Teletubbies say Eh-oh") should return "teletubbies-say-eh-oh".
 -->
 
 <script>
-function spinalCase(str) {
+function spinalCase(str){
+let ret = str.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/\s/g, "-").toLowerCase();
+return ret;
 
+}
+spinalCase("thisIsSpinalTap");
+spinalCase('This Is Spinal Tap');
+/*
+function spinalCase(str) {
 str=str.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/[_\s]/g,"-");
 str=str.toLowerCase();
 console.log(str);
@@ -27,5 +34,5 @@ console.log(str);
 }
 spinalCase("thisIsSpinalTap");
 spinalCase('This Is Spinal Tap');
-
+*/
 </script>

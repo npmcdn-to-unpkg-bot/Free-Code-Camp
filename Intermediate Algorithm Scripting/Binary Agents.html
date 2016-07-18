@@ -17,6 +17,19 @@ binaryAgent("01001001 00100000 01101100 01101111 01110110 01100101 00100000 0100
 -->
 
 <script>
+// 07182016
+
+function binaryAgent(str){
+  let ret = str.split(" ").map(function(item){
+	return String.fromCharCode(parseInt(item, 2))
+  }).join("");
+return ret;
+}
+
+
+
+
+
 function binaryAgent(str) {
   var hi=str.split(/\s/).map(function(value){
 	return String.fromCharCode(parseInt(value,2));

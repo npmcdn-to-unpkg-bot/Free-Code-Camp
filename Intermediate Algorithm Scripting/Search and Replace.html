@@ -28,16 +28,15 @@ myReplace("Let us get back to more Coding", "Coding", "algorithms") should retur
 <script>
 
 function myReplace(str, before, after) {
-var indexCheck=str.indexOf(before);
-if (str[indexCheck]===str[indexCheck].toUpperCase()) {
-	after=after.charAt(0).toUpperCase() + after.slice(1);
-	}
-	str=str.replace(before,after);
-	console.log(str);
-	return str;
+	
+  let firstChar = before.charAt(0) == before.charAt(0).toUpperCase() ? 
+	after.charAt(0).toUpperCase() : 
+	after.charAt(0).toLowerCase();
+  let newStr = firstChar.concat( after.substr(1));
+  let ret =  str.replace(before, newStr);
+ return ret;
+
 }
-
-
 
 myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
 myReplace("Let us get back to more Coding", "Coding", "algorithms");
