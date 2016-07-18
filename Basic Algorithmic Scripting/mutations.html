@@ -18,6 +18,25 @@ String.indexOf()
 
 -->
 <script>
+function mutation(arr) {
+	var str0 = arr[0].toLowerCase();
+	var str1 = arr[1].toLowerCase();
+	console.log(str0, str1);
+	
+	var every = Array.prototype.every.call(str1, function(item) {
+		console.log(item, str0);
+		
+		return str0.indexOf(item) !== -1;
+	});
+	console.log(every);
+
+}
+ mutation(["Alien", "line"]);
+  mutation(["hello", "hey"]); 
+
+</script>
+
+<script>
   function mutation(arr) {
     var arr0, arr1;
     var retArr = [];

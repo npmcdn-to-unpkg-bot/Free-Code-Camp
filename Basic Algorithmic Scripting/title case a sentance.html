@@ -19,6 +19,20 @@ titleCase("HERE IS MY HANDLE HERE IS MY SPOUT") should return "Here Is My Handle
 
 -->
 <script>
+
+function titleCase(string) {
+	let str;
+	str = string.toLowerCase().split(' ');
+	console.log(str);
+	var result = str.map(function(item){
+		return item.replace(item.charAt(0), item.charAt(0).toUpperCase());
+	});
+	result.join(' ');
+	console.log(result);
+}
+titleCase("I'm a little tea pot");
+
+/*
 function titleCase(str) {
 
 	str=str.toLowerCase().split(" ");
@@ -37,6 +51,7 @@ function titleCase(str) {
 	console.log(retArr);
 	return retArr;
 }
+*/
 
 titleCase("sHoRt AnD sToUt"); //should return "Short And Stout".
 </script>

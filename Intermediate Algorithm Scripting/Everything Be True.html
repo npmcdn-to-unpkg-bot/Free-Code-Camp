@@ -23,6 +23,11 @@ every([{"single": "double"}, {"single": NaN}], "single") should return false
 <script>
 function every(collection, pre) {
 
+let retArr = collection.every( item => item.hasOwnProperty(pre));
+return retArr;
+}
+
+/* second attempt 
   var check = '';
   var retArr = [];
   // returns item to be checked 
@@ -41,6 +46,7 @@ function every(collection, pre) {
   }
 
 }
+*/
 /*
 
 first attempt*********************

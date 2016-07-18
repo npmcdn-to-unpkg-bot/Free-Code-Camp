@@ -26,6 +26,42 @@ rot13("SERR CVMMN!") should decode to "FREE PIZZA!"
 rot13("SERR YBIR?") should decode to "FREE LOVE?"
 rot13("GUR DHVPX OEBJA QBT WHZCRQ BIRE GUR YNML SBK.") should decode to "THE QUICK BROWN DOG JUMPED OVER THE LAZY FOX."
 -->
+
+
+<script>
+//06-08-2016
+
+function rot13(str) {
+
+const alphabet = 'abcdefghijklmnopqrstuvwxyzabcdefghijklm'.toUpperCase();
+//console.log(alphabet);
+var retArr = [];
+
+function convert(item, index) {
+	
+	let alphabetIndex = alphabet.indexOf(item);
+	//console.log(alphabet[alphabetIndex + 13]);
+	if (alphabet.indexOf(item) !== -1) {
+		retArr.push(alphabet[alphabetIndex + 13]);
+	} else{
+		retArr.push(item);
+	}
+
+}
+
+Array.prototype.map.call(str, convert);
+
+retArr = retArr.toString().replace(/\,/g, '');
+console.log(retArr);
+}
+
+rot13("SERR PBQR PNZC");
+
+
+</script>
+
+
+
 <script>
 
 

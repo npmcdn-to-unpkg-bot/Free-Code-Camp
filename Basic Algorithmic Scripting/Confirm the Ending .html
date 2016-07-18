@@ -14,28 +14,11 @@ String.substr()
 
 
 <script>
-function end(str, target) {
-  var t = target.length;
+function end(str1, str2) {
+	const str1Sub = str1.substr(-str2.length);
+	
+	return str1Sub === str2 ? true : false;
 
-  splitString = str.split(" ");
-
-  var lastWord = splitString[splitString.length - 1];
-
-  var convertedString = str.substring(lastWord.length - target.length);
-
-  if (convertedString == target) {
-    return true;
-  } else {
-    var check = convertedString.length - target.length;
-    checkArray = convertedString.substring(check);
-
-    if (checkArray == target) {
-      return true;
-    }
-
-  }
-
-  return false;
 
 }
 
@@ -46,5 +29,6 @@ end("He has to give me a new name", "name");
 end("He has to give me a new name", "me");
 end("He has to give me a new name", "na");
 end("If you want to save our world, you must hurry. We dont know how much longer we can withstand the nothing", "mountain");
-//end("Walking on water and developing software from a specification are easy if both are frozen", "specification")
+
 </script>
+
