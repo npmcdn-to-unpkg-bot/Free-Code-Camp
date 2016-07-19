@@ -16,40 +16,25 @@ fearNotLetter("bcd") should return undefined.
 fearNotLetter("yz") should return undefined.
 -->
 <script>
-function fearNotLetter(str) {
-temp=[];
-for( var j in str) {
-temp.push(str.charCodeAt([j]));
-}
-console.log(temp);
-retArr=[];
-for (var i=0;i<temp.length-1;i++) {
-if (temp[i+1]-temp[i] !==1) {
-	retArr.push(temp[i]+1);
-	}
+const fearNotLetter = (str) =>{
+	let firstCharCode = str.charCodeAt(0);
+	let missing;
+	str.split('').forEach((item, index) => {
+		if (str.charCodeAt(index) === firstCharCode){
+			firstCharCode++;
+		} else{
+			missing = String.fromCharCode(firstCharCode);
+		}
+	});
+	return missing;
 
 }
-console.log(retArr);
-retArr=retArr.toString('');
-
-
-str=String.fromCharCode(retArr);
-
-
-console.log(str);
-if (retArr.length<1) {
-	console.log("undefined");
-	return undefined;
-}
-else {
-	console.log(str);
-	return str;
-}
-}
-fearNotLetter("abce");
+fearNotLetter("abce"); 
 
 fearNotLetter("abcdefghjklmno");// should return "i".
 fearNotLetter("yz"); //should return undefined.
+
+
 </script>
 
 

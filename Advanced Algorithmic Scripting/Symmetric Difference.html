@@ -19,9 +19,43 @@ sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]) s
 -->
 
 <script>
+const sym = (...args) =>{
+  let output = [];
+  const getDiff = (arr1, arr2) =>{
+	let temp = arr1.concat(arr2).filter( item =>{
+		return !(arr1.indexOf(item) !== -1 && arr2.indexOf(item) !== -1);
+	});
+	output = temp.filter((item, index, array) => {
+		return array.indexOf(item) == index;
+	}).sort();
+	
+  
+  }
+  getDiff(args[0], args[1]);
+  
+  for ( let i = 2; i < args.length; i++){
+	getDiff(output, args[i]);
+  }
+  return output;
+  
+  
+}
+  
+  
+  
+sym([1, 2, 3], [5, 2, 1, 4])// should return [3, 5, 4].
+sym([1, 2, 5], [2, 3, 5], [3, 4, 5])// should return [1, 4, 5]
+sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]) //should return [1, 4, 5].
+sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3])// should return [7, 4, 6, 2, 3].
+sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]) //should return [1, 2, 4, 5, 6, 7, 8, 9]')
 
+
+/*
+  first submittal
+  
+  
 function sym(args) {
-
+	
 	args=[].slice.call(arguments);
 	var retArr=[];
 	var temp=[];
@@ -66,6 +100,7 @@ sym([1, 2, 5], [2, 3, 5], [3, 4, 5])// should return [1, 4, 5]
 sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]) //should return [1, 4, 5].
 sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3])// should return [7, 4, 6, 2, 3].
 sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]) //should return [1, 2, 4, 5, 6, 7, 8, 9]')
+*/
 
 </script>
 
@@ -144,15 +179,6 @@ function sym() {
 
 
 
-function sym (arr) {
-  var newArr = Array.prototype.slice.call(arguments);
-  var firstDiff = newArr.reduce(function(first, second){return R.difference(first, second);});
-  var secondDiff = newArr.reduce(function(first, second){return R.difference(second, first);});
-  if(newArr.length < 2)
-     return [1];
-  return firstDiff.concat(secondDiff);
-}
-sym([1, 1]);
 -->
 
 

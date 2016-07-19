@@ -23,6 +23,22 @@ diff([1, 2, 3, 5], [1, 2, 3, 4, 5]) should return an array.
 [1, "calf", 3, "piglet"], [7, "filly"] should return [1, "calf", 3, "piglet", 7, "filly"].
 -->
 <script>
+const diff = (arr1, arr2) =>{
+	let retArr = [];
+	arr1.filter( item =>{
+		if (arr2.indexOf(item) === -1){
+			retArr.push(item);
+		}
+	});
+	arr2.filter( item => {
+		if (arr1.indexOf(item) === -1){
+			retArr.push(item);
+		}
+	});
+	return retArr;
+}
+diff([1, 2, 3, 5], [1, 2, 3, 4, 5] );//should return [4].
+diff(["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]);// should return ["pink wool"].
 
 function diff(arr1, arr2) {
 var retArr=[];
@@ -91,9 +107,6 @@ function diff(arr1, arr2) {
   var newArr = [];
 
 
-
-
-diff(['diorite', 'andesite', 'grass', 'dirt', 'dead shrub'], ['andesite', 'grass', 'dirt', 'pink wool', 'dead shrub']);  
 
 
 Pascal came up with this one. But I thought it would be nice to include it here because it's awesome.

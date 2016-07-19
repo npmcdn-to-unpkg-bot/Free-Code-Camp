@@ -15,24 +15,12 @@ spinalCase("Teletubbies say Eh-oh") should return "teletubbies-say-eh-oh".
 -->
 
 <script>
-function spinalCase(str){
-let ret = str.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/\s/g, "-").toLowerCase();
-return ret;
-
+// note: _ is a word character
+const spinalCase = (str) =>{
+	return str.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/(\s|_)/g, "-").toLowerCase();
 }
+spinalCase("The_Andy_Griffith_Show")
 spinalCase("thisIsSpinalTap");
 spinalCase('This Is Spinal Tap');
-/*
-function spinalCase(str) {
-str=str.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/[_\s]/g,"-");
-str=str.toLowerCase();
-console.log(str);
 
-
-
-  return str;
-}
-spinalCase("thisIsSpinalTap");
-spinalCase('This Is Spinal Tap');
-*/
 </script>
