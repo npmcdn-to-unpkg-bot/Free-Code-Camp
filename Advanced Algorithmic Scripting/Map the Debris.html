@@ -17,7 +17,7 @@ Here are some helpful links:
 
 Math.pow()
 
-"sputnik", avgAlt : 35873.5553}]) should return [{name: "sputnik", orbitalPeriod: 86400}].
+orbitalPeriod([{name: "sputnik", avgAlt : 35873.5553}]) should return [{name: "sputnik", orbitalPeriod: 86400}].
 orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]) should return [{name : "iss", orbitalPeriod: 5557}, {name: "hubble", orbitalPeriod: 5734}, {name: "moon", orbitalPeriod: 2377399}].
 
 -->
@@ -28,15 +28,15 @@ orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {n
 function orbitalPeriod(arr) {
   var GM = 398600.4418;
   var earthRadius = 6367.4447;
-  var constant = 2* Math.PI;
+  var constant = 2 * Math.PI;
   
-  var orbitalPeriod='';
+  var orbitalPeriod = '';
   for (var i in arr) {
   
-  	orbitalPeriod=Math.round(constant* Math.sqrt(Math.pow(earthRadius+ arr[i].avgAlt,3)/GM));
+  	orbitalPeriod = Math.round(constant* Math.sqrt(Math.pow(earthRadius + arr[i].avgAlt, 3) / GM));
   
 	delete arr[i].avgAlt;
-	arr[i].orbitalPeriod=orbitalPeriod;
+	arr[i].orbitalPeriod = orbitalPeriod;
   }
   console.log(arr);
 	return arr;

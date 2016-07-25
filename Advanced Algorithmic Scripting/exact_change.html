@@ -26,80 +26,49 @@ drawer(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0
 drawer(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) should return "Closed".
 -->
 <script>
-function checkCashRegister(price, cash, cid) {
- 
-	var currencyValue=[0.01,0.05,0.10,0.25,1,5,10,20,100];
-	var returnChange= +(cash-price).toFixed(2);
-	console.log("return change " + returnChange);
-	
-	var cidTotal= +cid.map(function(item,index) {
-		return item[1];
-	}).reduce(function(a,b) {
-		return a+b;
-		}).toFixed(2);
-	console.log(" cash in drawer total " + cidTotal);
+const drawer = (price, cash, cid) =>{
+	let currencyValue = [0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100];
+	let returnChange = +(cash - price).toFixed(2);
+	let retArr = [];
+	let drawerTotal = +(cid.map( currency => currency[1] )
+		.reduce((a, b) => a + b)
+		.toFixed(2));
+	if ( drawerTotal < returnChange ) {
+	console.log('insufficient funds');
+	return 'Insufficient Funds' 
+	} else if ( drawerTotal === returnChange ){
+			console.log('Closed');
 
-	if (cidTotal<returnChange) {
-		console.log("Insufficient Funds");
-		return "Insufficient Funds";
+		return 'Closed';
+	}else{
+		let temp = returnChange;
 		
-	}
-	else if (cidTotal===returnChange) {
-		console.log("Closed");
-		return "Closed";
-	}
-	else {
-		var currAmount;
-		var retCurVal;
-		var retArr=[];
-		for (var i=cid.length-1;i>=0;i--){
-			var currencyType=cid[i][0];
-			var currTotal=+cid[i][1].toFixed(2);
-			if (currencyValue[i]<=returnChange) {
-			
-				if (currTotal<returnChange) {
-					currAmount=Math.floor(currTotal/currencyValue[i]);
-				}
-				else {
-					currAmount=Math.floor(returnChange/currencyValue[i]);
-				}
-				retCurVal=currAmount*currencyValue[i].toFixed(2);
-				retArr.push([currencyType,retCurVal]);
-				returnChange= (returnChange-retCurVal).toFixed(2);
+		while(temp){
+			let currCurrency = currencyValue.filter(item => item < temp).pop();
+			let idx = currencyValue.indexOf(currCurrency);
+			// if return change is greater than items change return the amount
+			if ( temp > cid[idx][1] ){
+				temp -= +(cid[idx][1]).toFixed(2);
+				retArr.push(cid[idx])
+			}else {
+				let subFrom = Math.min(temp, cid[idx][1]);
+				let currNumber = Math.floor(subFrom / currCurrency);
+				let value = +(currNumber * currCurrency).toFixed(2);
+				temp -= +(value).toFixed(2);
+				retArr.push([cid[idx][0], value]);
 			}
-		
-		}	
-		console.log(retArr);
-		console.log(returnChange);
-		var changeRet= retArr.map(function(item){
-			return item[1];}).reduce(function(a,b) {
-				return a+b;}).toFixed(2);
-		
-		if( changeRet<returnChange) {
-			console.log("Insufficient Funds");
-			return "Insufficient Funds";
+			console.log(temp, retArr);
 		}
-		return retArr;
 		
-
-
-	
-	}
-	
+	}	
 }
 
-// Example cash-in-drawer array:
-// [["PENNY", 1.01],
-// ["NICKEL", 2.05],
-// ["DIME", 3.10],
-// ["QUARTER", 4.25],
-// ["ONE", 90.00],
-// ["FIVE", 55.00],
-// ["TEN", 20.00],
-// ["TWENTY", 60.00],
-// ["ONE HUNDRED", 100.00]]
+//drawer(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) //should return "Insufficient Funds".
+//FIXME ;;;;; drawer(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])// should return "Insufficient Funds".
+//drawer(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])// should return "Closed".
+drawer(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) //should return [["TWENTY", 60.00], ["TEN", 20.00], ["FIVE", 15], ["ONE", 1], ["QUARTER", 0.50], ["DIME", 0.20], ["PENNY", 0.04]].
 
-drawer(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
+//drawer(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
 
 </script>
 

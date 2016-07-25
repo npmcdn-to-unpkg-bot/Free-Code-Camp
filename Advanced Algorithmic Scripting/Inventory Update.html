@@ -17,6 +17,42 @@ inventory([[0, "Bowling Ball"], [0, "Dirty Sock"], [0, "Hair Pin"], [0, "Microph
 -->
 
 <script>
+const inventory = (curInv, newInv) =>{
+	let retInv = [];
+	// names of inventory to comare against and return index 
+	let curInvNames = curInv.map(function(item, index){
+		return item[1];
+	});
+	let newInvNames = newInv.map(function(item, index){
+		return item[1];
+	});
+	// combine new and old inventory quantities
+	let updatedQtys = [];
+	curInv.filter(function(item){
+		if ( newInvNames.indexOf(item[1]) !== -1){
+			let sum = item[0] + newInv[newInvNames.indexOf(item[1])][0];
+			console.log(sum);
+			let itemName = item[1];
+			retInv.push([
+				sum, itemName
+			]);
+		}
+	});
+	let combinedInv = curInv.concat(newInv);
+	// return unique values in arrays
+	combinedInv.forEach(function(item, index){
+		if (curInvNames.indexOf(item[1]) !== -1 && newInvNames.indexOf(item[1]) === -1){
+			retInv.push(curInv[curInvNames.indexOf(item[1])]);
+		} else if (newInvNames.indexOf(item[1]) !== -1 && curInvNames.indexOf(item[1]) === -1){
+			retInv.push(newInv[newInvNames.indexOf(item[1])]);
+		} 
+	});
+	return retInv;
+}
+
+
+
+
 function inventory(arr1, arr2) {
   
   var curInvName=[];

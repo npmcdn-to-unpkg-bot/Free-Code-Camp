@@ -40,6 +40,28 @@ procedure generate(n : integer, A : array of any):
 -->
 
 <script>
+const permAlone = (str) =>{
+	let regEx = /(.)\1+/g;
+	let arr = str.split();
+	
+	//Heap's algorithm
+	const heap = (n, arr) =>{
+		if (n === 1){
+			return arr;
+		} else{
+			for (let i = 0; i < n - 1; i++){
+				heap(n - 1, arr);
+				if ( n % 2 === 0){
+					swap(arr[i])
+				}
+			}
+		}
+	
+	}
+
+}
+
+
 var permArr=[];
 var regex= /(.)\1+/g;
 var myArr=[];
