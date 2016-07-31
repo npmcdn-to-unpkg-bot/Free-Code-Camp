@@ -1,0 +1,26 @@
+{
+  "name": "fallen-meteorites-map",
+  "version": "1.0.0",
+  "description": "A Pen created at CodePen.io. You can find this one at http://codepen.io/jchimienti/pen/QEOkdV.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "nodemon": "^1.9.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jchimienti89/fallen-meteorites-nasa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jchimienti89/fallen-meteorites-nasa/issues"
+  },
+  "homepage": "https://github.com/jchimienti89/fallen-meteorites-nasa#readme"
+}
