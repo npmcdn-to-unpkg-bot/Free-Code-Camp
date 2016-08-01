@@ -18,14 +18,17 @@ where([{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }], { "a": 1, "b
 where([{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }], { "a": 1, "c": 2 }) should return [{ "a": 1, "b": 2, "c": 2 }].
 -->
 <script>
-
 const where = (collection, source) =>{
-	let output;
-	for ( let i in source){
-		 output = collection.filter( item => item[i] === source[i] );
-	}
-	return output;
+	let retArr = collection.filter( item => {
+		let keys = Object.keys(source);
+		for ( let i in keys){
+			return item[keys[i]] === keys[i]
+		}
+	});
+	console.log(retArr);
+	return retArr;
 }
+/*
 
 const where = (collection, source) =>{
 	let keys = Object.keys(source);
@@ -51,6 +54,8 @@ const where = (collection, source) =>{
 	}
 	return retArr;
 }
+*/
+
  where([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" }) 
 where([{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }], { "a": 1, "b": 2 }) //should return [{ "a": 1, "b": 2 }, { "a": 1, "b": 2, "c": 2 }].
 where([{ "a": 1 }, { "a": 1 }, { "a": 1, "b": 2 }], { "a": 1 }) //should return [{ "a": 1 }, { "a": 1 }, { "a": 1, "b": 2 }].
