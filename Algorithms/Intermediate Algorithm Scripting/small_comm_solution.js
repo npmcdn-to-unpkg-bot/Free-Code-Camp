@@ -1,4 +1,4 @@
-<script>
+
 function smallestCommons(arr) {
   // Sort array from greater to lowest
   arr.sort(function(a, b) {
@@ -20,19 +20,4 @@ console.log(newArr);
   do {
     quot = newArr[0] * loop * newArr[1];
 	console.log(quot);
-    for (n = 2; n < newArr.length; n++) {
-	console.log((quot % newArr[n]));
-      if (quot % newArr[n] !== 0) {
-        break;
-      }
-    }
-
-    loop++;
-  } while (n !== newArr.length);
-
-  return quot;
-}
-
-smallestCommons([1, 5]);
-
-</script>
+    for (n = 2; n 

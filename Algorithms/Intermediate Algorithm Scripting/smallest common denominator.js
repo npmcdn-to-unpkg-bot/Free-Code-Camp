@@ -1,4 +1,4 @@
-<script>
+
 function smallestCommons(arr) {
   
   arr.sort(function(a, b) {
@@ -19,16 +19,4 @@ function smallestCommons(arr) {
  
   do {
     remains = temp[0] * loop * temp[1];
-    for (n = 2; n < temp.length; n++) {
-      if (remains % temp[n] !== 0) {
-        break;
-      }
-    }
-
-    loop++;
-  } while (n !== temp.length);
-
-  return remains;
-}
-
-</script>	
+    for (n = 2; n 	

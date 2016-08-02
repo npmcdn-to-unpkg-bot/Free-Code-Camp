@@ -37,7 +37,7 @@ convert(1006) should return "MVI"
 convert(1023) should return "MXXIII"
 convert(2014) should return "MMXIV"
 convert(3999) should return "MMMCMXCIX"
-<script>
+
 function convert(num) {  
     var r = '',
         decimals = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1],
@@ -65,57 +65,4 @@ function convertToRoman(num) {
     ints.push(num % 10);
     num = Math.floor(num/10);
   }
-  for (i=0; i<ints.length; i++){
-      units(ints[i]);
-  }
-  function units(){
-    numeral = romans[i*2];
-    switch(ints[i]) {
-      case 1:
-        romanNumber.push(numeral);
-        break;
-      case 2:
-        romanNumber.push(numeral.concat(numeral));
-        break;
-      case 3:
-        romanNumber.push(numeral.concat(numeral).concat(numeral));
-        break;
-      case 4:
-        romanNumber.push(numeral.concat(romans[(i*2)+1]));
-        break;
-      case 5:
-        romanNumber.push(romans[(i*2)+1]);
-        break;
-      case 6:
-        romanNumber.push(romans[(i*2)+1].concat(numeral));
-        break;
-      case 7:
-        romanNumber.push(romans[(i*2)+1].concat(numeral).concat(numeral));
-        break;
-      case 8:
-        romanNumber.push(romans[(i*2)+1].concat(numeral).concat(numeral).concat(numeral));
-        break;
-      case 9:
-        romanNumber.push(romans[i*2].concat(romans[(i*2)+2]));
-      }
-    }
-  return romanNumber.reverse().join("").toString();
-}
-
-// test here
-convertToRoman(97);
-:rocket: Run Code
-
-Code Explanation:
-
-Create an array of Roman Numerals (romans).
-Use a for loop to create an array of the digits (ints) in the number.
-Loop through the array of digits (base 10) and as you do, increment the Roman Numeral (base 5) index by 2 (numeral = romans[i*2]).
-Within the loop, use Switch Case to push the proper Roman Numerals (backwards) onto that array.
-Reverse the Roman Numerals array and turn it into a string.
-Relevant Links
-
-*/
-
-
-</script>
+  for (i=0; i

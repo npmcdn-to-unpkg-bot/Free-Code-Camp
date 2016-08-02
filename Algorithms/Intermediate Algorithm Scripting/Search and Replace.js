@@ -1,4 +1,4 @@
-<!--
+/*
 Search and Replace
 
 Perform a search and replace on the sentence using the arguments provided and return the new sentence.
@@ -24,8 +24,8 @@ myReplace("He is Sleeping on the couch", "Sleeping", "sitting") should return "H
 myReplace("This has a spellngi error", "spellngi", "spelling") should return "This has a spelling error".
 myReplace("His name is Tom", "Tom", "john") should return "His name is John".
 myReplace("Let us get back to more Coding", "Coding", "algorithms") should return "Let us get back to more Algorithms"
--->
-<script>
+*/
+
 
 function myReplace(str, before, after) {
 	
@@ -52,4 +52,4 @@ myReplace("Let us go to the store", "store", "mall");
 
 //console.log(str.splice(0));
 
-</script>
+

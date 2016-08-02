@@ -1,4 +1,4 @@
-<!--
+/*
 Steamroller
 Flatten a nested array. You must account for varying levels of nesting.
 
@@ -13,8 +13,8 @@ steamroller([1, [2], [3, [[4]]]]) should return [1, 2, 3, 4].
 steamroller([1, [], [3, [[4]]]]) should return [1, 3, 4].
 steamroller([1, {}, [3, [[4]]]]) should return [1, {}, 3, 4].
 
--->
-<script>
+*/
+
 
 const steamroller = (arr) =>{
 	let flattenedArray = [];
@@ -76,4 +76,3 @@ Pass an empty array to reduce as initial value to make sure even the first eleme
 */
 
 
-</script>

@@ -1,4 +1,4 @@
-<!--
+/*
 Missing letters
 Find the missing letter in the passed letter range and return it.
 
@@ -14,8 +14,8 @@ fearNotLetter("abce") should return "d".
 fearNotLetter("abcdefghjklmno") should return "i".
 fearNotLetter("bcd") should return undefined.
 fearNotLetter("yz") should return undefined.
--->
-<script>
+*/
+
 const fearNotLetter = (str) =>{
 	let firstCharCode = str.charCodeAt(0);
 	let missing;
@@ -35,10 +35,10 @@ fearNotLetter("abcdefghjklmno");// should return "i".
 fearNotLetter("yz"); //should return undefined.
 
 
-</script>
 
 
-<!--
+
+/*
 
 function fearNotLetter(str) {
   // Create our variables.
@@ -171,6 +171,6 @@ Create a regular expression notChars which selects everything except str.
 The for loop is used to add all the letters in the range to allChars.
 match() is used to strip off the str letters from the newly created string and it is returned.
 If there are no missing characters, return undefined.
--->
+*/
 
 
