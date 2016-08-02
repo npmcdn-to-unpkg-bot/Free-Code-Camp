@@ -1,4 +1,4 @@
-<!--
+/*
 Symmetric Difference
 Create a function that takes two or more arrays and returns an array of the symmetric difference (△ or ⊕) of the provided arrays.
 
@@ -16,9 +16,9 @@ sym([1, 2, 5], [2, 3, 5], [3, 4, 5]) should return [1, 4, 5]
 sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]) should return [1, 4, 5].
 sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3]) should return [7, 4, 6, 2, 3].
 sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]) should return [1, 2, 4, 5, 6, 7, 8, 9]')
--->
+*/
 
-<script>
+
 const sym = (...args) =>{
 	let output = [];
 	const getDiff = (arr1, arr2) =>{
@@ -28,23 +28,9 @@ const sym = (...args) =>{
 		}).sort();
 	}
 	getDiff(args[0], args[1]);
-	for (let i = 2; i < args.length; i++){
-		getDiff(output, args[i]);
-	}
-	return output;
-}
+	for (let i = 2; i 
 
-sym([1, 2, 3], [5, 2, 1, 4])// should return [3, 5, 4].
-sym([1, 2, 5], [2, 3, 5], [3, 4, 5])// should return [1, 4, 5]
-sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]) //should return [1, 4, 5].
-sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3])// should return [7, 4, 6, 2, 3].
-sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]) //should return [1, 2, 4, 5, 6, 7, 8, 9]')
-
-
-
-</script>
-
-<!--
+/*
 
 Rafase 282 solution
 
@@ -119,7 +105,7 @@ function sym() {
 
 
 
--->
+*/
 
 
 

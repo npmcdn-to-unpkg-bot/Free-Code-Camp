@@ -1,4 +1,4 @@
-<!--
+/*
 
 Map the Debris
 Return a new array that transforms the element's average altitude into their orbital periods.
@@ -20,10 +20,10 @@ Math.pow()
 orbitalPeriod([{name: "sputnik", avgAlt : 35873.5553}]) should return [{name: "sputnik", orbitalPeriod: 86400}].
 orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]) should return [{name : "iss", orbitalPeriod: 5557}, {name: "hubble", orbitalPeriod: 5734}, {name: "moon", orbitalPeriod: 2377399}].
 
--->
+*/
 
 
-<script>
+
 
 function orbitalPeriod(arr) {
   var GM = 398600.4418;
@@ -45,8 +45,8 @@ function orbitalPeriod(arr) {
 
 orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]);// should return [{name : "iss", orbitalPeriod: 5557}, {name: "hubble", orbitalPeriod: 5734}, {name: "moon", orbitalPeriod: 2377399}].
-</script>
-<!--
+
+/*
 
 Problem Explanation:
 The first thing to do is to get familiar with what the program is for, for this I would suggest you check the Wikipedia link as that is very important and from where you can also get the formula for the conversion. The hardest part are finding the formula, implementing it and for some modifying objects by the key. However, something that is not very clear is the fact that your program has to be able to check for any number of objects in the array which is what is tested on the second part.
@@ -135,7 +135,7 @@ Create orbPeriod to store the product of a & b, with the ceiling function applie
 Then we delete the keyavgAlt, and add the new key and its value.
 
 
--->
+*/
 
 
 

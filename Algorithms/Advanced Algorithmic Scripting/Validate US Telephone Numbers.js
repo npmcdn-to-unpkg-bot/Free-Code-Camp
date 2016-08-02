@@ -1,4 +1,4 @@
-<!--
+/*
 Validate US Telephone Numbers
 Return true if the passed string is a valid US phone number
 
@@ -48,8 +48,8 @@ telephoneCheck("2(757)6227382") should return false.
 telephoneCheck("2(757)622-7382") should return false.
 telephoneCheck("555)-555-5555") should return false.
 telephoneCheck("(555-555-5555") should return false.
--->
-<script>
+*/
+
 var format = /[!@#$%^&*_+\=\[\]{};':"\\|,.<>\/?]+/;
 
 function telephoneCheck(str) {
@@ -177,10 +177,10 @@ telephoneCheck("555-555-5555");
 telephoneCheck("5#5-555-5555");
 
  */
-</script>
 
 
-<!--
+
+/*
 telephoneCheck("(6505552368)")
 
 

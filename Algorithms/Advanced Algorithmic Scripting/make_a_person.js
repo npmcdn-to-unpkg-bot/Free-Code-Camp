@@ -1,4 +1,4 @@
-<!--
+/*
 
 Fill in the object constructor with the following methods below:
 
@@ -9,10 +9,10 @@ setFirstName(first)
 setLastName(last)
 setFullName(firstAndLast)
 
--->
+*/
 
 
-<script>
+
 var Person = function(firstAndLast){
 
     this.setFullName = function(firstAndLast){
@@ -62,5 +62,5 @@ var joe = new Person('joe chimienti');
 //
 joe.getFullName();
 
-</script>
+
 

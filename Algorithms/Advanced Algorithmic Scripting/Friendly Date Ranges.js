@@ -1,4 +1,4 @@
-<!--
+/*
 Friendly Date Ranges
 Convert a date range consisting of two dates formatted as YYYY-MM-DD into a more readable format.
 
@@ -30,9 +30,9 @@ friendly(["2017-03-01", "2017-05-05"]) should return ["March 1st, 2017","May 5th
 friendly(["2018-01-13", "2018-01-13"]) should return ["January 13th, 2018"]. fix 
 friendly(["2022-09-05", "2023-09-04"]) should return ["September 5th, 2022","September 4th"]. fix
 friendly(["2022-09-05", "2023-09-05"]) should return ["September 5th, 2022","September 5th, 2023"].
--->
+*/
 
-<script>
+
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 function makeFriendlyDates(arr) {
@@ -111,58 +111,12 @@ function makeFriendlyDates(arr) {
 
   }
   // if different months and under a year
-  else if (date1Month !== date2Month && diff < milliPerYear && date1Year === date2Year) {
-    retArr.push(getMonth(date1Month) + ' ' + dayEnding(date1Day) + ', ' + date1Year);
-	retArr.push(getMonth(date2Month) + ' ' + dayEnding(date2Day));
-    console.log(retArr);
-    return retArr;
-  }
-  // if different months and under a year and diff year
-  else if (date1Month !== date2Month && diff < milliPerYear && date1Year != date2Year) {
-    retArr.push(getMonth(date1Month) + ' ' + dayEnding(date1Day)); 
-	retArr.push(getMonth(date2Month) + ' ' + dayEnding(date2Day));
-    console.log(retArr);
-    return retArr;
-  }
-  // same month under a year but different year;
-  else if (date1Month === date2Month && diff < milliPerYear && date1Year !== date2Year && date1Day !== date2Day) {
-    retArr.push(getMonth(date1Month) + ' ' + dayEnding(date1Day) + ', ' + date1Year);
-	retArr.push(getMonth(date2Month) + ' ' + dayEnding(date2Day));
-    console.log(retArr);
-    return retArr;
-
-  }
-  //same month same year different day
-  else if (date1Month === date2Month && diff < milliPerYear && date1Year === date2Year && date1Day !== date2Day) {
-    retArr.push(getMonth(date1Month) + ' ' + dayEnding(date1Day));
-	retArr.push(dayEnding(date2Day));
-    console.log(retArr);
-    return retArr;
-
-  }
-  //same month same day 
-  else if (date1Month === date2Month && date1Day === date2Day) {
-    retArr.push(getMonth(date1Month) + ' ' + dayEnding(date1Day) + ', ' + date1Year);
-
-    console.log(retArr);
-    return retArr;
-
-  }
-
-}
-makeFriendlyDates(["2016-07-01", "2016-07-04"]);// should return ["July 1st","4th"]. 
-makeFriendlyDates(["2016-12-01", "2017-02-03"]);// should return ["December 1st","February 3rd"]. 
-makeFriendlyDates(["2016-12-01", "2018-02-03"]);// should return ["December 1st, 2016","February 3rd, 2018"].
-makeFriendlyDates(["2017-03-01", "2017-05-05"]);// should return ["March 1st, 2017","May 5th"]
-makeFriendlyDates(["2018-01-13", "2018-01-13"]);// should return ["January 13th, 2018"]. 
-makeFriendlyDates(["2022-09-05", "2023-09-04"]);// should return ["September 5th, 2022","September 4th"]. 
-makeFriendlyDates(["2022-09-05", "2023-09-05"]) ;//should return ["September 5th, 2022","September 5th, 2023"].
-</script>
- <!--current date and time-------------------------------
+  else if (date1Month !== date2Month && diff 
+ /*current date and time-------------------------------
 var d = new Date("2015-03-25");
 
-var d= new Date();                      -->
-<!--
+var d= new Date();                      */
+/*
 
 Problem Explanation:
 
@@ -255,6 +209,6 @@ function parseDate(input) {
 }
  
   
-  -->
+  */
   
   
