@@ -1,4 +1,4 @@
-/*
+<!--
 Sum All Primes
 Sum all the prime numbers up to and including the provided number.
 
@@ -18,8 +18,8 @@ sumPrimes(10) should return 17.
 sumPrimes(977) should return 73156.
 
 
-*/
-
+-->
+<script>
 function sumPrimes(num) {
   var temp = 0;
 
@@ -28,5 +28,25 @@ function sumPrimes(num) {
     var i;
     var j;
     var primes = [];
-    for (i = 2; i 
+    for (i = 2; i <= max; ++i) {
+      if (!tempArray[i]) {
+        primes.push(i);
+        for (j = i << 1; j <= max; j += i) {
+          tempArray[j] = true;
+        }
+      }
+    }
+
+    return primes;
+  }
+
+   var primes = getPrimes(num);
+  for (var p = 0; p < primes.length; p++) {
+    temp += primes[p];
+  }
+
+  return temp;
+}
+
+</script>
 

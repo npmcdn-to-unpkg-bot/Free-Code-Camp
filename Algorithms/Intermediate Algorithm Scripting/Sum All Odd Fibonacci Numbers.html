@@ -1,4 +1,4 @@
-/*
+<!--
 
 Sum All Odd Fibonacci Numbers 
 Return the sum of all odd Fibonacci numbers up to and including the passed number if it is a Fibonacci number.
@@ -23,11 +23,11 @@ sumFibs(75025) should return 135721.
 
 
 F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2) for n>1.
-*/
+-->
 
 
 
-
+<script>
 
 
 
@@ -58,5 +58,17 @@ Fib[n]=Fib[n-1]+Fib[n-2];
 	var firstNum=0;
 	var currentNum=1;
 	var fibSum=0;
-	while (currentNum
+	while (currentNum<=num){
+		if (currentNum % 2!==0) {
+			fibSum+=currentNum;
+		}
+	currentNum+=firstNum;
+	firstNum= currentNum - firstNum;
+	}
+	console.log(fibSum);
+	return fibSum;
+}
+
+sumFibs(4);
+</script>
 
