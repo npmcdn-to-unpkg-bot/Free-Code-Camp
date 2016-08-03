@@ -1,11 +1,10 @@
-# My Work
+## My Work
 
-This is a collection of the work I have done during the Free Code Camp Course. I have uploaded the algorithm solutions, front-end projects, back-end projects, and data-viz projects.  
+This is a collection of the algorithm solutions web and projects I have completed during the Free Code Camp Course. 
 
 
 ## Completed:  
 
----
 * Responsive Design with Bootstrap
 * jQuery
 * Basic JavaScript
@@ -28,11 +27,7 @@ This is a collection of the work I have done during the Free Code Camp Course. I
 
 ## Contact Me:
 
-
-
 [Email] (mailto:jchimien@mail.usf.edu)
-
-[Github] (http:www.github.com/jchimienti89)
 
 [Free Code Camp] (https://www.freecodecamp.com/jchimienti89)
 
