@@ -10,7 +10,8 @@ app.get('/', function(req, res){
 	var ip = req.ip
 	var info = [].concat(ip, type, release, language)
 	var jsonData = JSON.stringify(info, null, '\t')
-	res.send(jsonData)
+	//res.send(jsonData)
+	res.send(info)
 })
 
 app.listen(port, () =>{

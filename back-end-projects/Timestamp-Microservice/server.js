@@ -7,6 +7,7 @@ app.get('/', function(req, res){
 })	
 app.get('/*', function(req, res){
 	var newPath = req.path.replace(/(st|rd|nd|th|%20)/g, ' ').substr(1);
+	//http://stackoverflow.com/questions/23263380/deprecation-warning-moment-construction-falls-back-to-js-date
 	var date = new Date(newPath);
 	var d = moment(date)
 	if ( d.isValid()){
