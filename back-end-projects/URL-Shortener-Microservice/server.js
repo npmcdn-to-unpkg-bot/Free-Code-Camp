@@ -19,7 +19,7 @@ app.get('/', function(req, res){
 	res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 var coll = db.collection('shortenURL')
-app.get('/*', function(req, res){
+app.post('/*', function(req, res){
 	console.log(req.url)
 	// if cannot find create. Is there a mongo function?
 	coll.find().limit(1)
