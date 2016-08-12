@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/jchimienti89/Free-Code-Camp-Log/issues"
   },
-  "homepage": "https://github.com/jchimienti89/Free-Code-Camp-Log#readme"
+  "homepage": "https://github.com/jchimienti89/Free-Code-Camp-Log#readme",
+  "devDependencies": {
+    "nodemon": "^1.10.0"
+  }
 }
