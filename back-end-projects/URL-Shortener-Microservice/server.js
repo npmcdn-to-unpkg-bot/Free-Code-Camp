@@ -8,7 +8,7 @@ var path = require('path'),
 	app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')))
 var db;
-MongoClient.connect('mongodb://joechimienti:Freewill89!@ds031915.mlab.com:31915/hello-world', function(err, database){
+MongoClient.connect('mongodb://joechimienti:password@ds031915.mlab.com:31915/hello-world', function(err, database){
 	if (err) throw err
 	db = database;
 	app.listen(port, function(){
