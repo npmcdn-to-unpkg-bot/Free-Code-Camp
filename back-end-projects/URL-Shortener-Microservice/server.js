@@ -20,30 +20,14 @@ app.get('/', function(req, res){
 })
 var coll = db.collection('shortenURL')
 app.post('/*', function(req, res){
-	console.log(req.url)
-	// if cannot find create. Is there a mongo function?
-	coll.find().limit(1)
-	// or coll.findOne({longURL: longURL}, function(err, data){
-			if (doc){
-				// URL HAS BEEN SHORTENED;
-			}else{
-				// URL NOT FOUND CREATE A NEW ENTRY
-			}
-		})
-	coll.insert()
-	coll.update({
-		URL: req.url.substr(1)
-		shortenedURL: 
-	})
-	coll.save(req.body, function(err, result){
-		if (err) return console.log(err)
-		console.log('saved to db')
-	    res.redirect('/')
-	}
+	// get req.url from form
+	var url = req.url.substr(1);
+	var dec = base58.decode(url) 
+   coll.insert({
+            url: url,
+	    short: dec
+   });
 })
 
-
-url:
-shortenedURL:
 
 
