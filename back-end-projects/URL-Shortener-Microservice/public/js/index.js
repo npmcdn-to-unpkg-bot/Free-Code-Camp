@@ -9,7 +9,7 @@ form.onsubmit = function(e){
   url.value = '';
   $.ajax({
   	type: 'POST',
-  	url: 'newURL',
+  	url: 'abcd',
   	data: formData
   	success: function(){
       console.log(data);
@@ -22,7 +22,7 @@ form.onsubmit = function(e){
 
 url.addEventListener('input', color);
 function color(){
-  url.style.backgroundColor = 'rec';
+  url.style.backgroundColor = 'red';
     url.style.color = 'red';
 
 }

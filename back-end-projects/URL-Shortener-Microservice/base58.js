@@ -10,9 +10,12 @@
  * (c) 2012 inflammable/raromachine
  * Licensed under the MIT License.
  * 
+
+
+ http://stackoverflow.com/questions/9053842/advanced-javascript-why-is-this-function-wrapped-in-parentheses
  */
 
-var base58 = function(alpha) {
+var base58 = (function(alpha) {
     var alphabet = alpha || '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ',
         base = alphabet.length;
     return {
@@ -25,6 +28,7 @@ var base58 = function(alpha) {
                 enc = Math.floor(enc / base);
                 encoded = alphabet[remainder].toString() + encoded;        
             }
+            console.log(encoded);
             return encoded;
         },
         decode: function(dec) {
@@ -39,7 +43,10 @@ var base58 = function(alpha) {
                 decoded += alphabetPosition * (Math.pow(base, powerOf));
                 dec = dec.substring(1);
             }
+            console.log(decoded)
             return decoded;
         }
     };
-};
+})();
+
+module.exports = base58;
