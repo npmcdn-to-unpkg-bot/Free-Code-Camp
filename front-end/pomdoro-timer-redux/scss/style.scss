@@ -1,0 +1,31 @@
+$primary-color-dark: #388E3C;
+$primary-color: #4CAF50;
+$primary-color-light: #C8E6C9;
+$primary-color-text: #FFFFFF;
+$accent-color: #2196F3;
+$primary-text-color: #212121;
+$secondary-text-color: #727272;
+$divider-color: #B6B6B6;
+
+#root,
+.card-panel {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  color: $primary-text-color;
+}
+
+.controller {
+  padding: 5%;
+  margin: 0 auto;
+}
+
+iframe, .music-button {
+  position: relative;
+  float: right;
+  
+}

@@ -1,0 +1,100 @@
+body {
+  text-align: center;
+}
+
+.wrap {
+  width: 450px;
+  height: 450px;
+  border-radius: 100%;
+  position: relative;
+  margin: auto;
+  background-color: #333;
+  top: 100px;
+}
+
+.board {
+  position: relative;
+  top: 25px;
+  height: 400px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.input {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: grey;
+  border: 12px solid #333;
+}
+
+.green {
+  background-color: #00a74a;
+  border-top-left-radius: 100%;
+}
+
+.red {
+  background-color: #9f0f17;
+  border-top-right-radius: 100%;
+}
+
+.yellow {
+  background-color: #cca707;
+  border-bottom-left-radius: 100%;
+}
+
+.blue {
+  background-color: #094a8f;
+  border-bottom-right-radius: 100%;
+}
+
+.center {
+  width: 220px;
+  height: 220px;
+  position: absolute;
+  border-radius: 100%;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -110px;
+  background-color: #ECE7EE;
+  border: 12px solid #333;
+}
+
+.game {
+  margin-top: 25px;
+}
+
+.count {
+  font-family: 'VT323', monospace;
+  color: white;
+  font-size: 2em;
+  width: 50px;
+  background-color: #32050C;
+  border: 4px solid #222;
+  border-radius: 10px;
+  line-height: 35px;
+}
+
+.unclickable {
+  pointer-events: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.brighten {
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.6), rgba(211, 211, 211, 0.4)) !important;
+  background-blend-mode: screen !important;
+}
+
+#strictlight {
+  height: 15px;
+  width: 15px;
+  border-radius: 100%;
+  background-color: white;
+  border: solid 2px black;
+}

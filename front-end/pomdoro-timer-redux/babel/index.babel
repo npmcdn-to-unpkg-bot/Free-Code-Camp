@@ -1,0 +1,347 @@
+const {
+  connect,
+  Provider
+} = ReactRedux;
+const {
+  createStore,
+  applyMiddleware,
+  combineReducers
+} = Redux;
+const addTime = (time, value) => {
+  console.log(time, value);
+  return {
+    type: 'CHANGE_CLOCK',
+    time,
+    value
+  };
+}
+const startTimer = () => {
+  return {
+    type: 'START'
+  };
+}
+const resetTimer = () => {
+  return {
+    type: 'RESET_TIMER'
+  };
+}
+const countdown = (session) => {
+  return {
+    type: 'COUNTDOWN',
+    session
+  }
+}
+const toggleSession = () => {
+  return {
+    type: 'TOGGLE'
+  };
+}
+function updateTimer() {
+  const updater = () => {
+    let session = store.getState().activeSession;
+    if (!store.getState().isRunning) {
+      return clearInterval(interval);
+    } else {
+      if (session === 'study' && store.getState().studyTimeRemaining < 1) {
+        return store.dispatch(toggleSession());
+      }if (session === 'break' && store.getState().breakTimeRemaining < 1) {
+        return store.dispatch(toggleSession());
+      }
+      store.dispatch(countdown(activeSession))
+    }
+  }
+  let interval = setInterval(updater, 1000);
+}
+const studyMinutes = (state = 25, action) => {
+  switch (action.type) {
+    case 'CHANGE_CLOCK':
+      if (!!state) {
+        if (action.time === 'study') {
+          return (action.value === 1) ? state + 1 : state - 1;
+        }
+        return state;
+      } else if (state === 0 && action.value === 1) {
+        return 1;
+      }
+      return state;
+    default:
+      return state;
+  }
+}
+const studyTimeRemaining = (state = 1500, action) => {
+  switch (action.type) {
+    case 'START':
+      return store.getState().studyMinutes * 60;
+    case 'COUNTDOWN':
+      if (store.getState().activeSession === 'study') {
+        while (state) {
+          return state - 1;
+        }
+        return 0;
+      }
+      return state;
+    case 'TOGGLE':
+      if (store.getState().activeSession === 'study') {
+        return store.getState().studyMinutes * 60;
+      }
+      return state;
+    default:
+      return state;
+  }
+}
+const breakMinutes = (state = 5, action) => {
+  switch (action.type) {
+    case 'CHANGE_CLOCK':
+      if (!!state) {
+        if (action.time === 'break') {
+          return (action.value === 1) ? state + 1 : state - 1;
+        }
+        return state;
+      } else if (state === 0 && action.value === 1) {
+        return 1;
+      }
+
+      return state;
+    default:
+      return state;
+  }
+}
+const breakTimeRemaining = (state = 300, action) => {
+    switch (action.type) {
+      case 'START':
+        return store.getState().breakMinutes * 60;
+      case 'COUNTDOWN':
+        if (store.getState().activeSession === 'break') {
+
+          while (state) {
+            return state - 1;
+          }
+          return 0; // TODO CHANGE TO STARTING BREAK TIME
+        }
+        return state;
+      case 'TOGGLE':
+        if (store.getState().activeSession === 'break') {
+
+          return store.getState().breakMinutes * 60;
+        }
+        return state;
+      default:
+        return state;
+    }
+  }
+  //FIXME delete don't need due to studyMinutes and breakMnutes which are static.
+const chosenMinutes = (
+  state = {
+    studyTime: 25,
+    breakTime: 5
+  },
+  action
+) => {
+  switch (action.type) {
+    case 'START':
+      return Object.assign({}, state, {
+        studyTime: store.getState().studyMinutes,
+        breakTime: store.getState().breakMinutes
+      });
+    default:
+      return state;
+  }
+}
+const isRunning = (state = false, action) => {
+  switch (action.type) {
+    case 'START':
+      return true;
+    default:
+      return state;
+  }
+}
+const activeSession = (state = 'study', action) => {
+  switch (action.type) {
+    case 'TOGGLE':
+      let newState = state == 'study' ? 'break' : 'study';
+      return newState;
+    default:
+      return state;
+  }
+}
+
+class Card_ extends React.Component {
+  constructor(props) {
+    super();
+  }
+  render() {
+    let color = (this.props.activeSession == "study") ? 'orange lighten-2' : 'yellow lighten-2';
+    return (
+      <div className={'card-panel ' + color}>
+          <Controller />
+        <Status />
+        </div>
+    );
+  }
+}
+const mapStateToProps_3 = ({
+  activeSession
+}) => {
+  return {
+    activeSession: store.getState().activeSession
+  };
+}
+const Card = connect(mapStateToProps_3)(Card_);
+const Controller_ = ({
+  breakMinutes,
+  studyMinutes,
+  changeTime,
+  studyTimeRemaining,
+  breakTimeRemaining,
+  isRunning,
+  activeSession
+}) => {
+  let studyText = !!isRunning && activeSession === 'study' ? `${studyTimeRemaining} seconds` : `Study minutes: ${studyMinutes}`;
+  let breakText = !!isRunning && activeSession === "break" ? `${breakTimeRemaining} seconds` : `Break minutes: ${breakMinutes}`;
+  return (
+    <div className="controller">
+                  <MusicButton/>
+      <div className="row">
+        <div className="col sm 3">
+                    <h4>{studyText}</h4>
+          <Button onClick
+        onClick={changeTime.bind(this, 'study', 1)}
+      >+</Button>
+      <Button  
+        onClick={changeTime.bind(this, 'study', -1)} 
+      >-</Button>
+      <br></br>
+      
+      <br></br>
+          <h4>{breakText}</h4>
+      <Button 
+
+          onClick={changeTime.bind(this, 'break', 1)}>+</Button>
+      <Button
+        onClick={changeTime.bind(this, 'break', -1)} >-</Button><br></br>
+      <br></br>
+        </div>
+         </div>
+    </div>
+  );
+}
+const mapStateToProps_1 = (state) => {
+  return {
+      studyTimeRemaining: state.studyTimeRemaining,
+    breakTimeRemaining: state.breakTimeRemaining,
+    studyMinutes: state.studyMinutes,
+    breakMinutes: state.breakMinutes,
+    isRunning: state.isRunning,
+    activeSession: state.activeSession
+  };
+}
+const mapDispatchToProps_1 = (dispatch) => {
+  return {
+    changeTime: (time, value) => dispatch(addTime(time, value))
+
+  }
+}
+const Button_ = ({children, onClick, isTimerRunning}) =>(
+<button
+   className='btn red lighten-1 waves-effect waves-light' 
+        hidden={ !!isTimerRunning ? true : false}
+  onClick={e =>{
+      e.preventDefault()
+      onClick()
+    }}
+>{children}</button>
+
+);
+//FIXME!!!!!!!!!!!!!!11 button does not hide like other one works
+const mapStateToProps_button = (state) =>{
+  return{
+    isTimerRunning: state.isRunning
+  };
+}
+const Button = connect(mapStateToProps_button)(Button_)
+const Controller = connect(mapStateToProps_1, mapDispatchToProps_1)(Controller_);
+
+const Status_ = ({
+  resetTimer,
+  activeSession,
+  isRunning
+}) => {
+  let style = {};
+  if (!!isRunning) {
+    style.visibility = 'hidden'
+      //style.display = 'none' // hides element and doesn't take up space 
+  }
+//TODO FIX COLOR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+  let color = activeSession === "study" ? ' yellow lighten-1' : ' orange lighten-1';
+  return (
+    <div className='row'>
+
+      <button 
+        style={style}
+        hidden={ !!isRunning ? true : false}
+        className={`btn startGame  ${color}`} onClick={ () =>{
+          //this.attr('disabled', true)
+          store.dispatch(startTimer())
+         // startGame
+          updateTimer()
+        }}
+      >  start timer
+        </button>
+      <br></br>
+        <button className={`btn ${color}`} onClick={resetTimer}>Reset Timer</button>
+        </div>
+  );
+}
+const mapStateToProps_status = (state) => {
+  return {
+    activeSession: state.activeSession,
+    isRunning: state.isRunning
+  }
+}
+const mapDispatchToProps_2 = (dispatch) => {
+  return {
+    resetTimer: () => dispatch(resetTimer())
+  }
+}
+const Status = connect(mapStateToProps_status, mapDispatchToProps_2)(Status_);
+    //TODO: Start musi automatically when clicking music button
+class MusicButton extends React.Component {
+  openMusic(e) {
+    $("#music").toggle("swing");
+    
+  }
+  render() {
+    return (
+      <div className="music-container">
+        <iframe hidden className="music" id="music" width="400" height="280" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/45129349/favorites&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+      <button className="music-button btn-floating btn-large red darken-2"  onClick={this.openMusic} ><i className="material-icons">play_arrow</i></button>
+        </div>
+    );
+  }
+
+}
+const app = combineReducers({
+  studyMinutes,
+  breakMinutes,
+  isRunning,
+  chosenMinutes,
+  activeSession,
+  studyTimeRemaining,
+  breakTimeRemaining
+});
+const rootReducer = (state, action) => {
+  if (action.type === 'RESET_TIMER') {
+    console.log('reset timer called');
+    state = undefined;
+  }
+  return app(state, action);
+
+}
+
+let store = createStore(rootReducer, '', window.devToolsExtension ? window.devToolsExtension() : undefined);
+ReactDOM.render(
+  <Provider store={store}>
+      <Card />
+    </Provider>,
+  document.getElementById('root')
+);

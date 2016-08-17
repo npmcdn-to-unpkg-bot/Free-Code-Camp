@@ -1,0 +1,20 @@
+.btn {
+  border: 1px solid #212121;
+  color: #212121;
+}
+.btn.twitter {
+  margin-left: 15px;
+}
+
+.navbar {
+  background-color: #333333;
+  color: white;
+  top: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.quote {
+  position: relative;
+  margin-top: 30px;
+}
