@@ -1,0 +1,44 @@
+#root {
+  margin-top: 20vh;
+}
+
+body {
+  color: #212121;
+  background-color: #B3E5FC;
+  opacity: 0.87;
+}
+
+.unit {
+  color: #727272;
+}
+
+.menu {
+  background-color: #FFC107;
+}
+
+.board-container {
+  clear: none;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  width: 50%;
+}
+
+.card {
+  pointer: cursor;
+  background-color: #03A9F4;
+  float: left;
+  display: block;
+  padding-bottom: 33.33333%;
+  width: 33.33333%;
+  height: 0;
+  text-align: center;
+  font-size: 4.5em;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+@media only screen and (max-width: 480px) {
+  .card {
+    font-size: 2.3em;
+  }
+}
