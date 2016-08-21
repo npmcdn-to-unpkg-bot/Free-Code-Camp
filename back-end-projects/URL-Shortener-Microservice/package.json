@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.2"
-  }
+    "body-parser": "^1.15.2",
+    "mongodb": "^2.2.7",
+    "nodemon": "^1.10.2"
+  },
+  "devDependencies": {}
 }
