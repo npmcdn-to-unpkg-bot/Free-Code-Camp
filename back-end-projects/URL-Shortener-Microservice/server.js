@@ -2,45 +2,67 @@ var path = require('path'),
 	express = require('express'),
 	app = express(),
 	port = process.env.PORT || 8000,
-	base58 = require('./base58.js'),
 	MongoClient = require('mongodb').MongoClient,
+	urlList = require('./schema.js'),
 	//To get the data submitted in the body of the POST request, we will use a middleware called body-parser, we can install it via NPM:
 	bodyParser = require('body-parser');
 	app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 var db;
 var coll;
-MongoClient.connect('mongodb://joechimienti:<pass>@ds031915.mlab.com:31915/hello-world', function(err, database){
+MongoClient.connect('mongodb://joechimienti:Freewill89!@ds031915.mlab.com:31915/hello-world', function(err, database){
 	if (err) throw err;
 	db = database;
 // coll = db.collection('shortenURL') // could not connect to coll
-	app.listen(port, function(){
+	
+});
+app.listen(port, function(){
 		console.log('mongo ' + port);
 	});
-});
+//Display homepage	
 app.get('/', function(req, res){
-	res.sendFile(path.join(__dirname, 'public', 'index.html'));
-	res.end();
+	var fileName = path.join(__dirname, 'public', 'index.html');
+	res.sendFile(fileName, function(err){
+		if (err) {
+			console.log(err);
+			res.status(err.status)
+			.end();
+		}else{
+			console.log('sent: ', fileName);
+		}	
+	});
 });
-app.get('/url/*', function(req, res){
-	var userURL = req.url.substr();
-	coll.findOne({short: userURL});
-	res.redirect();
-})
-app.post('/*', function(req, res){
-	// get req.url from form
-	console.log(req.body.url);
-	var newUrl = req.body.url;
-    var dec = base58.decode(newUrl);
+app.get('/newURL/*?', function(req, res){
+	var validURL = require('valid-url');
+	//userURL = req.url.substr();
+	var theURL = req.params[0];
+	if(theURL && validURL.isUri(theURL)){
+		urlList.find({url: theURL}, function(err, docs){
+			if(err) throw err;
+			if (docs && docs.length){
+				res.status(201).json({
+					'original-url': theURL,
+					'short-url': 'fcc-joechimienti.c9users.io/' + docs[0].id
+				});
+			}
+		});
 	
-	 coll = db.collection('shortenURL')
-
-   coll.insert({
-            url: newUrl,
-	    short: dec
-   });
-   db.close();
-   res.send('shortened url is: http://www.example.com/' + dec);
-   
+		urlList.create({url: theURL}, function(err, myURL){
+		if(err) {
+			console.log(err);
+		}	
+		return res.status(201).json({
+			'original-url': theURL,
+			'short-url': 'fcc-joechimienti.c9users.io/' + myURL.id
+		});
+	});
+} else{
+	res.status(400).json({
+		
+		error: 'url invalid',
+		
+	});
+}
 });
+
 
