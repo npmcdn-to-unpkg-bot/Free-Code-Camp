@@ -1,28 +1,31 @@
 var form = document.querySelector('form');
 var url = document.getElementById('url');
-
 form.onsubmit = function(e){
+  var userUrl = url.value;
   e.preventDefault();
-  var formData = JSON.stringify(form.serializeArray());
-  console.log(url.value);
-  console.log('submitted form')
-  url.value = '';
+  
   $.ajax({
   	type: 'POST',
-  	url: 'abcd',
-  	data: formData
+  	url: '/new',
+  	data: JSON.stringigy({url: userUrl}),
+  	contentType: 'application/json; charset=utf-8',
+  	dataType: 'json'
   	success: function(){
-      console.log(data);
+  	  alert(data);
+  	  console.log('submitted form');
+      console.log(userUrl);
     },
-  	datatype: 'json',
-  	contentType: 'application/json'
+  	failure: function(errMsg){
+  	  alert(errMsg);
   	}
-  })
-}
+  	
+  });
+  url.value = 'SUBMITTED';
+};
 
 url.addEventListener('input', color);
 function color(){
-  url.style.backgroundColor = 'red';
-    url.style.color = 'red';
+  url.style.backgroundColor = 'steelblue';
+    url.style.color = 'white';
 
 }

@@ -3,19 +3,16 @@
   <head>
     <meta charset="UTF-8">
     <title>url shortener microservice</title>
-    
-    
-    
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-
         <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-
-    <h1>URL SHORTENER JAWN PIECE</h1>
-
+  <div class="row">
+    <h1>URL SHORTENER JAWN</h1>
+  </div>
+  <div class="col col-xs-12">
 <h2>Use</h2>
-
+</div>
 <ul>
 <li>Append a URL to the path to recieve a shortened URL response</li>
 <li>Gronk out with shortened URL</li>
@@ -30,16 +27,17 @@
 
 <p>example
 <div class="input">
-<form action="/newUrl/" method="post">
+<form action="/newUrl" method="post">
   <label class="urlLabel" for="url">URL:</label>
   <input type="text" id="url" name="url" 
     size="200"
   /></p>
-
-<p><button type="submit" class="btn" id="submit" ></butt>
+  <div class="row">
+    <button type="submit" class="btn col-xs-12 col-sm-8 col-md-6" id="submit" >Encode URL</button>
+  </div>
 </form>
-</div></p>
-        <script src=""
+</div>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="./js/index.js"></script>
   </body>
 </html>

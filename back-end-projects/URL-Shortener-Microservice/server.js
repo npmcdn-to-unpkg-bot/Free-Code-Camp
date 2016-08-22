@@ -32,7 +32,11 @@ app.get('/', function(req, res){
 		}	
 	});
 });
-app.get('/newURL/*?', function(req, res){
+
+app.post('/*', function(req, res){
+	console.log(req.body);
+	res.send('hello').end();
+	/*
 	var validURL = require('valid-url');
 	//userURL = req.url.substr();
 	var theURL = req.params[0];
@@ -63,6 +67,7 @@ app.get('/newURL/*?', function(req, res){
 		
 	});
 }
+*/
 });
 
 
