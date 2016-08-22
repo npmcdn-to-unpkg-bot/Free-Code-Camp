@@ -1,26 +1,16 @@
 var form = document.querySelector('form');
 var url = document.getElementById('url');
+
 form.onsubmit = function(e){
+    e.preventDefault();
   var userUrl = url.value;
-  e.preventDefault();
-  
-  $.ajax({
-  	type: 'POST',
-  	url: '/new',
-  	data: JSON.stringigy({url: userUrl}),
-  	contentType: 'application/json; charset=utf-8',
-  	dataType: 'json'
-  	success: function(){
-  	  alert(data);
-  	  console.log('submitted form');
-      console.log(userUrl);
-    },
-  	failure: function(errMsg){
-  	  alert(errMsg);
-  	}
-  	
-  });
-  url.value = 'SUBMITTED';
+  //var jUrl = JSON.stringify({url: userUrl});
+ $.post('newUrl', 
+  form.serialize(),
+  function(data, status){
+   alert('data' + data + '\nStatus ' + status);
+  }
+ );
 };
 
 url.addEventListener('input', color);

@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html >
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>url shortener microservice</title>
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
         <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-  <div class="row">
-    <h1>URL SHORTENER JAWN</h1>
+</head>
+<body>
+    <div class="row">
+      <div class="col col-xs-12">
+        <h1>URL SHORTENER JAWN</h1>
+      </div>
+    </div>
+  <div class="row">  
+    <div class="col col-xs-12">
+      <h2>Use</h2>
+      <ul>
+        <li>Append a URL to the path to recieve a shortened URL response</li>
+        <li>Gronk out with shortened URL</li>
+      </ul>
+    </div>
   </div>
-  <div class="col col-xs-12">
-<h2>Use</h2>
-</div>
-<ul>
-<li>Append a URL to the path to recieve a shortened URL response</li>
-<li>Gronk out with shortened URL</li>
-</ul>
-
-<h4>Example</h4>
-
-<p>Input:
-<code>https://example.com https://example.com</code></p>
-
-<h4>Output:</h4>
-
-<p>example
-<div class="input">
-<form action="/newUrl" method="post">
-  <label class="urlLabel" for="url">URL:</label>
-  <input type="text" id="url" name="url" 
-    size="200"
-  /></p>
   <div class="row">
-    <button type="submit" class="btn col-xs-12 col-sm-8 col-md-6" id="submit" >Encode URL</button>
+    <div class="col md-6">
+      <h4>Example</h4>
+      <p>Input:</p>
+      <code>https://example.com https://example.com</code>
+    </div>
+    <div class="col md-6">
+      <h4>Output:</h4>
+      <p>example</p>
+    </div>
   </div>
-</form>
-</div>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-<script src="./js/index.js"></script>
-  </body>
+  <div class="row">
+    <div class='col col-md-6'>
+      <form action="/newUrl" method="post">
+        <label class="urlLabel" for="url">URL:</label>
+        <input type="text" id="url" name="url" 
+          size="200"
+        />
+      <button type="submit" class="btn col-xs-12 col-sm-8 col-md-6" id="submit" >Encode URL</button>
+      </form>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="./js/index.js"></script>
+</body>
 </html>

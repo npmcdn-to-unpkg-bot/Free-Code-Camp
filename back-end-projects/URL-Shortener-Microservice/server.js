@@ -5,7 +5,10 @@ var path = require('path'),
 	MongoClient = require('mongodb').MongoClient,
 	urlList = require('./schema.js'),
 	//To get the data submitted in the body of the POST request, we will use a middleware called body-parser, we can install it via NPM:
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	multer = require('multer'),
+	upload = multer();
+	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 var db;
@@ -32,16 +35,14 @@ app.get('/', function(req, res){
 		}	
 	});
 });
-
-app.post('/*', function(req, res){
+/*
+app.post('/*', upload.array(), function(req, res){
+	//var validURL = require('valid-url');
 	console.log(req.body);
-	res.send('hello').end();
+	res.json(req.body);
+	//if(theURL && validURL.isUri(theURL)){
 	/*
-	var validURL = require('valid-url');
-	//userURL = req.url.substr();
-	var theURL = req.params[0];
-	if(theURL && validURL.isUri(theURL)){
-		urlList.find({url: theURL}, function(err, docs){
+	urlList.find({url: theURL}, function(err, docs){
 			if(err) throw err;
 			if (docs && docs.length){
 				res.status(201).json({
@@ -60,14 +61,20 @@ app.post('/*', function(req, res){
 			'short-url': 'fcc-joechimienti.c9users.io/' + myURL.id
 		});
 	});
-} else{
-	res.status(400).json({
+	
+//} else{
+//	res.status(400).json({
 		
-		error: 'url invalid',
+		//error: 'url invalid',
 		
-	});
-}
-*/
+//	});
+//}
+
 });
 
+*/
 
+app.post('/*', function(req, res){
+	console.log(req.baseUrl);
+	res.redirect('/');
+} );
