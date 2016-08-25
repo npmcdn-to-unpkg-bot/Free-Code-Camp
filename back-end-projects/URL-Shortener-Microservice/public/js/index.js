@@ -2,27 +2,20 @@ var form = document.querySelector('form');
 var url = document.getElementById('url');
 
 form.onsubmit = function(e){
-  e.preventDefault();
-  var formData = JSON.stringify(form.serializeArray());
-  console.log(url.value);
-  console.log('submitted form')
-  url.value = '';
-  $.ajax({
-  	type: 'POST',
-  	url: 'abcd',
-  	data: formData
-  	success: function(){
-      console.log(data);
-    },
-  	datatype: 'json',
-  	contentType: 'application/json'
-  	}
-  })
-}
+    e.preventDefault();
+  var userUrl = url.value;
+  //var jUrl = JSON.stringify({url: userUrl});
+ $.post('newUrl', 
+  form.serialize(),
+  function(data, status){
+   alert('data' + data + '\nStatus ' + status);
+  }
+ );
+};
 
 url.addEventListener('input', color);
 function color(){
-  url.style.backgroundColor = 'red';
-    url.style.color = 'red';
+  url.style.backgroundColor = 'steelblue';
+    url.style.color = 'white';
 
 }
