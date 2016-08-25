@@ -8,8 +8,7 @@ module.exports = function(dir, ext, callback){
 			if (path.extname(file) === '.' + ext){
 				output.push(file);
 			}
-			callback(null, file);
 		});
-		return output;
+		callback(null, output);
 	});
 }

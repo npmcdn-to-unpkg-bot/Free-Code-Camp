@@ -1,6 +1,6 @@
 ## My Work
 
-This is a collection of the algorithm solutions web and projects I have completed during the Free Code Camp Course. 
+This is a collection of the algorithms, and web projects I have completed during the Free Code Camp Course. 
 
 
 ## Completed:  
