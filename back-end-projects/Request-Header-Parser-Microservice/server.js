@@ -8,8 +8,14 @@ app.get('/', function(req, res){
 	var type = os.type()
 	var language = req.acceptsLanguages()
 	var ip = req.ip
-	var info = [].concat(ip, type, release, language)
-	var jsonData = JSON.stringify(info, null, '\t')
+	//var info = [].concat(ip, type, release, language)
+//	var jsonData = JSON.stringify(info, null, '\t')
+    var info = {
+    	ip: ip,
+        OS: type,
+    	release: release,
+    	languages: language
+    }
 	//res.send(jsonData)
 	res.send(info)
 })

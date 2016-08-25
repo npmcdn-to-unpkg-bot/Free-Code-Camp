@@ -1,18 +1,21 @@
-var form = document.querySelector('form');
+var form = document.getElementById('form');
 var url = document.getElementById('url');
 
 form.onsubmit = function(e){
     e.preventDefault();
-  var userUrl = url.value;
-  //var jUrl = JSON.stringify({url: userUrl});
- $.post('newUrl', 
-  form.serialize(),
-  function(data, status){
-   alert('data' + data + '\nStatus ' + status);
-  }
- );
+ $.ajax({
+     url: 'new',
+     type: 'POST',
+     data: {
+         url: url.value
+         // form: form.serialize()
+     },
+     success: function(data, status){
+         alert('data ' + url.value + ' status ' + status);
+         url.value = '';
+     }
+    });
 };
-
 url.addEventListener('input', color);
 function color(){
   url.style.backgroundColor = 'steelblue';
