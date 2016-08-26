@@ -13,7 +13,7 @@ app.post('/upload', upload.single('file'), function(req, res){
 	if (req.file){
 		res.json({
 			'filename': req.file.originalname,
-			'size': req.file.size + 'bytes'
+			'size': req.file.size + ' B'
 		})
 	}else{
 		res.status(400).end();
