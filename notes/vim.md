@@ -1,4 +1,4 @@
-[intro video]https://www.youtube.com/watch?v=rfl9KQb_HVk)
+[intro video](https://www.youtube.com/watch?v=rfl9KQb_HVk)
 
 [vim commands](http://www.fprintf.net/vimCheatSheet.html)  
 [cheat sheet](http://www.viemu.com/vi-vim-cheat-sheet.gif)  
