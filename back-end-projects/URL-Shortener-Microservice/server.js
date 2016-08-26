@@ -16,25 +16,44 @@ mongo.connect('mongodb://' + username + ':' + password + '@ds031915.mlab.com:319
 		coll = db.collection('shorten-url') ;
 	}
 );
-app.post('/*', function(req, res){
-	console.log(req.url);
-	var obj = {
-		url: req.url,
-		short: shorten
-	}
-	coll.update({
-		obj
-	}, function(err){
-		if (err) throw err;
-	});
+
+app.get('/*', function(req, res, next){
+	console.log('req.url', req.url)
+	next();
 });
-app.get('/new/:url*', function(req, res){
-		var output = {
-			url: req.params.url,
-			short: 'hello'
-		}
-		res.send(output);
+
+app.get('/new/*', function( req, res){ 
+var urlz = req.url;
+console.log('req.params.url', urlz.substr(8));
+ var validUrl = require('valid-url');
+    if (validUrl.isUri(req.url.substr(8))){
+        console.log('Looks like an URI');
+		var obj = {
+		  enteredUrl: encodeURI(urlz.substr(5)),
+		  short: shorten() 
+		};
+		console.log('obj to send: ', obj);
+		res.json(obj);
+	    coll.insertOne({
+		  obj
+	      },  function(err){
+		     if (err) throw err;
+	    });
+    } else {
+        console.log('Not a URI');
+		res.send('Not a URI my dude');
+    }
+	
+
 });
+app.get('/:id', function(req, res){
+	console.log(req.params.id);
+var u = coll.find({"obj.short": req.params.id}).toArray(function(err, documents){
+	var a = documents[0].obj.enteredUrl;
+	console.log(a);
+	res.redirect(a);
+});	
+})
 app.listen(port, function(err){
 	if (err) throw err;
 	console.log(port);
