@@ -1,6 +1,0 @@
-var output = process.argv.splice(2);
-console.log(output);
-var o = output.reduce(function(total,currentValue){
-	return total + Number(currentValue);
-}, 0);
-console.log(o);

@@ -3,13 +3,13 @@ var mongo = require('mongodb').MongoClient,
 	app = express(),
 	path = require('path'),
 	port = process.env.PORT || 31915,
-	//username = require('./config.js').username,
-	//password = require('./config.js').password,
+	username = require('./config.js').username,
+	password = require('./config.js').password,
 	shorten = require('./shortenUrl.js'),
 	coll, 
 	 db;
 app.use(express.static(path.join(__dirname, 'public')));
-mongo.connect('mongodb://' + 'joechimienti' + ':' + 'Freewill89!' + '@ds031915.mlab.com:31915/hello-world',
+mongo.connect('mongodb://' + username + ':' + password + '@ds031915.mlab.com:31915/hello-world',
    function(err, database){
 		if (err) throw err;
 		db = database;
