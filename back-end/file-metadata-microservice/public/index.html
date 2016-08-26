@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+  <style>
+    .dark-primary-color    { background: #689F38; }
+    .default-primary-color { background: #8BC34A; }
+    .light-primary-color   { background: #DCEDC8; }
+    .text-primary-color    { color: #212121; }
+    .accent-color          { background: #FF9800; }
+    .primary-text-color    { color: #212121; }
+    .secondary-text-color  { color: #757575; }
+    .divider-color         { border-color: #BDBDBD; }
+      html,body{
+        font-family: 'Roboto', sans-serif;
+      }
+      .jumbotron{
+        background: #8BC34A;
+          }
+      h1{
+        font-family: 'Open Sans', sans-serif;
+        color: #fff;
+      }
+      h4{
+        color: #DCEDC8;
+      }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="jumbotron">
+      <h2>File MetaData</h2>
+      <h4>Upload a file to view its filesize</h4>
+      <form action='/upload' method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <input type="file" name="file" />
+        </div>
+        <div class="form-group">
+          <input class="btn accent-color" type="submit" value="submit" />
+        </div>
+      </form>
+      </div>
+  </div>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+</html>
