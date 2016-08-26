@@ -7,33 +7,50 @@
         <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="row">
-      <div class="col col-xs-12">
-        <h1>URL SHORTENER JAWN</h1>
-        <hr></hr>
-      <h2>Use</h2>
-      <ul>
-        <li>Append a URL to the path to recieve a shortened URL response</li>
-        <li>Gronk out with shortened URL</li>
-      </ul>
-      <h4>Example</h4>
-      <p>Input:</p>
-      <code>https://example.com https://example.com</code>
-         <h4>Output:</h4>
-      <p>example</p>
-      <div class="row">
-        <form class="col col-xs-12 col-md-6" id="form">
-		          <label class="urlLabel" for="url">URL:</label>
-          <input type="text" id="url" name="url" 
-            
-          />
-          <div class="row">
-        <button type="submit" class="btn col-xs-12 col-sm-8 col-md-6" id="submit" >Encode URL</button>
-        </div>
-        </form>
-      </div>
-      </div>
-      </div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      
+      <a class="navbar-brand" href="#">URL SHORTENER MICROSERVICE</a>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col col-xs-10">
+				<h4>User Stories</h4>
+				<ul>
+					<li>I can submit a URL and will recieve a shortened URL resonse</li>
+					<li>When i visit the shortened URL, it will redirect me to original link</li>
+				</ul>
+			</div>
+        </div>	
+<div class="row">
+			<div class="col col-xs-10">
+				<h4>Example</h4>
+					<h5>Input: <code>http://www.voat.co</code></h5>
+					<h5>Response: <code>http://www.voat.co</code></h5>
+				<code>ADDDDDDDDD</code>
+				<h5>Will redirect you to:</h5>
+				<code>http://www.voat.co</code>
+			</div>
+        </div>			
+			<form  id="form">
+			   <label class="urlLabel" for="url">URL:</label>
+			   <div class="row">
+					<div class="col col-xs-10">
+						<input class="col col-xs-10" type="text" id="url" name="url" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col col-xs-10">
+						<button type="submit" class="btn col-xs-10 default-primary-color " id="submit" >Encode URL</button>
+					</div>
+				</div>
+			</form>
+	</div>
+	
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   <script src="./js/index.js"></script>
 </body>

@@ -1,7 +1,6 @@
-
+var url = document.getElementById('url');
 
 $('#form').on('submit', function(e){
-	var url = document.getElementById('url').value;
     e.preventDefault();
 	/*
 	$.post('new/' + $("#url").val(), function(response){
@@ -10,11 +9,7 @@ $('#form').on('submit', function(e){
 	*/
  $.ajax({
     type: 'GET',
-	url: 'new/id=' + url,
-	data: {
-		url: url.value
-	},
-	dataType: 'json',
+	url: 'new/id=' + url.value,
 	success: function(data){
 		//alert(data.url);
 		window.location = '/new/' + url;
@@ -25,9 +20,10 @@ $('#form').on('submit', function(e){
 });
 
 });
-url.addEventListener('input', color);
+url.addEventListener('input', color); 
 function color(){
-  url.style.backgroundColor = 'steelblue';
+	document.body.style.background = '#212121';
+  url.style.backgroundColor = '#C5CAE9';
     url.style.color = 'white';
 
 }

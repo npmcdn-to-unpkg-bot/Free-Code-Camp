@@ -16,12 +16,9 @@ mongo.connect('mongodb://' + username + ':' + password + '@ds031915.mlab.com:319
 		coll = db.collection('shorten-url') ;
 	}
 );
-
-app.get('/*', function(req, res, next){
-	console.log('req.url', req.url)
-	next();
+app.get('/', function(req, res){
+	res.send(path.join(__dirname, 'public', 'index.html'));
 });
-
 app.get('/new/*', function( req, res){ 
 var urlz = req.url;
 console.log('req.params.url', urlz.substr(8));
