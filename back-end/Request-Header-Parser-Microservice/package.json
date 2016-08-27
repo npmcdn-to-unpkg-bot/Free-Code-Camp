@@ -2,10 +2,12 @@
   "name": "req-header-parser-microservice",
   "version": "1.0.0",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+          "express": "^4.14.0"
+
+  },
   "devDependencies": {
-    "nodemon": "^1.10.0",
-    "express": "^4.14.0"
+    "nodemon": "^1.10.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,5 +16,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "Objective: Build a full stack JavaScript app that is functionally similar to this: https://cryptic-ridge-9197.herokuapp.com/api/whoami/ and deploy it to Heroku."
+  "description": "Objective: Build a full stack JavaScript app that is functionally similar to this: https://cryptic-ridge-9197.herokuapp.com/api/whoami/ and deploy it to Heroku.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jchimienti89/request-header.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jchimienti89/request-header/issues"
+  },
+  "homepage": "https://github.com/jchimienti89/request-header#readme"
 }
