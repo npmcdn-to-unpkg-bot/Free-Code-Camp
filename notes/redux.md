@@ -60,6 +60,53 @@ reducer: function that returns the next state tree.
 preloaded state: initial state. if you have combine reducers must be a plain object. Otherwise you can pass anything the reducer can understand.  
 enhancer: (function) applyMiddleware()  
 
+#### Avoiding Object Mutations with Object.assign() and ...spread
+```javascript
+const toggleTodo = (todo) => {
+  return Object .assign({}, todo, {
+    completed : ! todo.completed
+  });
+};
+Another option that does not require a polyfill is use the new  Object  spread operator  which is not part of ES6 however it is proposed for ES7 it is "fairly popular" and it is  enabled in Babel if you use the "stage 2 preset":
+const toggleTodo = (todo) => {
+  return {
+    ...todo,
+    completed : ! todo.completed
+  }
+};
+```
+
+
+Note: While the spread operator is an ES6 Standard for Array, its only a Draft for Object proposed for ES7 which means it is not yet available in any Browser!   
+
+As such I have modified Dan's code to use Object.assign (see Video #10) which (at least*) works in Chrome...:
+```javascript
+case 'TOGGLE_TODO':
+  return state.map(todo => {
+    if(todo.id !== action.id){
+      return todo;
+    }
+    return Object.assign({}, todo, {
+      completed: !todo.completed
+    });
+  });
+```
+The works in ALL Modern Browsers Today (Without Babel) way of doing this is:
+```javascript
+case 'TOGGLE_TODO':
+  return state.map(todo => {
+    if(todo.id !== action.id){
+      return todo;
+    }
+    var keys = Object.keys(todo); // IE9+
+    var toggled = {};             // new object to avoid mutation
+    keys.forEach(function(index) {
+      toggled.index = todo.index; // copy all properties/values of todo
+    });
+    toggled.completed = !todo.completed
+    return toggled;
+  });
+```
 ## Containers
  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -126,57 +173,6 @@ const removeCounter = (list, index) => {
   ];
 };
 
-
-### Avoiding Object Mutations with Object.assign() and ...spread
-```javascript
-const toggleTodo = (todo) => {
-  return Object .assign({}, todo, {
-    completed : ! todo.completed
-  });
-};
-Another option that does not require a polyfill is use the new  Object  spread operator  which is not part of ES6 however it is proposed for ES7 it is "fairly popular" and it is  enabled in Babel if you use the "stage 2 preset":
-const toggleTodo = (todo) => {
-  return {
-    ...todo,
-    completed : ! todo.completed
-  }
-};
-```
-
-
-Note: While the spread operator is an ES6 Standard for Array, its only a Draft for Object proposed for ES7 which means it is not yet available in any Browser!   
-
-As such I have modified Dan's code to use Object.assign (see Video #10) which (at least*) works in Chrome...:
-```javascript
-case 'TOGGLE_TODO':
-  return state.map(todo => {
-    if(todo.id !== action.id){
-      return todo;
-    }
-    return Object.assign({}, todo, {
-      completed: !todo.completed
-    });
-  });
-```
-The works in ALL Modern Browsers Today (Without Babel) way of doing this is:
-```javascript
-case 'TOGGLE_TODO':
-  return state.map(todo => {
-    if(todo.id !== action.id){
-      return todo;
-    }
-    var keys = Object.keys(todo); // IE9+
-    var toggled = {};             // new object to avoid mutation
-    keys.forEach(function(index) {
-      toggled.index = todo.index; // copy all properties/values of todo
-    });
-    toggled.completed = !todo.completed
-    return toggled;
-  });
-```
-
-
-using the React callback ref  API where ref is a function it gets the  node corresponding to the ref and I'm saving that node  in this case this.input so I'm able to  read the value of the input inside my event handler, I'm reading this.input.value and I'm also able to  reset that value after dispatching the action so that the field is cleared.
 
 ## Redux Thunk
 
