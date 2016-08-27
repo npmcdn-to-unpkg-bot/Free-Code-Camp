@@ -1,17 +1,18 @@
 {
   "name": "req-header-parser-microservice",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "nodemon": "^1.10.0"
+    "nodemon": "^1.10.0",
+    "express": "^4.14.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "Objective: Build a full stack JavaScript app that is functionally similar to this: https://cryptic-ridge-9197.herokuapp.com/api/whoami/ and deploy it to Heroku."
 }
