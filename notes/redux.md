@@ -145,10 +145,12 @@ prefer functions as oppossed to classes becuase youi can set props as argumentss
 const TodoList = () => (
   <div>
     <input type="text" />
-    <input type="button" className="btn waves-effect red waves-light" value="click"/>
+    <input type="btn" className="btn btn-primary" value="click"/>
   </div>
 );
 ```
+
+
 NOTE: did not work with brackets !!!! need parenthasiss.      
 and using a ref adds a minified exception!!!!
 Avoiding Array Mutations with concat(), slice(), and ...spread
