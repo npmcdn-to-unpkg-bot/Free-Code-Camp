@@ -1,5 +1,5 @@
 # Redux
-Redux is a predictable state container for Javascript apps. React doesn't care how state changes: object.assign , immutable.js ect.   
+Redux is a predictable state container for Javascript apps. 
 
 ### 3 Principals:
 1. Single Source of Truth
@@ -11,7 +11,7 @@ Redux is a predictable state container for Javascript apps. React doesn't care h
 
 
 3. Changes are made Using Pure Functions
-  -  To change the state tree we use "actions" called "reducers", these are simple functions which perform a single action.
+    -  To change the state tree we use "actions" called "reducers", these are simple functions which perform a single action.  
 ## Reducers
 
  It’s very important that the reducer stays pure. Things you should never do inside a reducer:
@@ -111,20 +111,14 @@ prefer functions as oppossed to classes becuase youi can set props as argumentss
 
 ```javascript
 const TodoList = () => (
-
-
-        <div>
-          <input type="text" />
-        <input type="button" className="btn waves-effect red waves-light
-" value="click"/>
-        </div>
-
-
+  <div>
+    <input type="text" />
+    <input type="button" className="btn waves-effect red waves-light" value="click"/>
+  </div>
 );
-NOTE: did not work with brackets !!!! need parenthasiss.      
-ref adds a minified exception!!!!
-
 ```
+NOTE: did not work with brackets !!!! need parenthasiss.      
+and using a ref adds a minified exception!!!!
 Avoiding Array Mutations with concat(), slice(), and ...spread
 Instead of .push I'm going to use the  concat method which does not modify the array.
 const addCounter = (list) => {
