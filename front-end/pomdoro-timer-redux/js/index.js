@@ -233,7 +233,7 @@ var Controller_ = function Controller_(_ref2) {
   var breakText = !!isRunning && activeSession === "break" ? breakTimeRemaining + ' seconds' : 'Break minutes: ' + breakMinutes;
   return React.createElement(
     'div',
-    { className: 'controller' },
+    { className: 'controller orange darken-1' },
     React.createElement(MusicButton, null),
     React.createElement(
       'div',
@@ -251,7 +251,11 @@ var Controller_ = function Controller_(_ref2) {
           { onClick: true,
             onClick: changeTime.bind(undefined, 'study', 1)
           },
-          '+'
+          React.createElement(
+            'i',
+            { className: 'material-icons' },
+            'add'
+          )
         ),
         React.createElement(
           Button,
@@ -272,7 +276,11 @@ var Controller_ = function Controller_(_ref2) {
           {
 
             onClick: changeTime.bind(undefined, 'break', 1) },
-          '+'
+          React.createElement(
+            'i',
+            { className: 'material-icons' },
+            'add'
+          )
         ),
         React.createElement(
           Button,
@@ -335,35 +343,22 @@ var Status_ = function Status_(_ref4) {
   var activeSession = _ref4.activeSession;
   var isRunning = _ref4.isRunning;
 
-  var style = {};
-  if (!!isRunning) {
-    style.visibility = 'hidden';
-    //style.display = 'none' // hides element and doesn't take up space
-  }
-  //TODO FIX COLOR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-  var color = activeSession === "study" ? ' yellow lighten-1' : ' orange lighten-1';
+  var text = !!isRunning ? 'STOP' : 'START';
+  //TODO FIX COLOR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  var color = 'orange lighten-1';
   return React.createElement(
     'div',
     { className: 'row' },
     React.createElement(
       'button',
       {
-        style: style,
-        hidden: !!isRunning ? true : false,
-        className: 'btn startGame  ' + color, onClick: function onClick() {
-          //this.attr('disabled', true)
-          store.dispatch(startTimer());
-          // startGame
+        className: 'btn startGame  ' + color,
+        onClick: function onClick() {
+          !isRunning ? store.dispatch(startTimer()) : store.dispatch(resetTimer());
           updateTimer();
         }
       },
-      '  start timer'
-    ),
-    React.createElement('br', null),
-    React.createElement(
-      'button',
-      { className: 'btn ' + color, onClick: resetTimer },
-      'Reset Timer'
+      '' + text
     )
   );
 };
@@ -382,39 +377,26 @@ var mapDispatchToProps_2 = function mapDispatchToProps_2(dispatch) {
 };
 var Status = connect(mapStateToProps_status, mapDispatchToProps_2)(Status_);
 //TODO: Start musi automatically when clicking music button
-
-var MusicButton = function (_React$Component2) {
-  _inherits(MusicButton, _React$Component2);
-
-  function MusicButton() {
-    _classCallCheck(this, MusicButton);
-
-    return _possibleConstructorReturn(this, _React$Component2.apply(this, arguments));
-  }
-
-  MusicButton.prototype.openMusic = function openMusic(e) {
+var MusicButton = function MusicButton() {
+  var playlist_url = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/45129349/favorites&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false';
+  var openMusic = function openMusic() {
     $("#music").toggle("swing");
   };
-
-  MusicButton.prototype.render = function render() {
-    return React.createElement(
-      'div',
-      { className: 'music-container' },
-      React.createElement('iframe', { hidden: true, className: 'music', id: 'music', width: '400', height: '280', scrolling: 'no', frameborder: 'no', src: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/45129349/favorites&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true' }),
+  return React.createElement(
+    'div',
+    { className: 'music-container' },
+    React.createElement('iframe', { className: 'music', id: 'music', width: '100%', hidden: true, height: '450', scrolling: 'no', frameborder: 'no', src: '' + playlist_url }),
+    React.createElement(
+      'button',
+      { className: 'music-button btn-floating btn-large red darken-2', onClick: openMusic },
       React.createElement(
-        'button',
-        { className: 'music-button btn-floating btn-large red darken-2', onClick: this.openMusic },
-        React.createElement(
-          'i',
-          { className: 'material-icons' },
-          'play_arrow'
-        )
+        'i',
+        { className: 'material-icons' },
+        'play_arrow'
       )
-    );
-  };
-
-  return MusicButton;
-}(React.Component);
+    )
+  );
+};
 
 var app = combineReducers({
   studyMinutes: studyMinutes,
@@ -439,3 +421,12 @@ ReactDOM.render(React.createElement(
   { store: store },
   React.createElement(Card, null)
 ), document.getElementById('root'));
+window.onresize = resizeWindow;
+function resizeWindow() {
+  var w = window.innerWidth;
+  var h = window.innerHeight;
+
+  $('#root').height(h);
+  $('#root').width(w);
+}
+resizeWindow();

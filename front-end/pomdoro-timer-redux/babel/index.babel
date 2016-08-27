@@ -199,14 +199,14 @@ const Controller_ = ({
   let studyText = !!isRunning && activeSession === 'study' ? `${studyTimeRemaining} seconds` : `Study minutes: ${studyMinutes}`;
   let breakText = !!isRunning && activeSession === "break" ? `${breakTimeRemaining} seconds` : `Break minutes: ${breakMinutes}`;
   return (
-    <div className="controller">
+    <div className="controller orange darken-1">
                   <MusicButton/>
       <div className="row">
         <div className="col sm 3">
                     <h4>{studyText}</h4>
           <Button onClick
         onClick={changeTime.bind(this, 'study', 1)}
-      >+</Button>
+      ><i className="material-icons">add</i></Button>
       <Button  
         onClick={changeTime.bind(this, 'study', -1)} 
       >-</Button>
@@ -216,7 +216,7 @@ const Controller_ = ({
           <h4>{breakText}</h4>
       <Button 
 
-          onClick={changeTime.bind(this, 'break', 1)}>+</Button>
+        onClick={changeTime.bind(this, 'break', 1)}><i className="material-icons">add</i></Button>
       <Button
         onClick={changeTime.bind(this, 'break', -1)} >-</Button><br></br>
       <br></br>
@@ -266,29 +266,21 @@ const Status_ = ({
   activeSession,
   isRunning
 }) => {
-  let style = {};
-  if (!!isRunning) {
-    style.visibility = 'hidden'
-      //style.display = 'none' // hides element and doesn't take up space 
-  }
-//TODO FIX COLOR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-  let color = activeSession === "study" ? ' yellow lighten-1' : ' orange lighten-1';
+   
+  let text = !!isRunning ? 'STOP' : 'START';
+//TODO FIX COLOR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  let color = 'orange lighten-1';
   return (
     <div className='row'>
-
       <button 
-        style={style}
-        hidden={ !!isRunning ? true : false}
-        className={`btn startGame  ${color}`} onClick={ () =>{
-          //this.attr('disabled', true)
-          store.dispatch(startTimer())
-         // startGame
-          updateTimer()
+        className={`btn startGame  ${color}`}
+        onClick={ ()=>{
+          !isRunning ? store.dispatch(startTimer()) :
+            store.dispatch(resetTimer())
+            updateTimer()
         }}
-      >  start timer
-        </button>
-      <br></br>
-        <button className={`btn ${color}`} onClick={resetTimer}>Reset Timer</button>
+      >{`${text}`}</button>
+              
         </div>
   );
 }
@@ -305,21 +297,21 @@ const mapDispatchToProps_2 = (dispatch) => {
 }
 const Status = connect(mapStateToProps_status, mapDispatchToProps_2)(Status_);
     //TODO: Start musi automatically when clicking music button
-class MusicButton extends React.Component {
-  openMusic(e) {
+const MusicButton = () =>{
+    var playlist_url = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/45129349/favorites&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false';
+  const openMusic = () => {
     $("#music").toggle("swing");
-    
   }
-  render() {
-    return (
+  return(
       <div className="music-container">
-        <iframe hidden className="music" id="music" width="400" height="280" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/45129349/favorites&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
-      <button className="music-button btn-floating btn-large red darken-2"  onClick={this.openMusic} ><i className="material-icons">play_arrow</i></button>
+        <iframe className="music" id="music" width="100%" hidden height="450" scrolling="no" frameborder="no" src={`${playlist_url}`}></iframe>
+      <button className="music-button btn-floating btn-large red darken-2"  onClick={openMusic} ><i className="material-icons">play_arrow</i></button>
         </div>
-    );
-  }
-
+   );
 }
+  
+
+
 const app = combineReducers({
   studyMinutes,
   breakMinutes,
@@ -345,3 +337,13 @@ ReactDOM.render(
     </Provider>,
   document.getElementById('root')
 );
+window.onresize = resizeWindow;
+function resizeWindow(){
+  let w = window.innerWidth;
+  let h = window.innerHeight;
+  
+  $('#root').height(h);
+  $('#root').width(w);
+}
+resizeWindow();
+
