@@ -4,9 +4,7 @@ a Javascript library for building user interfaces.
 
 ### Initialization: 
 - getDefaultProps 
-    -  redux place MyVar.defaultProps = {}; outside components  
 -  getInitialState
-    -  redux state = {};
 -  componentWillMount
 -  render 
 -  componentDidMount.  
@@ -125,7 +123,6 @@ return (
 );
 }
 });	
-# PLACING JAVASCRIPT IS FUCKING SHIT UP
 // can place props outside component:  
 MyVar.defaultProps = {};
 
@@ -141,26 +138,25 @@ componentWillMount: function() { … },
 // The ES6+ way
 ```javascript
 export class Counter extends React.Component {
-constructor(props) {
-// only pass props when you want to access this.props in constructor
-// Which is probably redundant since you already have a reference to it
-super(props);
-this.state = {count: props.initialCount};
-//Note: binding of this in constructor
-this.tick = this.tick.bind(this);
+	constructor(props) {
+		// only pass props when you want to access this.props in constructor
+		// Which is probably redundant since you already have a reference to it
+		super();
+		this.state = {count: props.initialCount};
+		//Note: binding of this in constructor
+		this.tick = this.tick.bind(this);
+	}
+	tick() {
+	this.setState({count: this.state.count + 1});
+	}
+	render() {
+	  return (
+	    <div onClick={this.tick}>
+	        Clicks: {this.state.count}
+	    </div>
+	  );
+	}
 }
-tick() {
-this.setState({count: this.state.count + 1});
-}
-render() {
-return (
-<div onClick={this.tick}>
-Clicks: {this.state.count}
-</div>
-);
-}
-}
-# again fucking shit up
 #### When in development (not production), if any component is not given a required prop, or is given the wrong type for one of its props, then React will log an error to let you know. This has several benefits:  
 
 + It can catch bugs early, by preventing silly mistakes
@@ -169,12 +165,12 @@ Clicks: {this.state.count}
 
 ```javascript
 Counter.propTypes = { 
-initialCount: React.PropTypes.number,
-// more examples
-numbers: React.PropTypes.arrayOf(Reac.PropTypes.number)
+	initialCount: React.PropTypes.number,
+	// more examples
+	numbers: React.PropTypes.arrayOf(Reac.PropTypes.number)
 }
 Counter.defaultProps = { 
-initialCount: 0 
+	initialCount: 0 
 };
 ```
 ### No Autobinding
@@ -190,9 +186,9 @@ Methods follow the same semantics as regular ES6 classes, meaning that they don'
 We recommend that you bind your event handlers in the constructor so they are only bound once for every instance:
 ```javascript
 constructor(props) {
-super(props);
-this.state = {count: props.initialCount};
-this.tick = this.tick.bind(this);
+	super(props);
+	this.state = {count: props.initialCount};
+	this.tick = this.tick.bind(this);
 }
 ```## Transferring Props
 You can use JSX spread attributes to merge the old props with additional values:  
@@ -202,20 +198,19 @@ You can use JSX spread attributes to merge the old props with additional values:
 Most of the time you should explicitly pass the properties down. This ensures that you only expose a subset of the inner API, one that you know will work.  
 ```javascript
 function FancyCheckbox(props) {
-var fancyClass = props.checked ? 'FancyChecked' : 'FancyUnchecked';
-return (
-<div className={fancyClass} onClick={props.onClick}>
-{props.children}
-</div>
-);
+	var fancyClass = props.checked ? 'FancyChecked' : 'FancyUnchecked';
+	return (
+		<div className={fancyClass} onClick={props.onClick}>
+			{props.children}
+		</div>
+	);
 }
 ReactDOM.render(
-<FancyCheckbox checked={true} onClick={console.log.bind(console)}>
-Hello world!
-</FancyCheckbox>,
-document.getElementById('example')
+	<FancyCheckbox checked={true} onClick={console.log.bind(console)}>
+		Hello world!
+	</FancyCheckbox>,
+	document.getElementById('example')
 );
-# and again fuckery
 Sometimes it's fragile and tedious to pass every property along. In that case you can use destructuring assignment with rest properties to extract a set of unknown properties. List out all the properties that you would like to consume, followed by ...other.
 ```javascript
 //This ensures that you pass down all the props EXCEPT the ones you're consuming yourself.
@@ -236,7 +231,6 @@ Hello world!
 document.getElementById('example')
 );
 
-
 Always use the destructuring pattern when transferring unknown other props.
 ```javascript
 function FancyCheckbox(props) {
@@ -246,7 +240,7 @@ return (
 <div {...props} className={fancyClass} />
 );
 }
-
+```
 ### Transferring Props: A Shortcut
 
 A common type of React component is one that extends a basic HTML element in a simple way. Often you'll want to copy any HTML attributes passed to your component to the underlying HTML element. To save typing, you can use the JSX spread syntax to achieve this:
@@ -264,7 +258,7 @@ Click here!
 </CheckLink>,
 document.getElementById('example')
 );
-
+```
 Another difference is that propTypes and defaultProps are defined as properties on the constructor instead of in the class body.
 ```javascript
 export class Counter extends React.Component {
@@ -284,7 +278,8 @@ Clicks: {this.state.count}
 );
 }
 }
-```## Load Initial Data via AJAX
+```
+## Load Initial Data via AJAX
 Fetch data in componentDidMount.When the response arrives, store the data in state, triggering a render to update your UI.  
 When fetching data asynchronously, use componentWillUnmount to cancel any outstanding requests before the component is unmounted.  
 

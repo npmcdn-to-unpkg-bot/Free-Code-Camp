@@ -1,32 +1,18 @@
 # Redux
-Redux is a predictable state container for Javascript apps. React doesn't care how state changes: object.assign , immutable.js ect.   
+Redux is a predictable state container for Javascript apps. 
 
 ### 3 Principals:
-1. Single Source of Truth
+- Single Source of Truth (The state of your whole application is stored in a single object tree; the "Store")
+-  State is Read-Only ("Immutable")
+-  Changes are made Using Pure Functions (to change the state tree we use "actions" called "reducers", these are simple functions which perform a single action)  
 
-  - The state of your whole application is stored in a single object tree; the "Store".
-
-2. State is Read-Only ("Immutable")
-  -  Instead of directly updating data in the store, we describe the update as a function which gets applied to the existing store and returns a new version.
-
-
-3. Changes are made Using Pure Functions
-  -  To change the state tree we use "actions" called "reducers", these are simple functions which perform a single action.
-## Reducers
-
+### Reducers
  It’s very important that the reducer stays pure. Things you should never do inside a reducer:
-
-	* Mutate its arguments;
-	* Perform side effects like API calls and routing transitions;
-	* Call non-pure functions, e.g. Date.now() or Math.random().
-
-
-
-	1. We don’t mutate the state. We create a copy with Object.assign(). Object.assign(state, { visibilityFilter: action.filter }) is also wrong: it will mutate the first argument. You must supply an empty object as the first parameter. You can also enable the object spread operator proposal to write { ...state, ...newState } instead.
-
-	2. We return the previous state in the default case. It’s important to return the previous state for any unknown action.
-
-
+1.  Mutate its arguments;
+2. Perform side effects like API calls and routing transitions;
+3. Call non-pure functions, e.g. Date.now() or Math.random().
+ 
+ We return the previous state in the default case. It’s important to return the previous state for any unknown action.
 
 ```javascript
 function todos(state = [], action) {
@@ -42,6 +28,7 @@ function todos(state = [], action) {
     case TOGGLE_TODO:
       return state.map((todo, index) => {
         if (index === action.index) {
+          //return {...state, completed: todo.completed}
           return Object.assign({}, todo, {
             completed: !todo.completed
           })
@@ -58,97 +45,22 @@ Note that each of these reducers is managing its own part of the global state. T
 
 The Store is the object that brings them together. The store has the following responsibilities:
 
-	* Holds application state;
-	* Allows access to state via getState();
-	* Allows state to be updated via dispatch(action);
-	* Registers listeners via subscribe(listener);
-	* Handles unregistering of listeners via the function returned by subscribe(listener).
+* Holds application state;
+* Allows access to state via getState();
+* Allows state to be updated via dispatch(action);
+* Registers listeners via subscribe(listener);
+* Handles unregistering of listeners via the function returned by subscribe(listener).
 
 ### Store Methods
 - Do not create more than one store in an app. Use `combineReducers` to create a root reducer. 
 - Store = immutable object. spread properties, concat, and Object.assign({}, state, newData)  
 createStore(reducer, [preloadedState], [enhancer])
 
-
-
 reducer: function that returns the next state tree. 
 preloaded state: initial state. if you have combine reducers must be a plain object. Otherwise you can pass anything the reducer can understand.  
 enhancer: (function) applyMiddleware()  
 
-## Containers
- This is a container component. Notice it does not contain any JSX,
-    nor does it import React. This component is **only** responsible for
-    wiring in the actions and state necessary to render a presentational
-    component 
-
-```javascript
-import { createStore } from 'redux'
-
-function todos(state = [], action) {
-  switch (action.type) {
-    case 'ADD_TODO':
-      return state.concat([ action.text ])
-    default:
-      return state
-  }}
-
-let store = createStore(todos, [ 'Use Redux' ])
-
-store.dispatch({
-  type: 'ADD_TODO',
-  text: 'Read the docs'})
-
-console.log(store.getState())// [ 'Use Redux', 'Read the docs' ]
-```
-	
-## Components
-
-Reusable Presentational Components
-Presentational components:
-
-prefer functions as oppossed to classes becuase youi can set props as argumentss instead of inside the render moethod. 
-
-
-```javascript
-const TodoList = () => (
-
-
-        <div>
-          <input type="text" />
-        <input type="button" className="btn waves-effect red waves-light
-" value="click"/>
-        </div>
-
-
-);
-NOTE: did not work with brackets !!!! need parenthasiss.      
-ref adds a minified exception!!!!
-
-```
-Avoiding Array Mutations with concat(), slice(), and ...spread
-Instead of .push I'm going to use the  concat method which does not modify the array.
-const addCounter = (list) => {
-  return list.concat ([0]);
-};
-And I can also use the new ES6  spread operator to write the code in a more concise way:
-const addCounter = (list) => {
-  return [... list, 0];
-};
-const removeCounter = (list, index) => {
-  return list
-    . slice(0 , index)
-    . concat(list.slice (index+1 ));
-};
-Finally, instead of writing it as a method chain with  concat calls, I can use the ES6  spread operator to write it more concisely:
-const removeCounter = (list, index) => {
-  return [
-    ...list.slice (0, index),
-    ...list.slice (index + 1)
-  ];
-};
-
-
-### Avoiding Object Mutations with Object.assign() and ...spread
+#### Avoiding Object Mutations with Object.assign() and ...spread
 ```javascript
 const toggleTodo = (todo) => {
   return Object .assign({}, todo, {
@@ -195,9 +107,74 @@ case 'TOGGLE_TODO':
     return toggled;
   });
 ```
+## Containers
+ This is a container component. Notice it does not contain any JSX,
+    nor does it import React. This component is **only** responsible for
+    wiring in the actions and state necessary to render a presentational
+    component 
+
+```javascript
+import { createStore } from 'redux'
+
+function todos(state = [], action) {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return state.concat([ action.text ])
+    default:
+      return state
+  }}
+
+let store = createStore(todos, [ 'Use Redux' ])
+
+store.dispatch({
+  type: 'ADD_TODO',
+  text: 'Read the docs'})
+
+console.log(store.getState())// [ 'Use Redux', 'Read the docs' ]
+```
+	
+## Components
+
+Reusable Presentational Components
+Presentational components:
+
+prefer functions as oppossed to classes becuase youi can set props as argumentss instead of inside the render moethod. 
 
 
-using the React callback ref  API where ref is a function it gets the  node corresponding to the ref and I'm saving that node  in this case this.input so I'm able to  read the value of the input inside my event handler, I'm reading this.input.value and I'm also able to  reset that value after dispatching the action so that the field is cleared.
+```javascript
+const TodoList = () => (
+  <div>
+    <input type="text" />
+    <input type="btn" className="btn btn-primary" value="click"/>
+  </div>
+);
+```
+
+
+NOTE: did not work with brackets !!!! need parenthasiss.      
+and using a ref adds a minified exception!!!!
+Avoiding Array Mutations with concat(), slice(), and ...spread
+Instead of .push I'm going to use the  concat method which does not modify the array.
+const addCounter = (list) => {
+  return list.concat ([0]);
+};
+And I can also use the new ES6  spread operator to write the code in a more concise way:
+const addCounter = (list) => {
+  return [... list, 0];
+};
+const removeCounter = (list, index) => {
+  return list
+    . slice(0 , index)
+    . concat(list.slice (index+1 ));
+};
+Finally, instead of writing it as a method chain with  concat calls, I can use the ES6  spread operator to write it more concisely:
+const removeCounter = (list, index) => {
+  return [
+    ...list.slice (0, index),
+    ...list.slice (index + 1)
+  ];
+};
+
 
 ## Redux Thunk
 
