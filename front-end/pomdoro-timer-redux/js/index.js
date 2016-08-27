@@ -148,24 +148,6 @@ var breakTimeRemaining = function breakTimeRemaining() {
       return state;
   }
 };
-//FIXME delete don't need due to studyMinutes and breakMnutes which are static.
-var chosenMinutes = function chosenMinutes() {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? {
-    studyTime: 25,
-    breakTime: 5
-  } : arguments[0];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case 'START':
-      return Object.assign({}, state, {
-        studyTime: store.getState().studyMinutes,
-        breakTime: store.getState().breakMinutes
-      });
-    default:
-      return state;
-  }
-};
 var isRunning = function isRunning() {
   var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
   var action = arguments[1];
@@ -200,10 +182,9 @@ var Card_ = function (_React$Component) {
   }
 
   Card_.prototype.render = function render() {
-    var color = this.props.activeSession == "study" ? 'orange lighten-2' : 'yellow lighten-2';
     return React.createElement(
       'div',
-      { className: 'card-panel ' + color },
+      { className: 'card ' },
       React.createElement(Controller, null),
       React.createElement(Status, null)
     );
@@ -233,14 +214,14 @@ var Controller_ = function Controller_(_ref2) {
   var breakText = !!isRunning && activeSession === "break" ? breakTimeRemaining + ' seconds' : 'Break minutes: ' + breakMinutes;
   return React.createElement(
     'div',
-    { className: 'controller orange darken-1' },
+    { className: 'controller material-orange' },
     React.createElement(MusicButton, null),
     React.createElement(
       'div',
       { className: 'row' },
       React.createElement(
         'div',
-        { className: 'col sm 3' },
+        { className: 'col col-sm-3' },
         React.createElement(
           'h4',
           null,
@@ -264,8 +245,6 @@ var Controller_ = function Controller_(_ref2) {
           },
           '-'
         ),
-        React.createElement('br', null),
-        React.createElement('br', null),
         React.createElement(
           'h4',
           null,
@@ -287,9 +266,7 @@ var Controller_ = function Controller_(_ref2) {
           {
             onClick: changeTime.bind(undefined, 'break', -1) },
           '-'
-        ),
-        React.createElement('br', null),
-        React.createElement('br', null)
+        )
       )
     )
   );
@@ -319,7 +296,7 @@ var Button_ = function Button_(_ref3) {
   return React.createElement(
     'button',
     {
-      className: 'btn red lighten-1 waves-effect waves-light',
+      className: 'btn material-red',
       hidden: !!isTimerRunning ? true : false,
       onClick: function onClick(e) {
         e.preventDefault();
@@ -329,7 +306,6 @@ var Button_ = function Button_(_ref3) {
     children
   );
 };
-//FIXME!!!!!!!!!!!!!!11 button does not hide like other one works
 var mapStateToProps_button = function mapStateToProps_button(state) {
   return {
     isTimerRunning: state.isRunning
@@ -344,15 +320,13 @@ var Status_ = function Status_(_ref4) {
   var isRunning = _ref4.isRunning;
 
   var text = !!isRunning ? 'STOP' : 'START';
-  //TODO FIX COLOR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  var color = 'orange lighten-1';
   return React.createElement(
     'div',
     { className: 'row' },
     React.createElement(
       'button',
       {
-        className: 'btn startGame  ' + color,
+        className: 'btn startGame material-red',
         onClick: function onClick() {
           !isRunning ? store.dispatch(startTimer()) : store.dispatch(resetTimer());
           updateTimer();
@@ -376,24 +350,38 @@ var mapDispatchToProps_2 = function mapDispatchToProps_2(dispatch) {
   };
 };
 var Status = connect(mapStateToProps_status, mapDispatchToProps_2)(Status_);
-//TODO: Start musi automatically when clicking music button
+
 var MusicButton = function MusicButton() {
-  var playlist_url = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/45129349/favorites&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false';
   var openMusic = function openMusic() {
+    //music.toggle("swing");
     $("#music").toggle("swing");
   };
+
+  var playlist_url = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/45129349/favorites&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false';
+
   return React.createElement(
     'div',
-    { className: 'music-container' },
-    React.createElement('iframe', { className: 'music', id: 'music', width: '100%', hidden: true, height: '450', scrolling: 'no', frameborder: 'no', src: '' + playlist_url }),
+    null,
     React.createElement(
       'button',
-      { className: 'music-button btn-floating btn-large red darken-2', onClick: openMusic },
-      React.createElement(
-        'i',
-        { className: 'material-icons' },
-        'play_arrow'
-      )
+      { type: 'button',
+        className: 'btn music-button',
+        onClick: openMusic
+      },
+      'music'
+    ),
+    React.createElement(
+      'div',
+      { className: 'modal',
+        id: 'music'
+      },
+      React.createElement('iframe', { className: 'music',
+        width: '100%',
+        height: '450',
+        scrolling: 'no',
+        frameborder: 'no',
+        src: '' + playlist_url
+      })
     )
   );
 };
@@ -402,7 +390,6 @@ var app = combineReducers({
   studyMinutes: studyMinutes,
   breakMinutes: breakMinutes,
   isRunning: isRunning,
-  chosenMinutes: chosenMinutes,
   activeSession: activeSession,
   studyTimeRemaining: studyTimeRemaining,
   breakTimeRemaining: breakTimeRemaining
@@ -429,4 +416,7 @@ function resizeWindow() {
   $('#root').height(h);
   $('#root').width(w);
 }
+$(document).ready(function () {
+  $("#music").hide();
+});
 resizeWindow();
