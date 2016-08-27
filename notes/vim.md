@@ -4,12 +4,13 @@
 [cheat sheet](http://www.viemu.com/vi-vim-cheat-sheet.gif)  
 
 ## Quick Start
+#### new file:
 `vim hello-world.txt`
+#### insert text
 `i` to insert text while in file.  
-to quit file:  
-press `esc` then `:wq` to save file  
+#### to quit file:  
+press `esc` then `:wq [<name>]` to save file w/ optional filename  
 press `:q!` to quit without saves. 
-
 
 ## Pretty output
 

@@ -14,21 +14,26 @@ git remote add origin https://github.com/jchimienti89/helloWorld.git
 git push -u origin master
 ```
 
-##### push an existing repository from the command line
-```javascript
-git remote add origin https://github.com/jchimienti89/helloWorld.git
-git push -u origin master
-```
-  
+###  Branches
+Create new branch and cd into:
+`git checkout -b <name>  `   
+
+New Branch:  
+`Git branch <name>`  
+Switch to Branch:  
+`Git checkout <branch>`  
+
+** Be Careful**  It’s important to note that when you switch branches in Git, files in your working directory will change. If you switch to an older branch, your working directory will be reverted to look like it did the last time you committed on that branch. If Git cannot do it cleanly, it will not let you switch at all.
+
 #### Three States:  
   1. Committed 
     - data safely stored in local database  
-    2. Modified   
-    3. Staged 
+  2. Modified   
+  3. Staged 
       -  marked modified file to go into next commit snapshot  
 #### Initialize new Repository:
 ```javascript
-Git add -all adds files, removes files
+Git add -a adds files, removes files
 git add . // adds all files in dir (including newly created files)
 Git add -u // removes deleted files 
 
@@ -36,7 +41,7 @@ git commit -a -m “my message” // where a updates modified and deleted files 
 git push
 ```
 #### Clone Repository (work on other’s projects):
-`git clone [url] [renamed directory]`
+`git clone <url> [<renamed directory>]`
 
 `git status  –s[hort] // more readable output`
 
@@ -87,19 +92,6 @@ One of the more helpful options is -p, which shows the difference introduced in 
 
 
 
-###  Branches
-Create new branch and cd into:
-`git checkout -b <name>  `   
-
-New Branch:  
-`Git branch <name>`  
-Switch to Branch:  
-`Git checkout <branch>`  
-
-
-
-
-** Be Careful**  It’s important to note that when you switch branches in Git, files in your working directory will change. If you switch to an older branch, your working directory will be reverted to look like it did the last time you committed on that branch. If Git cannot do it cleanly, it will not let you switch at all.
 
 
 #### Rebasing
@@ -177,132 +169,132 @@ reset = revert w/o logging
 
    
 
-   Compare against unstaged:  
-   `git diff <file>`  
-     to compare against last commit:    
-     `git diff --staged |  --cached //(staged and cached are synonyms).`    
-     for colored output file:  
-     `git diff a.csv b.cs > date_compare.diff `  
-      
-      Be careful, because you can’t always undo some of these undos. This is one of the few areas in Git where you may lose some work if you do it wrong.
-       
-       To untrack every file that is now in your .gitignore:
-       First commit any outstanding code changes, and then, run this command:  
-       `git rm -r --cached .`  
-       This removes any changed files from the index(staging area), then just run:  
-       `git add .`  
-       Commit it:  
-       `git commit -m ".gitignore is now working"`  
-        
-	 **amending commits**  
-	 `git commit --amend`  
-	  example:  
-	  ```javascript
-	  git commit -m "post"
-	  git add forgottenFile.js
-	  git commit --amend
-	  ```
-	   
-	   `$ git rm log/\*.log`  
+Compare against unstaged:  
+`git diff <file>`  
+to compare against last commit:    
+`git diff --staged |  --cached //(staged and cached are synonyms).`    
+for colored output file:  
+`git diff a.csv b.cs > date_compare.diff `  
 
-	   Note the backslash (\) in front of the *. This is necessary because Git does its own filename expansion in addition to your shell’s filename expansion. This command removes all files that have the .log extension in the log/ directory. Or, you can do something like this:
-	    
-	    `$ git rm \*~`  
-	    This command removes all files whose names end with a ~.  
+Be careful, because you can’t always undo some of these undos. This is one of the few areas in Git where you may lose some work if you do it wrong.
 
-	    #### move / rename files
-	     
-	     `git mv file_from file_to`
+To untrack every file that is now in your .gitignore:
+First commit any outstanding code changes, and then, run this command:  
+`git rm -r --cached .`  
+This removes any changed files from the index(staging area), then just run:  
+`git add .`  
+Commit it:  
+`git commit -m ".gitignore is now working"`  
 
-	     #### Tagging 
-	     can merge files via tags and generally easier to work with.  
-	     ** sharing tags **    
-	     Note: git push doesn’t transfer tags and will have to explicitly push tags. Run:  
-	     `git push origin [tagname] git push origin --tags`  
-	     **displaying tags**  
-	     `git show v1.4`  
+**amending commits**  
+`git commit --amend`  
+example:  
+```javascript
+git commit -m "post"
+git add forgottenFile.js
+git commit --amend
+```
 
+`$ git rm log/\*.log`  
 
-	     ```javascript
-	     // mark a commit with a tag
-	     $ git tag v4 
-	     // switch to master branch and merge via tag
-	     $ git checkout master 
-	     $ git merge v4
-	     ```
+Note the backslash (\) in front of the *. This is necessary because Git does its own filename expansion in addition to your shell’s filename expansion. This command removes all files that have the .log extension in the log/ directory. Or, you can do something like this:
 
-	     ```javascript
-	     $ git tag -a v1.4 -m "my version 1.4"
-	     $ git tag // list of all tags 
-	     v0.1
-	     v1.3
-	     V1.4
-	     ```
-	     ##### Aborting merge:
-	     `git merge --abort`  
+`$ git rm \*~`  
+This command removes all files whose names end with a ~.  
+
+#### move / rename files
+
+`git mv file_from file_to`
+
+#### Tagging 
+can merge files via tags and generally easier to work with.  
+** sharing tags **    
+Note: git push doesn’t transfer tags and will have to explicitly push tags. Run:  
+`git push origin [tagname] git push origin --tags`  
+**displaying tags**  
+`git show v1.4`  
 
 
-	     ####cat:
-	     [use of cat command](http://www.cyberciti.biz/faq/howto-use-cat-command-in-unix-linux-shell-script/)  
-	      
-	      It can be used for the following purposes under UNIX or Linux:  
+```javascript
+// mark a commit with a tag
+$ git tag v4 
+// switch to master branch and merge via tag
+$ git checkout master 
+$ git merge v4
+```
 
-	      1. Display text files on screen
-	      1. Copy text files.
-	      1. Combine text files.
-	      1. Create new text files.
-	       
-
-	       ##### Concatenate files
-	       ```javascript
-	       cat filename
-	       cat options filename
-	       cat file1 file2
-	       cat file1 file2 > newcombinedfile
-	       ```
-	        
-		 
-		 #### Aliases
-
-		  you can easily set up an alias for each command using git config.Here are a couple of examples you may want to set up:
-		  ```javascript
-		  $ git config --global alias.co checkout
-		  $ git config --global alias.br branch
-		  $ git config --global alias.ci commit
-		  $ git config --global alias.st status
-		  ```
+```javascript
+$ git tag -a v1.4 -m "my version 1.4"
+$ git tag // list of all tags 
+v0.1
+v1.3
+V1.4
+```
+##### Aborting merge:
+`git merge --abort`  
 
 
-		  	
-			#### Globals and misc tips
-			On a x86 system
-			```javascript
-			$ git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -nosession"
-			On a x64 system
-			$ git config --global core.editor "'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -nosession"
-			```
-			 
-			  Don’t type your password every time
+#### cat:
+[use of cat command](http://www.cyberciti.biz/faq/howto-use-cat-command-in-unix-linux-shell-script/)  
 
-			  `git config --global credential.helper cache`
+It can be used for the following purposes under UNIX or Linux:  
+
+1. Display text files on screen
+1. Copy text files.
+1. Combine text files.
+1. Create new text files.
 
 
-			  ##### Check Settings:
-			   
-			   `git config --list`
-			   ##### your name and email address
-			   ```javascript
+##### Concatenate files
+```javascript
+cat filename
+cat options filename
+cat file1 file2
+cat file1 file2 > newcombinedfile
+```
 
-			   $ git config --global user.name "Alvin Alexander"
-			   $ git config --global user.email YOUR-EMAIL-ADDRESS
-			   ```
-			   ##### more optional git config stuff
-			   ```javascript
-			   $ git config --global core.editor vim
-			   $ git config --global merge.tool vimdiff
-			   `git remote add origin <url>`
 
-			   ```
+#### Aliases
+
+you can easily set up an alias for each command using git config.Here are a couple of examples you may want to set up:
+```javascript
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+```
+
+
+
+#### Globals and misc tips
+On a x86 system
+```javascript
+$ git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -nosession"
+On a x64 system
+$ git config --global core.editor "'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -nosession"
+```
+
+Don’t type your password every time
+
+`git config --global credential.helper cache`
+
+
+##### Check Settings:
+
+`git config --list`
+##### your name and email address
+```javascript
+
+$ git config --global user.name "Alvin Alexander"
+$ git config --global user.email YOUR-EMAIL-ADDRESS
+```
+##### more optional git config stuff
+```javascript
+$ git config --global core.editor vim
+$ git config --global merge.tool vimdiff
+`git remote add origin <url>`
+
+```
 
 
 
