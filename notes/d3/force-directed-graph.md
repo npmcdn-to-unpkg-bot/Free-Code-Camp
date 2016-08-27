@@ -1,6 +1,6 @@
 ## Force Directed Graph
 ```javascript
-var simulation = de.forceSimulation()
+var simulation = d3.forceSimulation()
   .force('link', d3.forceLink().id(function(d){ return d.id; }))
   .force('charge', d3.forceManyBody())
   .force('center', d3.foreCenter(width / 2, height / 2));
