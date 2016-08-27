@@ -1,0 +1,99 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  color: #212121;
+  background-color: #FFFFFF;
+  opacity: 0.87;
+}
+
+nav {
+  background-color: #4CAF50;
+  letter-spacing: 20px;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+table {
+  width: 350px;
+  height: 350px;
+  margin: 0 auto;
+  margin-top: 5px;
+}
+
+.card {
+  pointer: cursor;
+  float: left;
+  display: block;
+  padding-bottom: 33.33333%;
+  width: 33.33333%;
+  height: 0;
+  text-align: center;
+  font-size: 4.5em;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  background: #4CAF50;
+}
+
+button {
+  background: #00bcd4;
+}
+
+#msg {
+  position: fixed;
+  bottom: 0;
+  background: #333;
+  color: white;
+  height: 75px;
+  width: 100%;
+  font-size: 2em;
+}
+
+#overlay-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  z-index: 5;
+  display: none;
+}
+
+#overlay {
+  z-index: 99;
+  display: none;
+  position: absolute;
+  top: 200px;
+  margin: 0 auto;
+  float: center;
+}
+
+.choosePiece {
+  text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  #msg {
+    position: fixed;
+    margin-top: 80px;
+    clear: none;
+    float: right;
+    bottom: 0;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  .game-controller {
+    position: relative;
+    margin-top: 50px;
+  }
+
+  #startGame {
+    width: 100%;
+  }
+}

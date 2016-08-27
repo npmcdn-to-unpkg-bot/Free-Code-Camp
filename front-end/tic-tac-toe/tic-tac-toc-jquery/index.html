@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe  javasript and jquery</title>
+    
+
+
+    
+    
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css'>
+
+        <link rel="stylesheet" href="css/style.css">
+
+    
+    
+    
+  </head>
+
+  <body>
+
+    <a href="#modal1" class="btn" id="startGame">Play</a>
+<br>
+<table>
+  <tr class="row ">
+    <td class="card" data-location="0">
+    </td>
+    <td class="card" data-location="1">
+    </td>
+    <td class="card" data-location="2">
+    </td>
+  </tr>
+  <tr class="row">
+    <td class="card" data-location="3">
+    </td>
+    <td class="card" data-location="4">
+    </td>
+    <td class="card" data-location="5">
+    </td>
+  </tr>
+  <tr class="row">
+    <td class="card" data-location="6">
+    </td>
+    <td class="card" data-location="7">
+    </td>
+    <td class="card" data-location="8">
+    </td>
+  </tr>
+  <table>
+    <div id="msg" hidden>
+    </div>
+    <div class="container game-controller">
+      <a class="" title="Show Game Data" id="gameDataButton">
+        <i class="material-icons">account_circle</i> Player History
+      </a>
+      <br>
+    </div>
+    <div class="playerHistory" hidden>
+      <div>Wins <span class="wins"></span></div>
+      <div>Losses <span class="losses"></span></div>
+      <div>Ties <span class="ties"></span></div>
+      <div>Games <span class="numberGames"></span></div>
+    </div>
+    <div class="choosePiece" id="overlay-back">
+      <div id="overlay">
+      <h4>Choose Wisely</h4>
+      <button class="btn btn-O blue O">O</button>
+      <button class="btn btn-X red X">X</button>
+      </div>
+    </div>
+    </body>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+<script src='https://d3js.org/d3-queue.v2.min.js'></script>
+
+        <script src="js/index.js"></script>
+
+    
+    
+    
+  </body>
+</html>
