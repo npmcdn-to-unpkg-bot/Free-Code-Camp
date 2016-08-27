@@ -1,4 +1,3 @@
-
 const {
   connect,
   Provider
@@ -154,7 +153,7 @@ class Card_ extends React.Component {
   }
   render() {
      return (
-      <div className={'card '}>
+      <div className={'card material-orange-light'}>
           <Controller />
         <Status />
         </div>
@@ -181,21 +180,21 @@ const Controller_ = ({
   let studyText = !!isRunning && activeSession === 'study' ? `${studyTimeRemaining} seconds` : `Study minutes: ${studyMinutes}`;
   let breakText = !!isRunning && activeSession === "break" ? `${breakTimeRemaining} seconds` : `Break minutes: ${breakMinutes}`;
   return (
-    <div className="controller material-orange">
+    <div className="container-fluid material-orange">
                   <MusicButton/>
       <div className="row">
         <div className="col col-sm-3">
                     <h4>{studyText}</h4>
           <Button onClick
         onClick={changeTime.bind(this, 'study', 1)}
-      ><i className="material-icons">add</i></Button>
+      >+</Button>
       <Button  
         onClick={changeTime.bind(this, 'study', -1)} 
       >-</Button>
             <h4>{breakText}</h4>
       <Button 
 
-        onClick={changeTime.bind(this, 'break', 1)}><i className="material-icons">add</i></Button>
+        onClick={changeTime.bind(this, 'break', 1)}>+</Button>
       <Button
         onClick={changeTime.bind(this, 'break', -1)} >-</Button>
         </div>
@@ -274,37 +273,45 @@ const Status = connect(mapStateToProps_status, mapDispatchToProps_2)(Status_);
 
 
 const MusicButton = () =>{
-const openMusic = () => {
-    //music.toggle("swing");
-  $("#music").toggle("swing")
-  }
+
 
     var playlist_url = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/45129349/favorites&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false';
  
   return(
     <div>
+
      <button type="button" 
        className="btn music-button"
-       onClick={openMusic}
+       data-toggle="modal" 
+       data-target="#music"
        >
-     music</button>
-      <div className="modal"
-                        id="music" 
+<i className="material-icons">play_arrow</i>
+      </button>
+      <div className="modal fade"
+           id="music" 
         >
+                <div className="modal-body">
               <iframe className="music" 
                 width="100%" 
-                height="450" 
                 scrolling="no" 
                 frameborder="no" 
                 src={`${playlist_url}`}
                 ></iframe>
+            </div>
       </div>
     </div>
     
    );
 }
   
-
+const Header = () =>(
+  <div className="container-fluid title">
+   <img 
+     className="cols-xs-12"
+     src="http://fontmeme.com/embed.php?text=Pomdoro%20Timer&name=True Lies.ttf&size=100&style_color=15155E" 
+     alt="Pomdoro Timer"/>
+    </div>
+);
 
 const app = combineReducers({
   studyMinutes,
@@ -322,11 +329,17 @@ const rootReducer = (state, action) => {
   return app(state, action);
 
 }
-
+const App = () =>(
+<div>
+  <Header/>
+  <Card/>
+  </div>
+  
+)
 let store = createStore(rootReducer, '', window.devToolsExtension ? window.devToolsExtension() : undefined);
 ReactDOM.render(
   <Provider store={store}>
-      <Card />
+      <App />
     </Provider>,
   document.getElementById('root')
 );
@@ -338,8 +351,6 @@ function resizeWindow(){
   $('#root').height(h);
   $('#root').width(w);
 }
-$(document).ready(function(){
-  $("#music").hide();
-});
+
 resizeWindow();
 

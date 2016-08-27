@@ -1,4 +1,4 @@
-html, body {
+html, body, .row {
   background: material-color(orange);
 }
 
@@ -17,8 +17,8 @@ iframe, .music-button {
   bottom: 24px;
   right: 50px;
   border-radius: 100%;
-  height: 48px;
-  width: 48px;
+  height: 85px;
+  width: 85px;
   background: material-color(red, 500);
   color: white;
   text-align: center;
@@ -27,12 +27,42 @@ iframe, .music-button {
   opacity: 0.6;
 }
 
+#music {
+  padding-top: 40px;
+}
+
+iframe {
+  height: 450px;
+  max-height: 80%;
+}
+
+.title {
+  float: none;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title img {
+  max-width: 100%;
+  max-height: 30%;
+}
+
+.startGame {
+  margin: 0 auto;
+  float: none;
+  margin-top: 30px;
+}
+
 .material-red {
   background: material-color(red);
 }
 
 .material-orange {
   background: material-color(orange, 700);
+}
+
+.material-orange-light {
+  background: material-color(orange, 300);
 }
 
 .material-yellow {

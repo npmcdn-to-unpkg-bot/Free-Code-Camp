@@ -184,7 +184,7 @@ var Card_ = function (_React$Component) {
   Card_.prototype.render = function render() {
     return React.createElement(
       'div',
-      { className: 'card ' },
+      { className: 'card material-orange-light' },
       React.createElement(Controller, null),
       React.createElement(Status, null)
     );
@@ -214,7 +214,7 @@ var Controller_ = function Controller_(_ref2) {
   var breakText = !!isRunning && activeSession === "break" ? breakTimeRemaining + ' seconds' : 'Break minutes: ' + breakMinutes;
   return React.createElement(
     'div',
-    { className: 'controller material-orange' },
+    { className: 'container-fluid material-orange' },
     React.createElement(MusicButton, null),
     React.createElement(
       'div',
@@ -232,11 +232,7 @@ var Controller_ = function Controller_(_ref2) {
           { onClick: true,
             onClick: changeTime.bind(undefined, 'study', 1)
           },
-          React.createElement(
-            'i',
-            { className: 'material-icons' },
-            'add'
-          )
+          '+'
         ),
         React.createElement(
           Button,
@@ -255,11 +251,7 @@ var Controller_ = function Controller_(_ref2) {
           {
 
             onClick: changeTime.bind(undefined, 'break', 1) },
-          React.createElement(
-            'i',
-            { className: 'material-icons' },
-            'add'
-          )
+          '+'
         ),
         React.createElement(
           Button,
@@ -352,10 +344,6 @@ var mapDispatchToProps_2 = function mapDispatchToProps_2(dispatch) {
 var Status = connect(mapStateToProps_status, mapDispatchToProps_2)(Status_);
 
 var MusicButton = function MusicButton() {
-  var openMusic = function openMusic() {
-    //music.toggle("swing");
-    $("#music").toggle("swing");
-  };
 
   var playlist_url = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/45129349/favorites&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false';
 
@@ -366,23 +354,42 @@ var MusicButton = function MusicButton() {
       'button',
       { type: 'button',
         className: 'btn music-button',
-        onClick: openMusic
+        'data-toggle': 'modal',
+        'data-target': '#music'
       },
-      'music'
+      React.createElement(
+        'i',
+        { className: 'material-icons' },
+        'play_arrow'
+      )
     ),
     React.createElement(
       'div',
-      { className: 'modal',
+      { className: 'modal fade',
         id: 'music'
       },
-      React.createElement('iframe', { className: 'music',
-        width: '100%',
-        height: '450',
-        scrolling: 'no',
-        frameborder: 'no',
-        src: '' + playlist_url
-      })
+      React.createElement(
+        'div',
+        { className: 'modal-body' },
+        React.createElement('iframe', { className: 'music',
+          width: '100%',
+          scrolling: 'no',
+          frameborder: 'no',
+          src: '' + playlist_url
+        })
+      )
     )
+  );
+};
+
+var Header = function Header() {
+  return React.createElement(
+    'div',
+    { className: 'container-fluid title' },
+    React.createElement('img', {
+      className: 'cols-xs-12',
+      src: 'http://fontmeme.com/embed.php?text=Pomdoro%20Timer&name=True Lies.ttf&size=100&style_color=15155E',
+      alt: 'Pomdoro Timer' })
   );
 };
 
@@ -401,12 +408,19 @@ var rootReducer = function rootReducer(state, action) {
   }
   return app(state, action);
 };
-
+var App = function App() {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(Header, null),
+    React.createElement(Card, null)
+  );
+};
 var store = createStore(rootReducer, '', window.devToolsExtension ? window.devToolsExtension() : undefined);
 ReactDOM.render(React.createElement(
   Provider,
   { store: store },
-  React.createElement(Card, null)
+  React.createElement(App, null)
 ), document.getElementById('root'));
 window.onresize = resizeWindow;
 function resizeWindow() {
@@ -416,7 +430,5 @@ function resizeWindow() {
   $('#root').height(h);
   $('#root').width(w);
 }
-$(document).ready(function () {
-  $("#music").hide();
-});
+
 resizeWindow();
