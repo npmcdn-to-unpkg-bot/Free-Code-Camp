@@ -30,4 +30,7 @@ heroku local will automatically set up the env based on the contents of the `.en
 to view the config vars:
 `heroku config`
 ### Provision a Database
+### TIPS
+delete all heroku apps from bash terminal:
+`for app in $(heroku apps); do heroku apps:destroy --app $app --confirm $app; done`
 
