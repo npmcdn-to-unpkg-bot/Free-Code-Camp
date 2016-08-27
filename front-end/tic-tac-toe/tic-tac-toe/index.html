@@ -10,6 +10,8 @@
     
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css'>
+<link rel='stylesheet prefetch' href='css/rrxppg.css'>
+<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans|Roboto'>
 
         <link rel="stylesheet" href="css/style.css">
 
@@ -20,9 +22,20 @@
 
   <body>
 
-    <body>
+    <!--
+##Layout
+- Game Board
+- Player Game History Model 
+- Game Token Model
+- Msg
+-->
+
+<body>
   <div class="container">
     <div class="row">
+      <!--
+Game Board
+-->
       <table class="col col-xs-10 col-sm-8 col-md-6" id="table">
         <tr class="row">
           <td class="card col col-xs-4" data-location="0">
@@ -51,37 +64,51 @@
       </table>
     </div>
   </div>
-    <button type="button" id="gameDataButton" class="btn btn-info" data-toggle="modal" data-target=".playerHistory">
+  <button type="button" id="gameDataButton" class="btn" data-toggle="modal" data-target=".playerHistory">
       <i class="material-icons">account_circle</i>
+      <!-- glyphicon glyphicon-user -->
     </button>
+  <!--
+Player Game History Model 
+  for: stores local storage information and updates for every game played. 
+-->
+  <div class="playerHistory modal modal-sm fade">
+    <div class="modal-header">
+      <h3>Player Game History</h3>
+    </div>
+    <div class="modal-content">
+      <div>Wins: <span class="wins"></span></div>
+      <div>Losses: <span class="losses"></span></div>
+      <div>Ties: <span class="ties"></span></div>
+      <div>Games: <span class="numberGames"></span></div>
+    </div>
+  </div>
+  </div>
 
-  <div class="playerHistory modal fade" role="dialog" aria-labelledby="smallModal" aria-hidden="false">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div>Wins <span class="wins"></span></div>
-        <div>Losses <span class="losses"></span></div>
-        <div>Ties <span class="ties"></span></div>
-        <div>Games <span class="numberGames"></span></div>
+
+  <!--
+Game Token Model
+  for: Choosing Game Token
+-->
+  <div class="modal hide fade" id="choose-modal">
+    <div class="modal-header">
+      <h1>Choose Wisely</h1>
+      <a class="close" data-dismiss="modal">x</a>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <button class="btn O col-xs-6 col-sm-3" data-dismiss="modal">O</button>
+        <button class="btn X col-xs-6 col-sm-3" data-dismiss="modal">X</button>
       </div>
     </div>
   </div>
-
-
-
-<div class="modal hide fade" id="choose-modal">
-  <div class="modal-header">
-        <h3>Choose Wisely</h3>
-    <a class="close" data-dismiss="modal">x</a>
   </div>
-  <div class="modal-body">
-        <button class="btn O" data-dismiss="modal">O</button>
-        <button class="btn X" data-dismiss="modal">X</button>
-  </div>
-  </div>
-
+  <!--
+Msg
+  for: Displays Game Information to Client
+-->
   <div id="msg">
   </div>
-
 </body>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js'></script>

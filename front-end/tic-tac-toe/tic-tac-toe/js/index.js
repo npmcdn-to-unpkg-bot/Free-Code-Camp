@@ -1,4 +1,3 @@
-//FIXME: MESSAGE
 var turn, winningPlayer, choice, firstPlayer;
 var computerPiece, $placement, playerPieces;
 var myGameData = (typeof localStorage["gamedata"] !== "undefined") ? JSON.parse(localStorage["gamedata"]) : {
@@ -23,18 +22,21 @@ var model = {
 
 function showMessage(message) {
   const msg = $('#msg');
+
   function transIn() {
-    msg.fadeIn();
-    msg.text(message)
+    msg.fadeIn()
+      .text(message)
   }
+
   function transOut() {
     msg.text('')
-    msg.fadeOut();
+      .fadeOut();
   }
   transIn();
   setTimeout(transOut, 1200);
 }
 window.onload = whoGoesFirst;
+
 function whoGoesFirst() {
   function choosePiece() {
     $('.O').click(function() {
@@ -46,6 +48,7 @@ function whoGoesFirst() {
       determineFirstPlayer();
     });
   }
+
   function determineFirstPlayer() {
     $("#startGame").css('display', 'none');
     if (choice === "O") {
@@ -224,9 +227,11 @@ function computerPlay() {
 //TODO ADD LOSSES AND WINS TO LOCAL STORAGE
 function resets() {
   $('td').css('color', 'black');
+
   function resetWinningPlayer() {
     return winningPlayer = null;
   }
+
   function clearBoard() {
     model.board = ["", "", "", "", "", "", "", "", ""];
     model.win = false;
@@ -266,6 +271,6 @@ function resets() {
   }
   resetWinningPlayer();
 }
-$(window).load(function(){
+$(window).load(function() {
   $('#choose-modal').modal('show');
 });
