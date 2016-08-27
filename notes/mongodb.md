@@ -18,7 +18,7 @@ MongoClient.connect('link-to-mongodb', (err, database) => {
 
  Most people store their databases on cloud services like MongoLab. We’re going to do same as well.
 
-```javascript
+
 MongoClient.connect('your-mongodb-url', (err, database) => {
   // ... do something here
 })
