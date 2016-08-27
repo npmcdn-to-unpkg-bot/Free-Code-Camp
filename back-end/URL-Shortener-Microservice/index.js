@@ -2,14 +2,14 @@ var mongo = require('mongodb').MongoClient,
 	express = require('express'),
 	app = express(),
 	path = require('path'),
-	port = process.env.PORT || 31915,
-	username = require('./config.js').username,
-	password = require('./config.js').password,
+	port = process.env.PORT || 5000,
+	username = process.env.USERNAME,//require('./config.js').username,//process.env.username,
+	password = process.env.PASSWORD,//require('./config.js').password,//process.env.password,
 	shorten = require('./shortenUrl.js'),
 	coll, 
 	 db;
 app.use(express.static(path.join(__dirname, 'public')));
-mongo.connect('mongodb://' + username + ':' + password + '@ds031915.mlab.com:31915/hello-world',
+mongo.connect('mongodb://' + "joechimienti" + ':' + "Freewill89!" + '@ds031915.mlab.com:31915/hello-world',
    function(err, database){
 		if (err) throw err;
 		db = database;
