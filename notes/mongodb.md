@@ -2,7 +2,7 @@
 
 saves on documents so if you can save inforation on one sheet of page then mongoose is a good fit.
 
-Take an example w/ bank accounts w/ shared accounts. This brings problems w/ mongo db database. Mongo works best with a 1:1 model. The information is stored in a big ball called collections.
+Take an example w/ bank accounts w/ shared accounts. This brings problems w/ mongo db database without 1:n model. The information is stored in a big ball called collections.
 
 ### GET STARTED:
 # TODO DIFFERENCE B/W mongod, mongoose, mongodb
@@ -123,13 +123,11 @@ descending: { age: -1 }
 
 #### chaining
 
-```javascript
 
-db.users.find().count()
-```
+`db.users.find().count()`
 
 The second parameter, update, tells MongoDB what to do with the update request. It uses MongoDB’s update operators like $set, $inc and $push. We will use the $set operator since we’re changing Yoda’s quotes into Darth Vadar’s quotes:
-
+```javascript
 {
 
   $set: {
@@ -137,11 +135,11 @@ The second parameter, update, tells MongoDB what to do with the update request. 
     quote: req.body.quote
   }
 }
-
+```
 The third parameter, options, is an optional parameter that allows you to define additional stuff. Since we’re looking for the last quote by Yoda, we will set sort within options to {_id: -1}.
 
 We can force it to create a new entry if we set the upsert option, which means insert (or save) if no entries are found, to true:
-
+```javascript
 {
 
   sort: {_id: -1},
@@ -165,9 +163,9 @@ app.put('/quotes', (req, res) => {
 
   })
 })
-
+```
 The proper way to check if fetch resolved successfully is to use the okmethod on the response object. You can then return res.json() if you want to read the data that was sent from the server:
-
+```javascript
 fetch({ /* request */ })
 
 .then(res => {
@@ -180,7 +178,7 @@ fetch({ /* request */ })
 
   console.log(data)
 })
-
+```
 ## Schemas
 A schema is just a representation of your data in MongoDB. This is where you can enforce a certain field to be of particular type. A field can also be required, unique or contain only specified characters.
 
