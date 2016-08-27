@@ -26,11 +26,9 @@ Switch to Branch:
 ** Be Careful**  It’s important to note that when you switch branches in Git, files in your working directory will change. If you switch to an older branch, your working directory will be reverted to look like it did the last time you committed on that branch. If Git cannot do it cleanly, it will not let you switch at all.
 
 #### Three States:  
-  1. Committed 
-    - data safely stored in local database  
+  1. Committed - data safely stored in local database  
   2. Modified   
-  3. Staged 
-      -  marked modified file to go into next commit snapshot  
+  3. Staged -  marked modified file to go into next commit snapshot  
 #### Initialize new Repository:
 ```javascript
 Git add -a adds files, removes files
