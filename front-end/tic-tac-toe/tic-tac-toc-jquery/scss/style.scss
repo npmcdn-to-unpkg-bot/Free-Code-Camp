@@ -14,37 +14,27 @@ body {
   background-color: $primary-color-text;
   opacity: 0.87;
 }
-
-nav {
-  background-color: $primary-color;
-  letter-spacing: 20px;
-  padding-left: 5%;
-  padding-right: 5%;
-}
-
-table {
-  width: 350px;
-  height: 350px;
+#table{
+  position: relative;
+top: 10%;
+  float: none;
   margin: 0 auto;
-  margin-top: 5px;
+  margin-top: 15px;
 }
-
 .card {
   pointer: cursor;
-  float: left; //w/o block need float left
-  display: block; //inline-block creats space b/w rows
+  //float: left; //w/o block need float left
+  //display: block; //inline-block creats space b/w rows
   padding-bottom: (1/3)*100%;
-  width: (100%/3);
+  //width: (100%/3);
   height: 0;
   text-align: center;
   font-size: 4.5em;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+  margin-top: 0;
+  margin-bottom: 0;
   background: $primary-color;
 }
-button{
-  background: $accent-color;
-}
+
 #msg {
   position: fixed;
   bottom: 0;
@@ -54,47 +44,19 @@ button{
   width: 100%;
   font-size: 2em;
 }
-#overlay-back{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  opacity: 0.6;
-  filter: alpha(opacity=60);
-  z-index: 5;
-  display: none;
+#gameDataButton{
+  position: fixed;
+  right: 45px;
+  bottom: 75px;
+  height: 36;
+  width: 36;
+  border-radius: 100%;
+  z-depth: 5;
+  box-shadow: 0 3px 0 0 #007299;
 }
-#overlay{
-  z-index: 99;
-  display: none;
-  position: absolute;
-  top: 200px;
-  margin: 0 auto;
-  float: center;
-}
-.choosePiece{
-  text-align: center;
-}
-@media only screen and (max-width: 600px) {
-
-   #msg {
-    position: fixed;
-    margin-top: 80px;
-    clear: none;
-    float: right;
-    bottom: 0;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    width: 100%;
+@media screen and(max-width: 600px){
+  .card{
+    font-size: 2.5em;
   }
-  .game-controller {
-    position: relative;
-   margin-top: 50px;
-  }
-  #startGame {
-    width: 100%;
-  }
+ 
 }

@@ -21,45 +21,33 @@ var model = {
   ]
 };
 
-function showMessage(msg) {
-  const view = d3.select('#msg');
+function showMessage(message) {
+  const msg = $('#msg');
   function transIn() {
-    $('#msg').toggle();
-    view.style('opacity', 0.8);
-    view.transition()
-      .duration(4000)
-      .text(msg);
+    msg.fadeIn();
+    msg.text(message)
   }
-
   function transOut() {
-    console.log('transout')
-    view.transition()
-      .duration(1200)
-      .text('')
-      .style('opacity', 1e-6);
-    $('#msg').toggle();
+    msg.text('')
+    msg.fadeOut();
   }
   transIn();
   setTimeout(transOut, 1200);
 }
-var startGame = document.getElementById('startGame');
-startGame.onclick = whoGoesFirst;
-
+window.onload = whoGoesFirst;
 function whoGoesFirst() {
   function choosePiece() {
-    $("#overlay, #overlay-back").fadeIn(500);
-      $('.O').click(function() {
-        choice = 'O'
-        determineFirstPlayer();
-        $("#overlay, #overlay-back").fadeOut(500);
-      });
-      $('.X').click(function() {
-        choice = 'X';
-        determineFirstPlayer();
-        $("#overlay, #overlay-back").fadeOut(500);
-      });
-    }
+    $('.O').click(function() {
+      choice = 'O'
+      determineFirstPlayer();
+    });
+    $('.X').click(function() {
+      choice = 'X';
+      determineFirstPlayer();
+    });
+  }
   function determineFirstPlayer() {
+    $("#startGame").css('display', 'none');
     if (choice === "O") {
       setComputerPiece();
       turn = "player";
@@ -67,17 +55,13 @@ function whoGoesFirst() {
     } else {
       setComputerPiece();
       showMessage("Computer Goes First")
-            turn = "computer";
-
+      turn = "computer";
       computerPlay()
     }
-    startGame.style.visibility = "hidden";
-   // $('.choosePiece').toggle();
   }
-choosePiece();
+  choosePiece();
 }
 $(document).ready(function() {
-  $("#floating-button").click(whoGoesFirst);
   //FIXME!!
   $(".numberGames").text(myGameData.numGames);
   $(".losses").text(myGameData.losses);
@@ -119,11 +103,10 @@ function setNextPlayer() {
 }
 //todo look at choice v ooo
 function checkWin() {
-  var wins = false;
+  var tie = false;
   for (i in model.wins) {
     var pattern = model.wins[i];
     var player = model.board[pattern[0]] + model.board[pattern[1]] + model.board[pattern[2]];
-    //console.log('checkwin function player var which checks model boardd \n' + player)
     if (player == choice + choice + choice) {
       winningPlayer = "player";
       myGameData.wins++;
@@ -141,12 +124,12 @@ function checkWin() {
     }
   }
   //alert tie game
-  wins = model.board.every(function(item, index) {
+  tie = model.board.every(function(item, index) {
     if (!!item) {
       return true;
     }
   });
-  if (wins) {
+  if (tie) {
     myGameData.ties++;
     $("#ties").html("Ties: " + myGameData.ties);
     setTimeout(resets, 750);
@@ -238,15 +221,12 @@ function computerPlay() {
     return;
   }
 }
-
 //TODO ADD LOSSES AND WINS TO LOCAL STORAGE
 function resets() {
   $('td').css('color', 'black');
-
   function resetWinningPlayer() {
     return winningPlayer = null;
   }
-
   function clearBoard() {
     model.board = ["", "", "", "", "", "", "", "", ""];
     model.win = false;
@@ -259,16 +239,16 @@ function resets() {
   localStorage.setItem("gamedata", JSON.stringify(myGameData));
   if (winningPlayer === "player") {
     turn = "player";
-    showMessage("You Won Mo Fucka!")
+    showMessage("You Won Mo Fucka! Go First")
     return;
   } else if (winningPlayer === "computer") {
     turn = "computer";
-    showMessage("Computer Won!")
-          clearBoard()
-    setTimeout(function(){
-    computerPlay()
-    },2000)
-    
+    showMessage("Computer Won and will go First!")
+    clearBoard()
+    setTimeout(function() {
+      computerPlay()
+    }, 2000)
+
     return;
   }
   //if tie game
@@ -286,3 +266,6 @@ function resets() {
   }
   resetWinningPlayer();
 }
+$(window).load(function(){
+  $('#choose-modal').modal('show');
+});
