@@ -184,7 +184,7 @@ var Card_ = function (_React$Component) {
   Card_.prototype.render = function render() {
     return React.createElement(
       'div',
-      { className: 'card material-orange-light' },
+      { className: 'container' },
       React.createElement(Controller, null),
       React.createElement(Status, null)
     );
@@ -210,8 +210,8 @@ var Controller_ = function Controller_(_ref2) {
   var isRunning = _ref2.isRunning;
   var activeSession = _ref2.activeSession;
 
-  var studyText = !!isRunning && activeSession === 'study' ? studyTimeRemaining + ' seconds' : 'Study minutes: ' + studyMinutes;
-  var breakText = !!isRunning && activeSession === "break" ? breakTimeRemaining + ' seconds' : 'Break minutes: ' + breakMinutes;
+  var studyText = !!isRunning && activeSession === 'study' ? studyTimeRemaining + ' seconds' : 'Study: ' + studyMinutes + ' minutes';
+  var breakText = !!isRunning && activeSession === "break" ? breakTimeRemaining + ' seconds' : 'Break: ' + breakMinutes + ' minutes';
   return React.createElement(
     'div',
     { className: 'container-fluid material-orange' },
@@ -220,45 +220,42 @@ var Controller_ = function Controller_(_ref2) {
       'div',
       { className: 'row' },
       React.createElement(
-        'div',
-        { className: 'col col-sm-3' },
-        React.createElement(
-          'h4',
-          null,
-          studyText
-        ),
-        React.createElement(
-          Button,
-          { onClick: true,
-            onClick: changeTime.bind(undefined, 'study', 1)
-          },
-          '+'
-        ),
-        React.createElement(
-          Button,
-          {
-            onClick: changeTime.bind(undefined, 'study', -1)
-          },
-          '-'
-        ),
-        React.createElement(
-          'h4',
-          null,
-          breakText
-        ),
-        React.createElement(
-          Button,
-          {
+        Button,
+        { onClick: true,
+          onClick: changeTime.bind(undefined, 'study', 1)
+        },
+        '+'
+      ),
+      React.createElement(
+        Button,
+        {
+          onClick: changeTime.bind(undefined, 'study', -1)
+        },
+        '-'
+      ),
+      React.createElement(
+        'span',
+        null,
+        studyText
+      ),
+      React.createElement('br', null),
+      React.createElement(
+        Button,
+        {
 
-            onClick: changeTime.bind(undefined, 'break', 1) },
-          '+'
-        ),
-        React.createElement(
-          Button,
-          {
-            onClick: changeTime.bind(undefined, 'break', -1) },
-          '-'
-        )
+          onClick: changeTime.bind(undefined, 'break', 1) },
+        '+'
+      ),
+      React.createElement(
+        Button,
+        {
+          onClick: changeTime.bind(undefined, 'break', -1) },
+        '-'
+      ),
+      React.createElement(
+        'span',
+        null,
+        breakText
       )
     )
   );
@@ -314,7 +311,7 @@ var Status_ = function Status_(_ref4) {
   var text = !!isRunning ? 'STOP' : 'START';
   return React.createElement(
     'div',
-    { className: 'row' },
+    null,
     React.createElement(
       'button',
       {

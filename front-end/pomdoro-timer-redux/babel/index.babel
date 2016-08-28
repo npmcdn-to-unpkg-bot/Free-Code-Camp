@@ -153,7 +153,7 @@ class Card_ extends React.Component {
   }
   render() {
      return (
-      <div className={'card material-orange-light'}>
+      <div className={'container'}>
           <Controller />
         <Status />
         </div>
@@ -177,27 +177,27 @@ const Controller_ = ({
   isRunning,
   activeSession
 }) => {
-  let studyText = !!isRunning && activeSession === 'study' ? `${studyTimeRemaining} seconds` : `Study minutes: ${studyMinutes}`;
-  let breakText = !!isRunning && activeSession === "break" ? `${breakTimeRemaining} seconds` : `Break minutes: ${breakMinutes}`;
+  let studyText = !!isRunning && activeSession === 'study' ? `${studyTimeRemaining} seconds` : `Study: ${studyMinutes} minutes`;
+  let breakText = !!isRunning && activeSession === "break" ? `${breakTimeRemaining} seconds` : `Break: ${breakMinutes} minutes`;
   return (
     <div className="container-fluid material-orange">
                   <MusicButton/>
       <div className="row">
-        <div className="col col-sm-3">
-                    <h4>{studyText}</h4>
           <Button onClick
         onClick={changeTime.bind(this, 'study', 1)}
       >+</Button>
       <Button  
         onClick={changeTime.bind(this, 'study', -1)} 
       >-</Button>
-            <h4>{breakText}</h4>
+                     <span>{studyText}</span>
+          <br></br>
       <Button 
 
         onClick={changeTime.bind(this, 'break', 1)}>+</Button>
       <Button
         onClick={changeTime.bind(this, 'break', -1)} >-</Button>
-        </div>
+                      <span>{breakText}</span>
+
          </div>
     </div>
   );
@@ -245,7 +245,7 @@ const Status_ = ({
    
   let text = !!isRunning ? 'STOP' : 'START';
   return (
-    <div className='row'>
+    <div>
       <button 
         className={`btn startGame material-red`}
         onClick={ ()=>{

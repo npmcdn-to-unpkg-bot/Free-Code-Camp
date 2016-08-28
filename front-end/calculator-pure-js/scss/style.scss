@@ -10,9 +10,11 @@ body {
   background: $light-yellow;
   text-align: center;
 }
-.row{
+
+.row {
   margin: 0;
 }
+
 .calc {
   width: 500px;
   height: 650px;
@@ -88,8 +90,8 @@ input[type="text"] {
     width: 70%;
     margin-bottom: 5%;
   }
-   input[type='text'] {
+  input[type='text'] {
     width: 90%px;
-     height: 25%;
+    height: 25%;
   }
 }
