@@ -36,7 +36,7 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
     .scale(yScale)
     .orient('left')
     .ticks(10);
-  const info = d3.select('.card-panel').append('div')
+  const info = d3.select('.card').append('div')
     .attr('class', 'info')
     .style('opacity', 0);
   const svg = d3.select('.graph')
@@ -81,12 +81,13 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
       self.classed('active', true);
       info.transition()
         .duration(200)
-        .style('opacity', 0.8);
-      info.html('<span class="">' + d.Name + ': ' +
-          '<span> ' + d.Nationality + '</span></span>' +
-          '<br><span>' + 'Time : ' + d.Time + ' minutes</span><br></br>' + allegationText
+        .style('opacity', 0.95);
+      info.html('<h4>Rider: ' + d.Name + '</h4>' +
+          '<h4>Country: ' + d.Nationality + '</h4>' +
+          '<h4>Time : ' + d.Time + ' (min)</h4>' + 
+                '<h5> ' + allegationText + '</h5>'
         )
-        .style('left', d3.event.pageX + 5 + 'px')
+        .style('left', d3.event.pageX - 200 + 'px')
         .style('top', d3.event.pageY - 50 + 'px');
     })
 
@@ -101,6 +102,8 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
   svg.selectAll('.text')
     .data(data)
     .enter().append('text')
+  .attr('class', 'rider-name')
+  //.css('font-size', '1em')
     .text(function(d) {
       return d.Name
     })
@@ -128,7 +131,7 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
     .attr('x', width - 250)
     .attr('class', 'legend')
     .attr('y', height * 0.35)
-    .attr('width', 250)
+    .attr('width', 280)
     .attr('height', 100);
 
   //.style('fill', 'none')
@@ -151,3 +154,11 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
     .attr('x', width - 200)
     .attr('y', height * 0.51)
 });
+var svgz = $('.graph'),
+  aspect = svgz.width() / svgz.height(),
+  container = svgz.parent();
+$(window).on('resize', function() {
+  var targetWidth = container.width();
+  svgz.attr('width', targetWidth);
+  svgz.attr('height', Math.round(targetWidth / aspect));
+}).trigger('resize');

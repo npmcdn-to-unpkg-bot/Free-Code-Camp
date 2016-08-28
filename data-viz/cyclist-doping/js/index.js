@@ -28,7 +28,7 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
   var yScale = d3.scale.linear().domain([36, 1]).range([height, 0]);
   var xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(10);
   var yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(10);
-  var info = d3.select('.card-panel').append('div').attr('class', 'info').style('opacity', 0);
+  var info = d3.select('.card').append('div').attr('class', 'info').style('opacity', 0);
   var svg = d3.select('.graph').attr('height', height + margin.top + margin.bottom).attr('width', width + margin.left + margin.right).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
   svg.append('g').call(xAxis).attr('class', 'axis').attr('transform', 'translate(0,' + height + ')');
   svg.append('g').call(yAxis).attr('class', 'axis').append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "0.8em").style("text-anchor", "end").text("Place");
@@ -43,18 +43,20 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
     }
     return '#4CAF50';
   }).on('mouseover', function (d) {
-    var allegationText = !!d.Doping ? '<span>Allegation: ' + d.Doping + '</span><br>' + '<span>' + d.URL + '</span>' : '';
+    var allegationText = !!d.Doping ? '<span>Allegation: ' + d.Doping + '</span><br></br>' + '<span> <a href=' + d.URL + '>' + d.URL + '</a>' : '';
     var self = d3.select(this);
     self.classed('active', true);
-    info.transition().duration(200).style('opacity', 0.8);
-    info.html('<span class="">' + d.Name + ': ' + '<span> ' + d.Nationality + '</span></span>' + '<br><span>' + 'Time : ' + d.Time + ' minutes</span><br></br>' + allegationText).style('left', d3.event.pageX + 5 + 'px').style('top', d3.event.pageY - 50 + 'px');
+    info.transition().duration(200).style('opacity', 0.95);
+    info.html('<h4>Rider: ' + d.Name + '</h4>' + '<h4>Country: ' + d.Nationality + '</h4>' + '<h4>Time : ' + d.Time + ' (min)</h4>' + '<h5> ' + allegationText + '</h5>').style('left', d3.event.pageX - 200 + 'px').style('top', d3.event.pageY - 50 + 'px');
   }).on('mouseout', function (d) {
     var self = d3.select(this);
     self.classed('active', false);
     info.transition().duration(500).style('opacity', 0);
   });
 
-  svg.selectAll('.text').data(data).enter().append('text').text(function (d) {
+  svg.selectAll('.text').data(data).enter().append('text').attr('class', 'rider-name')
+  //.css('font-size', '1em')
+  .text(function (d) {
     return d.Name;
   }).attr('x', function (d) {
     return xScale(secondsBehind(d.Seconds));
@@ -65,7 +67,7 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
   svg.append("text").attr('class', 'x label').attr('x', width * 0.35).attr('y', height + 40).text('Seconds Behind Leader');
   svg.append('text').attr('class', 'y label').attr('x', width * .1).attr('y', height * .5).text('Ranking').attr('transform', 'rotate(90)');
 
-  svg.append('rect').attr('x', width - 250).attr('class', 'legend').attr('y', height * 0.35).attr('width', 250).attr('height', 100);
+  svg.append('rect').attr('x', width - 250).attr('class', 'legend').attr('y', height * 0.35).attr('width', 280).attr('height', 100);
 
   //.style('fill', 'none')
   svg.append('circle').attr('cx', width - 230).attr('cy', height * 0.4).attr('class', 'allegations').attr('r', 7);
@@ -73,3 +75,11 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
   svg.append('text').text('Rider with Doping Allegations').attr('x', width - 200).attr('y', height * 0.41);
   svg.append('text').text('No Doping Allegations').attr('x', width - 200).attr('y', height * 0.51);
 });
+var svgz = $('.graph'),
+    aspect = svgz.width() / svgz.height(),
+    container = svgz.parent();
+$(window).on('resize', function () {
+  var targetWidth = container.width();
+  svgz.attr('width', targetWidth);
+  svgz.attr('height', Math.round(targetWidth / aspect));
+}).trigger('resize');

@@ -4,20 +4,29 @@ body {
   background-color: #FFFFFF;
 }
 
+.center-text {
+  text-align: center;
+}
+
 .card-panel {
-  width: 1000px;
+  width: auto;
   background-color: #FFFFFF;
   opacity: 0.87;
 }
 
-.axis path, .axis line {
+.rider-name {
+  font-size: 0.7em;
+}
+
+.axis path,
+.axis line {
   fill: none;
   stroke: #212121;
   shape-rendering: crispEdges;
 }
 
 .active {
-  fill: #C8E6C9;
+  fill: material-color(green, 200);
 }
 
 .info {
@@ -27,7 +36,7 @@ body {
   padding: 5px;
   border-radius: 5px;
   pointer-events: none;
-  background-color: white;
+  background-color: #C8E6C9;
 }
 
 .label {
@@ -43,9 +52,9 @@ body {
 }
 
 .allegations {
-  fill: #FF5252;
+  fill: material-color(red);
 }
 
 .no-allegations {
-  fill: #4CAF50;
+  fill: material-color(green);
 }
