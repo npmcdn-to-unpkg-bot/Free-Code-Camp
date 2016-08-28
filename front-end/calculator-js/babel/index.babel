@@ -1,7 +1,7 @@
 //TODO: add ANS button
 
 const display = document.getElementById("display");
-const tile = document.querySelectorAll("div.tile");
+const tile = document.querySelectorAll(".tile");
 
 for (let i = 0; i < tile.length; i++) {
   tile[i].onclick = function() {
@@ -37,7 +37,7 @@ function clearDisplay() {
 
 function evaluateString() {
   function sabbathCommeth() {
-    display.value = 'FUCKING SABBATH';
+    display.value = 'SABBATH';
     display.style.background = '#F44336';
     setTimeout(function() {
       display.style.background = '#ffecb3';
