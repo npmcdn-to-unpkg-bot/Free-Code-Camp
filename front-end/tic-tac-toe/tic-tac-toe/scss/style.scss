@@ -36,14 +36,15 @@ body {
 }
 
 .card {
-  pointer: cursor;
+  cursor: pointer;
   padding-bottom: (1/3)*100%;
   height: 0;
   text-align: center;
-  font-size: 4.5em;
+  font-size: 4.2em;
   margin-top: 0;
   margin-bottom: 0;
   background: $primary-color;
+  line-height: 150%;
 }
 
 #msg {
@@ -87,8 +88,18 @@ body {
   background: material-color(blue);
 }
 
-@media screen and(max-width: 600px) {
+@media screen and(max-width: 480px) {
   .card {
-    font-size: 2.5em;
+    font-size: 3em;
+    line-height:  200%;
   }
+  #msg{
+    font-size: 1.5em;
+  }
+}
+@media screen and (max-width: 300px){
+  .card, #msg{
+    font-size: 1.4em;
+  }
+  
 }
