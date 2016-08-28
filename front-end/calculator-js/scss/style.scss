@@ -1,0 +1,62 @@
+$black: #212121;
+$white: #f5f5f5f;
+$yellow: #ffc107;
+$dark-yellow: #ffa000;
+$light-yellow: #ffecb3;
+$orange: #ff5722;
+body {
+  background: $light-yellow;
+  text-align: center;
+}
+
+.calc {
+  background-color: $orange;
+  border-radius: 50px;
+  margin-top: 50px;
+  float: none;
+  margin: 0 auto;
+}
+
+.tile {
+  background: $light-yellow;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 2em;
+  border-radius: 10px;
+  float: none;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  margin-right: 15px;
+  height: 0;
+  padding-bottom: (1/9) * 100%;
+  vertical-align: center;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.tile-equal {
+  background-color: $dark-yellow;
+}
+
+.tile-operator {
+  background-color: $yellow;
+}
+
+input[type="text"] {
+  cursor: default;
+  float: none;
+  margin: 0 auto;
+  font-size: 2em;
+  text-align: right;
+  background-color: $light-yellow;
+  border-radius: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width:480px) {
+  .tile {
+    margin: 5px 5px 5px 5px;
+  }
+}
