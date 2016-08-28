@@ -1,5 +1,7 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
 body {
   text-align: center;
+  font-family: "lato", sans-serif;
 }
 
 #root {
@@ -9,24 +11,13 @@ body {
   position: relative;
   top: 100px;
   background: #212121;
-  margin: auto;
+  float: none;
+  margin: 0 auto;
 }
 
 .btns {
   position: relative;
   top: 50px;
-}
-
-.btn {
-  width: 250px;
-  height: 250px;
-  border: 5px solid #212121;
-}
-.btn:hover {
-  opacity: 0.75;
-}
-.btn:focus {
-  outline: none;
 }
 
 .btn-green {
@@ -49,13 +40,35 @@ body {
   border-bottom-left-radius: 100%;
 }
 
-.btn-active {
-  background: #f00;
+.btn {
+  width: 250px;
+  height: 250px;
+  border: 5px solid #212121;
+}
+.btn:hover {
+  opacity: 0.75;
+}
+.btn:focus {
+  outline: none;
 }
 
 .btn-start {
   border: none;
   border-radius: 10px;
+}
+
+.btn-active {
+  /*
+   background-image: linear-gradient(to top, rgba(255, 255, 255, 0.6), rgba(211, 211, 211, 0.4)) !important;
+  background-blend-mode: screen !important;
+  */
+  overflow: hidden;
+  outline: none;
+  border: none;
+  -webkit-box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.81);
+  -moz-box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.81);
+  box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.81);
+  opacity: 0.6;
 }
 
 .controller {

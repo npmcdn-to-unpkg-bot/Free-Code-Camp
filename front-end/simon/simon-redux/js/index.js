@@ -234,7 +234,7 @@ var Button_ = function Button_(_ref) {
 	var handleClick = _ref.handleClick;
 	var buttonsActive = _ref.buttonsActive;
 
-	var klass = active ? 'active ' + color : color;
+	var klass = active ? 'active ' + 'btn-' + color : color;
 	var disabled = !!buttonsActive ? false : true;
 	return React.createElement('button', {
 		className: "btn btn-" + klass,

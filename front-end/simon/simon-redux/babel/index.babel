@@ -210,7 +210,7 @@ const Button_ = ({
 	handleClick,
   buttonsActive
 }) =>{
-  let klass = active ? 'active ' + color : color;  
+  let klass = active ? 'active ' + 'btn-' + color : color;  
   let disabled = !!buttonsActive ? false : true;
 	return(
 		<button 
