@@ -1,6 +1,10 @@
+@import "https://fonts.googleapis.com/css?family=Roboto+Mono";
 body {
   background: #ffecb3;
   text-align: center;
+  font-family: 'Roboto Mono', open-sans;
+  height: 100vh;
+  max-height: 100vh;
 }
 
 .calc {
@@ -9,6 +13,7 @@ body {
   margin-top: 50px;
   float: none;
   margin: 0 auto;
+  margin-top: 30px;
 }
 
 .tile {
@@ -22,8 +27,8 @@ body {
   margin-bottom: 15px;
   margin-right: 15px;
   height: 0;
-  padding-bottom: 11.11111%;
-  vertical-align: center;
+  padding-bottom: 33.33333%;
+  line-height: 33.33333%;
 }
 .tile:hover {
   opacity: 0.6;
