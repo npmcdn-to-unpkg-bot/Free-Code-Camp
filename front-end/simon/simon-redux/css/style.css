@@ -25,6 +25,9 @@ body {
 .btn:hover {
   opacity: 0.75;
 }
+.btn:focus {
+  outline: none;
+}
 
 .btn-green {
   background-color: #4CAF50;
@@ -47,7 +50,7 @@ body {
 }
 
 .btn-active {
-  opacity: 0.6;
+  background: #f00;
 }
 
 .btn-start {

@@ -27,6 +27,9 @@ body{
   &:hover{
     opacity: 0.75;
   }
+  &:focus{
+    outline: none;
+  }
 }
 
 .btn-green{
@@ -47,7 +50,7 @@ body{
   }
 
 .btn-active{
-  opacity: 0.6;
+  background: #f00;
    // background-image: linear-gradient(to top, rgba(255, 255, 255, 0.6), rgba(211, 211, 211, 0.4)) !important;
   //background-blend-mode: screen !important;
 }
