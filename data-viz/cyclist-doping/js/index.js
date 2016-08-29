@@ -28,7 +28,7 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
   var yScale = d3.scale.linear().domain([36, 1]).range([height, 0]);
   var xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(10);
   var yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(10);
-  var info = d3.select('.card').append('div').attr('class', 'info').style('opacity', 0);
+  var info = d3.select('.card').append('div').attr('class', 'info col-xs-10').style('opacity', 0);
   var svg = d3.select('.graph').attr('height', height + margin.top + margin.bottom).attr('width', width + margin.left + margin.right).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
   svg.append('g').call(xAxis).attr('class', 'axis').attr('transform', 'translate(0,' + height + ')');
   svg.append('g').call(yAxis).attr('class', 'axis').append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "0.8em").style("text-anchor", "end").text("Place");
@@ -46,7 +46,7 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
     var allegationText = !!d.Doping ? '<span>Allegation: ' + d.Doping + '</span><br></br>' + '<span> <a href=' + d.URL + '>' + d.URL + '</a>' : '';
     var self = d3.select(this);
     self.classed('active', true);
-    info.transition().duration(200).style('opacity', 0.95);
+    info.transition().duration(200).style('opacity', 0.98);
     info.html('<h4>Rider: ' + d.Name + '</h4>' + '<h4>Country: ' + d.Nationality + '</h4>' + '<h4>Time : ' + d.Time + ' (min)</h4>' + '<h5> ' + allegationText + '</h5>').style('left', d3.event.pageX - 200 + 'px').style('top', d3.event.pageY - 50 + 'px');
   }).on('mouseout', function (d) {
     var self = d3.select(this);

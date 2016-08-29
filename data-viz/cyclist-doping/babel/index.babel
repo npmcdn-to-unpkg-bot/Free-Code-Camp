@@ -37,7 +37,7 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
     .orient('left')
     .ticks(10);
   const info = d3.select('.card').append('div')
-    .attr('class', 'info')
+    .attr('class', 'info col-xs-10')
     .style('opacity', 0);
   const svg = d3.select('.graph')
     .attr('height', height + margin.top + margin.bottom)
@@ -81,7 +81,7 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
       self.classed('active', true);
       info.transition()
         .duration(200)
-        .style('opacity', 0.95);
+        .style('opacity', 0.98);
       info.html('<h4>Rider: ' + d.Name + '</h4>' +
           '<h4>Country: ' + d.Nationality + '</h4>' +
           '<h4>Time : ' + d.Time + ' (min)</h4>' + 
