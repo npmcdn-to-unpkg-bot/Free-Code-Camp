@@ -1,306 +1,278 @@
-"use strict";
+'use strict';
 
-var Panel = ReactBootstrap.Panel,
-    Accordion = ReactBootstrap.Accordion;
-var Button = ReactBootstrap.Button,
-    Input = ReactBootstrap.Input;
-var ButtonToolbar = ReactBootstrap.ButtonToolbar;
-var Modal = ReactBootstrap.Modal;
-var OverlayTrigger = ReactBootstrap.OverlayTrigger;
-var ListGroup = ReactBootstrap.ListGroup,
-    ListGroupItem = ReactBootstrap.ListGroupItem;
+var _ReactRedux = ReactRedux;
+var connect = _ReactRedux.connect;
+var Provider = _ReactRedux.Provider;
+var _Redux = Redux;
+var createStore = _Redux.createStore;
+var applyMiddleware = _Redux.applyMiddleware;
+var combineReducers = _Redux.combineReducers;
 
-var recipes = typeof localStorage["recipelist"] != "undefined" ? JSON.parse(localStorage["recipelist"]) : [{ title: "Taco", ingredients: ["Beef", "Seasoning", "Tortilla"], directions: " add" }, { title: "Chicken Noodle Soup", ingredients: ["Chicken", "Onion", "Carrots", "Celery", "noodles"], directions: "add" }];
+var recipes = function recipes() {
+  if (!!localStorage['recipelist']) {
+    return JSON.parse(localStorage['recipelist']);
+  }
+  var rec = [{
+    title: 'Taco',
+    ingredients: ['Beef', 'Seasoning', 'Tortilla'],
+    directions: ' add'
+  }, {
+    title: 'Chicken Noodle Soup',
+    ingredients: ['Chicken', 'Onion', 'Carrots', 'Celery', 'noodles'],
+    directions: 'add'
+  }];
+  return rec;
+};
 
-var RecipeList = React.createClass({
-	displayName: "RecipeList",
+//ACTIONS
+var newRecipe = function newRecipe(title, ingredients, directions) {
+  return {
+    type: 'NEW_RECIPE',
+    title: title,
+    ingredients: ingredients,
+    directions: directions
+  };
+};
+var delRecipe = function delRecipe(title) {
+  return {
+    type: 'DELETE_RECIPE',
+    title: title
+  };
+};
+//Reducers
+var recipesReducer = function recipesReducer(state, action) {
+  switch (action.type) {
+    case 'NEW_RECIPE':
+      return [].concat(state, [{
+        title: action.title,
+        ingredients: action.ingredients,
+        directions: action.directions
+      }]);
+    case 'DELETE_RECIPE':
+      return state.filter(function (s) {
+        return s.title !== action.title;
+      });
+    default:
+      return state;
+  }
+};
 
-	render: function render() {
-		var recipelist = function recipelist(item) {
-			return React.createElement(
-				ListGroupItem,
-				null,
-				item
-			);
-		};
-		return React.createElement(
-			ListGroup,
-			null,
-			this.props.ingredients.map(recipelist)
-		);
-	}
-});
+var RecipeList_ = function RecipeList_(_ref) {
+  var list = _ref.list;
 
-var RecipeTitle = React.createClass({
-	displayName: "RecipeTitle",
+  var rl = store.getState();
+  var rec = [];
+  list.forEach(function (r) {
+    rec.push(React.createElement(Recipe, { reci: r }));
+  });
+  return React.createElement(
+    'div',
+    null,
+    rec
+  );
+};
+var mapStateToProps_RecipeList = function mapStateToProps_RecipeList(state) {
+  return {
+    list: state
+  };
+};
+var RecipeList = connect(mapStateToProps_RecipeList)(RecipeList_);
+var Recipe = function Recipe(_ref2) {
+  var reci = _ref2.reci;
 
-	render: function render() {
-		return React.createElement(
-			"h3",
-			null,
-			" ",
-			this.props.title
-		);
-	}
-});
+  var i = [];
+  var d = [];
+  reci.ingredients.forEach(function (ing) {
+    i.push(React.createElement(
+      'li',
+      null,
+      ing
+    ));
+  });
 
-var RecipeDirections = React.createClass({
-	displayName: "RecipeDirections",
+  var klass = reci.title.replace(/\s/g, '-');
+  return React.createElement(
+    'div',
+    { className: 'row' },
+    React.createElement(
+      'div',
+      { className: 'card col-xs-12 col-md-4 col-lg-2' },
+      React.createElement(
+        'div',
+        { className: 'row' },
+        React.createElement(
+          'h4',
+          null,
+          React.createElement(
+            'a',
+            { className: 'btn btn-primary', 'data-toggle': 'collapse', href: '#' + klass },
+            reci.title
+          )
+        ),
+        React.createElement(
+          'button',
+          { className: 'btn',
+            onClick: function onClick() {
+              return deleteRecipe(klass);
+            } },
+          'Delete'
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'collapse', id: klass },
+        React.createElement(
+          'h6',
+          null,
+          'Ingredients'
+        ),
+        React.createElement(
+          'ul',
+          null,
+          i
+        ),
+        React.createElement(
+          'h5',
+          null,
+          'Directions'
+        ),
+        React.createElement(
+          'p',
+          null,
+          reci.directions
+        )
+      )
+    )
+  );
+};
+var AddRecipeButton = function AddRecipeButton() {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'button',
+      { type: 'button', className: 'btn btn-floating', 'data-toggle': 'modal', 'data-target': '#addRecModal' },
+      '          ',
+      React.createElement(
+        'i',
+        { className: 'material-icons' },
+        'add'
+      )
+    ),
+    React.createElement(
+      'div',
+      { className: 'modal fade', id: 'addRecModal' },
+      React.createElement(
+        'div',
+        { className: 'modal-body' },
+        React.createElement(
+          'form',
+          {
+            className: 'form',
+            onSubmit: function onSubmit(e) {
+              e.preventDefault();
+              addRecipe();
+            } },
+          React.createElement(
+            'div',
+            { className: 'form-group row' },
+            React.createElement(
+              'label',
+              { 'for': 'title', className: 'col-form-label col-xs-2' },
+              'Title:'
+            ),
+            React.createElement(
+              'div',
+              { className: 'col-xs-10' },
+              React.createElement('input', { className: 'form-control', name: 'title', type: 'text' })
+            )
+          ),
+          React.createElement(
+            'div',
+            { className: 'form-group row' },
+            React.createElement(
+              'label',
+              { 'for': 'ingredients', className: 'col-form-label col-xs-2' },
+              'Ingredients:'
+            ),
+            React.createElement(
+              'div',
+              { className: 'col-xs-10' },
+              React.createElement('input', { className: 'form-control col-xs-8', name: 'ingredients', type: 'text' })
+            )
+          ),
+          React.createElement(
+            'div',
+            { className: 'form-group row' },
+            React.createElement(
+              'label',
+              { 'for': 'directions', className: 'col-form-label  col-xs-2' },
+              'Directions:'
+            ),
+            React.createElement(
+              'div',
+              { className: 'col-xs-10' },
+              React.createElement('input', { className: 'form-control', name: 'directions', type: 'text' })
+            )
+          ),
+          React.createElement(
+            'div',
+            { className: 'form-group row' },
+            React.createElement(
+              'button',
+              { className: 'btn', 'data-toggle': 'modal', 'data-target': '#addRecModal' },
+              'add'
+            )
+          )
+        )
+      )
+    )
+  );
+};
 
-	render: function render() {
-		return React.createElement(
-			"p",
-			null,
-			" ",
-			this.props.directions
-		);
-	}
-});
+function addRecipe() {
+  $('.modal').toggle();
+  var f = $('.form').serializeArray();
+  var t = f[0];
+  var ing = f[1];
+  var dir = f[2];
 
-var Recipe = React.createClass({
-	displayName: "Recipe",
-
-	getInitialState: function getInitialState() {
-		return { showEditModal: false, edIng: this.props.ingredients };
-	},
-	deleteRecipe: function deleteRecipe(e) {
-		e.preventDefault();
-
-		recipes.splice(this.props.index, 1);
-		update();
-	},
-	hideModal: function hideModal(e) {
-		e.preventDefault();
-		this.setState({ showEditModal: false });
-	},
-	showModal: function showModal(e) {
-		e.preventDefault();
-		this.setState({ showEditModal: true });
-	},
-	handleEdit: function handleEdit(e) {
-		e.preventDefault();
-		console.log(recipes[this.props.index].ingredients);
-		console.log($("#changeIngredients").val());
-		this.setState({ showEditModal: false });
-
-		update();
-	},
-	updateEdit: function updateEdit(e) {
-		this.setState({ edIng: e.target.value });
-	},
-	render: function render() {
-		return React.createElement(
-			"div",
-			null,
-			React.createElement(
-				"div",
-				null,
-				React.createElement(RecipeTitle, { title: this.props.title }),
-				React.createElement(RecipeList, { ingredients: this.props.ingredients })
-			),
-			React.createElement(
-				"div",
-				null,
-				React.createElement(
-					"h4",
-					null,
-					React.createElement(
-						"strong",
-						null,
-						"Directions:"
-					)
-				),
-				React.createElement(RecipeDirections, { directions: this.props.directions })
-			),
-			React.createElement(
-				"div",
-				null,
-				React.createElement(
-					"button",
-					{ className: "btn btn-danger", bsStyle: "danger", id: "btn-del" + this.props.index, onClick: this.deleteRecipe },
-					"Delete"
-				),
-				React.createElement(
-					"button",
-					{ className: "btn btn-primary", id: "btn-edit" + this.props.index, onClick: this.showModal },
-					" Edit"
-				)
-			),
-			React.createElement(
-				Modal,
-				{ show: this.state.showEditModal, onHide: this.hideModal },
-				React.createElement(
-					Modal.Header,
-					{ closeButton: true },
-					React.createElement(
-						Modal.Title,
-						{ id: "editModalTitle" },
-						"Edit Recipe"
-					)
-				),
-				React.createElement(
-					Modal.Body,
-					null,
-					React.createElement(
-						"form",
-						null,
-						React.createElement(
-							"h4",
-							null,
-							"Recipe"
-						),
-						React.createElement("input", { value: this.props.title, type: "text", label: "Recipe", id: "title" }),
-						React.createElement(
-							"h4",
-							null,
-							"Ingredients"
-						),
-						React.createElement("input", { type: "text", id: "changeIngredients", size: "40", label: "ingredients", value: this.state.edIng, onChange: this.updateEdit })
-					)
-				),
-				React.createElement(
-					Modal.Footer,
-					null,
-					React.createElement(
-						"button",
-						{ className: "btn btn-info", onClick: this.handleEdit },
-						"Edit Recipe"
-					),
-					React.createElement(
-						"button",
-						{ className: "btn btn-warning", onClick: this.hideModal },
-						"Close"
-					)
-				)
-			)
-		);
-	}
-});
-
-var RecipeBook = React.createClass({
-	displayName: "RecipeBook",
-
-	render: function render() {
-		return React.createElement(
-			"div",
-			null,
-			React.createElement(
-				Accordion,
-				null,
-				this.props.data
-			)
-		);
-	}
-});
-
-var AddRecipe = React.createClass({
-	displayName: "AddRecipe",
-
-	getInitialState: function getInitialState() {
-		return { text: '', texting: [], showModal: false };
-	},
-	onChange: function onChange(e) {
-		this.setState({ text: this.refs.title.value, texting: this.refs.ingredients.value });
-	},
-
-	handleSubmit: function handleSubmit(e) {
-		e.preventDefault();
-		var nextRecipe = { title: this.refs.title.value, ingredients: this.refs.ingredients.value.split(",") };
-		var nextText = '';
-		console.log(nextRecipe);
-		recipes.push({ title: nextRecipe.title, ingredients: nextRecipe.ingredients });
-		console.log(recipes);
-		this.setState({ text: nextText, texting: nextText, showModal: false });
-		update();
-	},
-	handleClick: function handleClick(e) {
-		e.preventDefault();
-		this.setState({ showModal: true });
-	},
-	hide: function hide(e) {
-		e.preventDefault();
-		this.setState({ showModal: false });
-	},
-	render: function render() {
-		return React.createElement(
-			"div",
-			null,
-			React.createElement(
-				"div",
-				null,
-				React.createElement(
-					"button",
-					{ onClick: this.handleClick, className: "btn btn-lg btn-primary" },
-					"Add A Recipe!!!"
-				)
-			),
-			React.createElement(
-				Modal,
-				{ show: this.state.showModal },
-				React.createElement(
-					Modal.Header,
-					{ closeButton: true },
-					React.createElement(
-						Modal.Title,
-						{ id: "modalTitle" },
-						"Add a Recipe"
-					)
-				),
-				React.createElement(
-					Modal.Body,
-					null,
-					React.createElement(
-						"form",
-						{ onSubmit: this.handleSubmit },
-						React.createElement(
-							"h4",
-							null,
-							React.createElement(
-								"strong",
-								null,
-								"Recipe Title"
-							)
-						),
-						React.createElement("input", { type: "text", ref: "title", value: this.state.text, onChange: this.onChange }),
-						React.createElement(
-							"h4",
-							null,
-							React.createElement(
-								"strong",
-								null,
-								"Ingredients"
-							)
-						),
-						React.createElement("input", { type: "text", ref: "ingredients", value: this.state.texting, onChange: this.onChange, placeholder: "Enter Ingredients, Separated By Commas", size: "35" }),
-						React.createElement("br", null),
-						React.createElement(
-							"button",
-							{ className: "btn btn-lg btn-primary" },
-							"Add The Recipe!"
-						),
-						React.createElement(
-							"button",
-							{ onClick: this.hide, className: "btn btn-lg btn-info" },
-							"Close"
-						)
-					)
-				)
-			)
-		);
-	}
-});
-
-function update() {
-	localStorage.setItem("recipelist", JSON.stringify(recipes));
-	var rows = [];
-	for (var i = 0; i < recipes.length; i++) {
-		rows.push(React.createElement(
-			Panel,
-			{ header: recipes[i].title, eventKey: i, bsStyle: "success" },
-			React.createElement(Recipe, { title: recipes[i].title, ingredients: recipes[i].ingredients, index: i, directions: recipes[i].directions })
-		));
-	}
-	React.render(React.createElement(RecipeBook, { data: rows }), document.getElementById("displayMe"));
+  var ingArr = ing.value.split(',');
+  store.dispatch(newRecipe(t.value, ingArr, dir.value));
+  $('.form')[0].reset();
+  var jStr = JSON.stringify(store.getState());
+  localStorage.setItem('recipelist', jStr);
 }
-React.render(React.createElement(AddRecipe, null), document.getElementById('fcctop'));
-update();
+
+function deleteRecipe(title) {
+  store.dispatch(delRecipe(title));
+  var jStr = JSON.stringify(store.getState());
+  localStorage.setItem('recipelist', jStr);
+}
+
+var App = function App() {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'h1',
+      null,
+      'Recipe Box'
+    ),
+    React.createElement(RecipeList, null),
+    React.createElement(AddRecipeButton, null)
+  );
+};
+var store = Redux.createStore(recipesReducer, recipes(), window.devToolsExtension ? window.devToolsExtension() : undefined);
+ReactDOM.render(React.createElement(
+  Provider,
+  { store: store },
+  React.createElement(App, null)
+), document.getElementById('root'));
+/*
+$(window).bind('beforeunload', function(){
+   
+  return confirm('do you really wnat to exit bruh?')
+ 
+});
+*/

@@ -1,206 +1,190 @@
-var Panel = ReactBootstrap.Panel, Accordion = ReactBootstrap.Accordion;
-var Button = ReactBootstrap.Button, Input = ReactBootstrap.Input;
-var ButtonToolbar = ReactBootstrap.ButtonToolbar;
-var Modal = ReactBootstrap.Modal;
-var OverlayTrigger = ReactBootstrap.OverlayTrigger;
-var ListGroup = ReactBootstrap.ListGroup,ListGroupItem = ReactBootstrap.ListGroupItem;
-
-
-var recipes = (typeof localStorage["recipelist"] != "undefined") ? JSON.parse(localStorage["recipelist"]) : [
-	{title: "Taco" , ingredients: ["Beef", "Seasoning", "Tortilla"] , directions: " add"} ,
-	{title: "Chicken Noodle Soup" , ingredients: ["Chicken", "Onion", "Carrots", "Celery", "noodles"] , directions: "add"}
-];
-
-var RecipeList = React.createClass({
-	
-		
-	render: function() {
-		var recipelist = function(item) {
-		return <ListGroupItem>
-					{item}
-				</ListGroupItem>;
-	}
-			return  <ListGroup>
-						{this.props.ingredients.map(recipelist)}
-					</ListGroup>;
-	}	
-});
-
-var RecipeTitle = React.createClass({
-	
-	
-	render: function() {
-		return <h3> {this.props.title}</h3> ;
-	}
-});
-
-
-var RecipeDirections = React.createClass({
-	
-	
-	render: function() {
-		return <p> {this.props.directions}</p> ;
-	}
-});
-
-
-var Recipe = React.createClass({
-	getInitialState: function() {
-		return { showEditModal: false , edIng: this.props.ingredients};
-	},	
-	deleteRecipe: function(e) {
-		e.preventDefault();
-		
-		recipes.splice(this.props.index,1);
-		update();
-	},
-	hideModal: function(e) {
-		e.preventDefault();
-		this.setState({ showEditModal: false});
-	},
-	showModal: function(e) {
-		e.preventDefault();
-		this.setState({ showEditModal: true});
-	},
-	handleEdit: function(e) {
-		e.preventDefault();
-		console.log(recipes[this.props.index].ingredients)
-		console.log($("#changeIngredients").val())
-		this.setState({ showEditModal: false});
-		
-		update();
-    	
-	
-	},
-	updateEdit: function(e) {
-		this.setState({ edIng: e.target.value });
-				
-			
-	},
-	render: function() {
-		return (
-			<div>
-				<div>
-					< RecipeTitle  title={this.props.title} />
-					< RecipeList ingredients={this.props.ingredients} />
-					
-					
-				</div>
-				<div>
-					<h4><strong>Directions:</strong></h4>
-					< RecipeDirections directions={this.props.directions} />
-				</div>
-				<div>
-					<button className="btn btn-danger" bsStyle="danger" id={"btn-del"+this.props.index} onClick={this.deleteRecipe}>Delete</button>
-					<button className="btn btn-primary" id={"btn-edit"+this.props.index} onClick={this.showModal}> Edit</button>
-				</div>
-				<Modal show={this.state.showEditModal} onHide={this.hideModal} >
-					<Modal.Header closeButton>
-						<Modal.Title id="editModalTitle">Edit Recipe</Modal.Title>
-						
-					</Modal.Header>
-					<Modal.Body>
-						<form>
-							<h4>Recipe</h4>
-							<input value={this.props.title} type="text" label="Recipe" id="title" />
-							<h4>Ingredients</h4>
-							<input type="text" id="changeIngredients" size="40" label="ingredients" value={this.state.edIng} onChange={this.updateEdit} />
-						</form>	
-					</Modal.Body>
-					<Modal.Footer>
-						<button className="btn btn-info" onClick={this.handleEdit} >Edit Recipe</button>
-						<button className="btn btn-warning" onClick={this.hideModal} >Close</button>
-					</Modal.Footer>
-				</Modal>
-			</div>
-		)
-	}
-});
-
-
-var RecipeBook = React.createClass({
-	render: function() {
-		return (
-			<div>
-				<Accordion>
-					{this.props.data}
-				</Accordion>
-			</div>
-		)	
-	}
-});
-
-var AddRecipe = React.createClass({
-	getInitialState: function() {
-		return { text: '' , texting: [] , showModal: false}
-	},
-	onChange: function(e) {
-		this.setState({ text: this.refs.title.value , texting: this.refs.ingredients.value});
-	},
-	
-	handleSubmit: function(e) {
-		e.preventDefault();
-		var nextRecipe = { title: this.refs.title.value , ingredients: this.refs.ingredients.value.split(",")};
-		var nextText = '' ;
-		console.log(nextRecipe);
-		recipes.push({title: nextRecipe.title , ingredients: nextRecipe.ingredients});
-		console.log(recipes);
-		this.setState({ text: nextText , texting: nextText , showModal: false });
-		update();
-	},
-	handleClick: function(e) {
-		e.preventDefault();
-		this.setState({ showModal: true});
-		
-		
-	},
-	hide: function(e) {
-		e.preventDefault();
-		this.setState({ showModal: false})
-	},
-	render: function() {
-		return (
-			<div>
-				<div>
-					<button  onClick={this.handleClick} className="btn btn-lg btn-primary">Add A Recipe!!!</button>
-				</div>
-				<Modal show={this.state.showModal}>
-					<Modal.Header closeButton>
-						<Modal.Title id="modalTitle">Add a Recipe</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>
-					
-				
-						<form onSubmit={this.handleSubmit}>
-							<h4><strong>Recipe Title</strong></h4>
-							<input type="text" ref="title" value={this.state.text} onChange={this.onChange} />
-					
-							<h4><strong>Ingredients</strong></h4>
-							<input type="text" ref="ingredients" value={this.state.texting} onChange={this.onChange} placeholder="Enter Ingredients, Separated By Commas" size="35"/>
-							<br></br>
-							<button  className="btn btn-lg btn-primary">Add The Recipe!</button>
-							<button  onClick={this.hide} className="btn btn-lg btn-info">Close</button>
-							
-						</form>
-					</Modal.Body>
-				</Modal>
-			</div>
-		)
-	}
-});
-
-function update() {
-  localStorage.setItem("recipelist", JSON.stringify(recipes));
-  var rows = [];
-  for (var i=0; i < recipes.length; i++) {
-    rows.push(
-		<Panel header={recipes[i].title} eventKey={i} bsStyle="success">
-			<Recipe title={recipes[i].title} ingredients={recipes[i].ingredients} index={i} directions={recipes[i].directions} />
-		</Panel>
-      
-    );
+const {
+  connect,
+  Provider
+} = ReactRedux;
+const {
+  createStore,
+  applyMiddleware,
+  combineReducers
+} = Redux;
+const recipes = () => {
+  if(!!localStorage['recipelist']){
+    return JSON.parse(localStorage['recipelist'])
   }
-  React.render(<RecipeBook data={rows}/>, document.getElementById("displayMe"));
+    let rec = [{
+      title: 'Taco',
+      ingredients: ['Beef', 'Seasoning', 'Tortilla'],
+      directions: ' add'
+    }, {
+      title: 'Chicken Noodle Soup',
+      ingredients: ['Chicken', 'Onion', 'Carrots', 'Celery', 'noodles'],
+      directions: 'add'
+    }, ];
+    return rec;
+
+  }
+
+  //ACTIONS
+const newRecipe = (title, ingredients, directions) => {
+  return {
+    type: 'NEW_RECIPE',
+    title,
+    ingredients,
+    directions,
+  }
 }
-React.render( <AddRecipe /> , document.getElementById('fcctop'));
-update();
+const delRecipe = (title) => {
+    return {
+      type: 'DELETE_RECIPE',
+      title
+    } 
+  }
+  //Reducers
+const recipesReducer = (state, action) => {
+  switch (action.type) {
+    case 'NEW_RECIPE':
+      return [
+        ...state,{
+        title: action.title,
+        ingredients: action.ingredients,
+        directions: action.directions
+      }
+      ];
+    case 'DELETE_RECIPE':
+      return state.filter(s => s.title !== action.title);
+    default:
+      return state;
+  }
+}
+
+const RecipeList_ = ({
+  list
+}) => {
+  let rl = store.getState();
+  let rec = [];
+  list.forEach(r => {
+    rec.push(<Recipe reci={r}/>);
+  })
+  return (
+    <div>
+      {rec}
+  </div>
+  );
+}
+const mapStateToProps_RecipeList = (state) => {
+  return {
+    list: state
+  }
+}
+const RecipeList = connect(mapStateToProps_RecipeList)(RecipeList_);
+const Recipe = ({
+  reci
+}) => {
+  let i = [];
+  let d = [];
+  reci.ingredients.forEach(ing => {
+    i.push(<li>{ing}</li>)
+  });
+  
+  
+  let klass = reci.title.replace(/\s/g, '-');
+  return (
+    <div className="row">
+        <div className="card col-xs-12 col-md-4 col-lg-2">
+          <div className="row">
+            <h4><a className="btn btn-primary" data-toggle="collapse" href={`#${klass}`}>{reci.title}</a></h4>
+            <button className="btn" 
+              onClick={() => deleteRecipe(klass)}>
+              Delete
+            </button>
+          </div>
+          <div className="collapse" id={klass}>
+          <h6>Ingredients</h6>
+        <ul>
+          {i}
+        </ul>
+          <h5>Directions</h5>
+          <p>{reci.directions}</p>
+          </div>
+        </div>
+    </div>
+  )
+}
+const AddRecipeButton = () => (
+  <div>
+      <button type="button" className="btn btn-floating" data-toggle="modal" data-target="#addRecModal">          <i className="material-icons">add</i>
+      </button>
+        <div className="modal fade" id="addRecModal">
+        <div className="modal-body">
+          <form 
+            className="form"
+            onSubmit={e=>{
+                e.preventDefault();
+              addRecipe();
+            }}>
+            <div className="form-group row">
+              <label for="title" className="col-form-label col-xs-2">Title:</label>
+              <div className="col-xs-10">
+              <input className="form-control" name="title" type="text"></input>
+              </div>
+            </div>
+            <div className="form-group row">
+            <label for="ingredients" className="col-form-label col-xs-2">Ingredients:</label>
+            {/*TODO MAKE INGREDIENTS A LIST OF ITEMS*/}
+                            <div className="col-xs-10">
+            <input className="form-control col-xs-8" name="ingredients" type="text"/>
+            </div>
+            </div>
+            <div className="form-group row">
+            <label for="directions" className="col-form-label  col-xs-2">Directions:</label>
+              <div className="col-xs-10">
+              <input className="form-control" name="directions" type="text"/>
+              </div>
+            </div>
+            <div className="form-group row">
+              <button className="btn" data-toggle="modal" data-target="#addRecModal">add</button>
+            </div>
+          </form>
+         </div>
+    </div>
+  </div>
+);
+
+function addRecipe() {
+  $('.modal').toggle();
+  let f = $('.form').serializeArray();
+  let [t, ing, dir] = f;
+  let ingArr = ing.value.split(',');
+  store.dispatch(newRecipe(t.value, ingArr, dir.value))
+  $('.form')[0].reset();
+  let jStr = JSON.stringify(store.getState())
+  localStorage.setItem('recipelist', jStr)
+}
+
+function deleteRecipe(title) {
+  store.dispatch(delRecipe(title))
+  let jStr = JSON.stringify(store.getState())
+  localStorage.setItem('recipelist', jStr)
+}
+
+const App = () => (
+  <div>
+    <h1>Recipe Box</h1>
+    <RecipeList/>
+    <AddRecipeButton/>
+  </div>
+);
+const store = Redux.createStore(recipesReducer, recipes(), window.devToolsExtension ? window.devToolsExtension() : undefined);
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+/*
+$(window).bind('beforeunload', function(){
+   
+  return confirm('do you really wnat to exit bruh?')
+ 
+});
+*/
