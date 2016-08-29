@@ -1,0 +1,137 @@
+//NOTE: HAVING TROUBLE WITH TABLES. MAYBE TRY MARKDOWN HERE
+
+const rawText = '# Vote Trump!\n  *** \n## Make America Great Again ' +
+  '\n### h3\n#### h4\n##### h5\n###### h6' +
+  '\nParagraphs are separated\nby a blank line.' +
+  '\n> Blockquote: Do or do not, there is no try' +
+  '\n\nLeave 2 spaces at the end of a line to do a  \nline break\n' +
+  '\n ### Text attributes \n  \n *italic*, **bold**, `monospace`, ~~strikethrough~~, `inline code` .\n' + ' ```javascript \n var s = "JavaScript syntax highlighting";\n alert(s);``` \n' +
+  '\n unordered lists can be listed using *, -, or +  ' +
+  "\n### Tables  " +
+  "\nColons can be used to align columns.  \n" +
+  "\n| Tables        | Are           | Cool  |  " +
+  "\n| ------------- |:-------------:| -----:|  " +
+  "\n| col 3 is      | right-aligned | $1600 |  " +
+  "\n| col 2 is      | centered      |   $12 |  " +
+  "\n| zebra stripes | are neat      |    $1 |  " +
+  "\n --- " +
+  "\nThere must be at least 3 dashes separating each header cell. " +
+  "\nThe outer pipes (|) are optional, and you don't need to make the " +
+  "raw Markdown line up prettily. You can also use inline Markdown. \n" +
+
+  "\nMarkdown | Less | Pretty  " +
+  "\n--- | --- | ---  " +
+  "\n*Still* | `renders` | **nicely**  " +
+  "\n1 | 2 | 3  " +
+
+  '\n### Numbered list:  ' +
+  'number order does not matter, just throw in some numbers \n' +
+  '\n #### Favorite Food \n8. Rack of Lamb\n5. Ribeye\n3. Chicken Noodle Soup\n' +
+  '\n#### Shopping list \n\n- Bacon Chicken Wraps\n * Chicken\n + Brown Sugar\n - Chili Powder\n - Bacon\n  \n- Salsa\n- Broccoli\n \n- Eggs\n\n* Lentils\n' +
+  '\n[My Blog](http://joechimienti.wordpress.com) \n' +
+  '\n#### Images\nInline-style: ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")\n#### Horizontal Rule\n Three or more *, _, -\n___' +
+  "\n #### New line" +
+  "\n not native in markdown but can use inline html as `&nbsp`"
+
+const {
+  Provider,
+  connect
+} = ReactRedux;
+const {
+  createStore,
+  applyMiddleware
+} = Redux;
+const update = (text) => {
+  return {
+    type: 'UPDATE',
+    text
+  }
+}
+const rawMarkup = () => {
+    return {
+      __html: marked(store.getState().inputText, {
+        sanitize: true
+      })
+    };
+  }
+  //REDUCERS
+const inputText = (state = rawText, action) => {
+    switch (action.type) {
+      case 'UPDATE':
+        return action.text;
+      default:
+        return state;
+    }
+  }
+  //PRESENTATIONAL COMPONENTS
+class MarkdownPreviewer_ extends React.Component {
+  constructor(props) {
+    super();
+  }
+  render() {
+    return (
+      <div className="container-fluid">
+        <div className="row">
+            <h1 className="title">Markdown Previewer</h1>
+        </div>
+        <div className="row">
+          <CopyClipboard/>
+          <CopyText/>
+        </div>
+        <div className="row">
+           <textarea 
+             className="col-xs-6 col-xs-md-4"
+             onChange={ e => {              store.dispatch(update(e.target.value)) }}
+             defaultValue={rawText}
+               />
+          <div className="col-xs-6 col-xs-md-8" 
+            dangerouslySetInnerHTML={rawMarkup()} 
+            >
+        </div>
+        </div> 
+      </div>
+
+    );
+  }
+}
+const mapStateToProps = (state) => {
+  return {
+    rawText: state.inputText
+  }
+}
+const CopyClipboard = () => {
+  return (
+    <button 
+      className="btn"
+			onClick={() => showClipboard(store.getState().inputText)}
+		>Copy Text
+		</button>
+
+  );
+}
+const CopyText = () => {
+  return (
+    <button 
+      className="btn copyText"
+			onClick={() => showClipboard(marked(store.getState().inputText))}
+		>Copy HTML
+		</button>
+
+  );
+}
+
+function showClipboard(text) {
+  window.prompt('CONTROL C TO COPY', text)
+}
+const MarkdownPreviewer = connect(mapStateToProps)(MarkdownPreviewer_)
+const app = Redux.combineReducers({
+  inputText
+});
+
+let store = createStore(app, '', window.devToolsExtension ? window.devToolsExtension() : undefined)
+ReactDOM.render(
+  <Provider store={store}>
+	  <MarkdownPreviewer/>
+  </Provider>,
+  document.querySelector('#root')
+);
