@@ -1,18 +1,26 @@
-.card-panel {
-  width: 1100px;
-  background-color: #FFFFFF;
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h3 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.card {
   opacity: 0.87;
+  margin-top: 15px;
 }
 
 .bar {
-  fill: #FF5722;
+  fill: material-color(orange, 800);
 }
 
 .active {
-  fill: #FFCCBC;
+  fill: material-color(orange, 300);
 }
 
-.axis path, .axis line {
+.axis path,
+.axis line {
   fill: none;
   stroke: #212121;
   shape-rendering: crispEdges;
@@ -20,10 +28,14 @@
 
 .info {
   position: absolute;
-  width: auto;
-  height: auto;
   padding: 5px;
   border-radius: 5px;
   pointer-events: none;
-  background-color: #FFCCBC;
+  background-color: material-color(orange, 300);
+  max-height: 70%;
+  max-width: 90%;
+}
+
+h3 {
+  text-align: center;
 }
