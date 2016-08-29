@@ -1,0 +1,29 @@
+$primary-color-dark: #00796B;
+$primary-color: #009688;
+$primary-color-light: #B2DFDB;
+$primary-color-text: #FFFFFF;
+$accent-color: #795548;
+$primary-text-color: #212121;
+$secondary-text-color: #727272;
+$divider-color: #B6B6B6;
+body {
+  color: $primary-text-color;
+  background-color: primary-color-text;
+}
+
+nav {
+  background-color: material-color(teal, 700);
+}
+
+.btn {
+  background: material-color(teal);
+}
+
+.card {
+  float: none;
+  margin: 0 auto;
+}
+
+input {
+  color: $secondary-text-color;
+}
