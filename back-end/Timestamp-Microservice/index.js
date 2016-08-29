@@ -21,13 +21,10 @@ app.get('/[a-z]|[A-Z]*', function(req, res){
 			'unix': unix
 		};
 		 return res.send(date).end();
-	}else{
-			res.send('Invalid date format').end();
 	}
-	
-	
-	
-})
+		res.send('Invalid date format').end();
+	}
+});
 app.get('/[0-9]*', function(req, res){
 	var p = Number(req.path.substr(1));
 	var d = moment(p)
@@ -45,4 +42,4 @@ app.get('/[0-9]*', function(req, res){
 });
 app.listen(port, function(){
 	console.log('listening at port ', port)
-})
+});
