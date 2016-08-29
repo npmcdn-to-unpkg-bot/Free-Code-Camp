@@ -9,7 +9,7 @@ var mongo = require('mongodb').MongoClient,
 	coll, 
 	 db;
 app.use(express.static(path.join(__dirname, 'public')));
-mongo.connect('mongodb://' + "joechimienti" + ':' + "Freewill89!" + '@ds031915.mlab.com:31915/hello-world',
+mongo.connect('mongodb://' + username + ':' + password + '@ds031915.mlab.com:31915/hello-world',
    function(err, database){
 		if (err) throw err;
 		db = database;
