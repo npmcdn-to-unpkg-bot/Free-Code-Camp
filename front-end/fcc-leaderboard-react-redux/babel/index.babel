@@ -1,0 +1,169 @@
+//NOTE: CANNOT GET REDUX-THUNK TO WORK!!! I made a function instead of dispatching a redux thunk
+//CONSTANTS
+const apiroot = 'http://fcctop100.herokuapp.com/api/fccusers/top/';
+const {
+  createStore,
+  applyMiddleware
+} = Redux;
+const {
+  Provider,
+  connect
+} = ReactRedux;
+var ReduxThunk = window.ReduxThunk.default
+// ACTIONS
+function requestUsers(url) {
+  return {
+    type: 'REQUEST_USERS',
+    url
+  }
+}
+
+function receiveUsers(url, json) {
+  return {
+    type: 'RECEIVE_USERS',
+    url,
+    json,
+    data: json.map(child => child),
+    received_at: Date.now()
+  }
+}
+//REDUCERS
+const alltime = (
+  state = {
+    users:[],
+    sortedBy: 'alltime'
+},
+  action) => {
+    switch (action.type) {
+      case 'REQUEST_USERS':
+        return {
+          ...state,
+          isFetching: true,
+          didValidate: false
+        };
+      case 'RECEIVE_USERS':
+        return {
+          ...state,
+          isFetching: false,
+          didValidate: false,
+          users: action.data,
+          received_at: action.received_at
+        };
+      default:
+        return state;
+    }
+  }
+  //PROBLEM???
+function fetchUsers(url) {
+      console.log('hello fetch users 1')
+  
+    console.log('hello fetch users dispatch')
+    store.dispatch(requestUsers(url))
+    return fetch(`${url}`)
+      .then(response => response.json())
+      .then(json => store.dispatch(receiveUsers(url, json)))
+  
+}
+class TopTable extends React.Component {
+  componentDidMount(){
+     let url = apiroot + 'alltime';
+    console.log(url)
+    
+    fetchUsers(url)
+  }
+  render() {
+    return (
+      <table className="table">
+				<thead>
+					<Heading/>
+				</thead>
+					<UserTable/>
+			</table>
+    );
+  }
+}
+
+const User = ({
+  user,
+  index
+}) => {
+  return (
+    <tr className="row">
+			<td>{index}</td>
+			<td>
+				<a href={"http://www.freecodecamp.com/"+user.username}>
+				<img 
+				  style={{height: '50px'}}
+				  target="_blank"
+				  src={user.img} 
+				/> {user.username}
+				</a>
+			</td>
+			<td>{user.alltime}</td>
+			<td>{user.recent}</td>
+		</tr>
+  );
+
+}
+
+const UserTable_ = ({users}) => {
+  let rows = [];
+  //FIXME
+  if (!!users){
+     users.forEach((user, index) => {
+    rows.push(
+      <User 
+        user={user} 
+        index={index+1}
+      />
+    )
+  })
+    
+  }
+ 
+  return (
+    <tbody>
+		{rows}
+		</tbody>
+  );
+
+}
+const mapStateToProps_UserTable_ = (state) =>{
+  return{
+    users: state.users
+  }
+}
+const UserTable = connect(mapStateToProps_UserTable_ ,'')(UserTable_ )
+const Heading = () => {
+
+  return (
+    <tr className="row">
+				<th>#</th>
+				<th>User</th>
+				<th id="alltime" 
+          className="sort alltime"
+          onClick={() => fetchUsers(`${apiroot}alltime`)}
+          >Alltime</th>
+				<th id="recent" className="sort recent"
+          onClick={() => fetchUsers(`${apiroot}recent`)}
+          >Recent</th>
+			</tr>
+  )
+
+}
+
+const store = createStore(
+  alltime,
+  applyMiddleware(ReduxThunk),
+  window.devToolsExtension ? window.devToolsExtension() : undefined)
+
+const render = () => {
+  ReactDOM.render(
+    <Provider store={store}>
+		<TopTable/> 
+	</Provider>, document.getElementById('root')
+  );
+
+}
+
+render();

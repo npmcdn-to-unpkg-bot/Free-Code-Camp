@@ -1,0 +1,36 @@
+body {
+  font-family: Arial, open-sans;
+  opacity: 0.9;
+}
+
+.active {
+  color: material-color(red);
+}
+
+#root {
+  float: none;
+  margin: 0 auto;
+}
+
+#displayMe {
+  border: 1px solid #333;
+  float: none;
+  margin: 0 auto;
+}
+
+th {
+  font-size: 21px;
+  cursor: pointer;
+}
+
+td {
+  font-size: 18px;
+}
+
+.glyphicon {
+  display: none;
+}
+
+img {
+  border-radius: 100%;
+}
