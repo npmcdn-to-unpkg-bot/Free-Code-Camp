@@ -67,12 +67,12 @@ var removeLight = function removeLight(color) {
 };
 var displayMoves = function displayMoves() {
   return {
-    type: 'START'
+    type: 'START_DISPLAY'
   };
 };
 var stopDisplay = function stopDisplay() {
   return {
-    type: 'STOP'
+    type: 'STOP_DISPLAY'
   };
 };
 //reducers
@@ -140,9 +140,9 @@ var buttonsActive = function buttonsActive() {
   var action = arguments[1];
 
   switch (action.type) {
-    case 'START':
+    case 'START_DISPLAY':
       return false;
-    case 'STOP':
+    case 'STOP_DISPLAY':
       return true;
     default:
       return state;
@@ -178,7 +178,6 @@ var updateRound = function updateRound() {
     case 13:
       store.dispatch(newRound(randz));
       store.dispatch(increaseSpeed());
-      lightUpTiles();
       break;
     case 20:
       store.dispatch({
@@ -190,22 +189,27 @@ var updateRound = function updateRound() {
       break;
   }
   lightUpTiles();
+  return;
 };
 var lightUp = function lightUp(id) {
-  beep(id);
+  console.log('lightUp called, id: ', id);
   store.dispatch(lightUpButton(id));
-  setTimeout(function () {
-    store.dispatch(removeLight(id));
-  }, store.getState().speed / 2);
+  beep(id);
+  setTimeout(remLight, store.getState().speed / 2);
+};
+var remLight = function remLight(id) {
+  store.dispatch(removeLight(id));
 };
 var lightUpTiles = function lightUpTiles() {
+
+  console.log('lightUpTiles called');
   store.dispatch(displayMoves());
   var computerArray = store.getState().computerArray;
   var i = 0;
   var interval = setInterval(function () {
     lightUp(computerArray[i]);
     i++;
-    if (i === computerArray.length) {
+    if (i >= computerArray.length) {
       clearInterval(interval);
       store.dispatch(stopDisplay());
     }
@@ -217,33 +221,29 @@ var lightUpTiles = function lightUpTiles() {
 var Board = function Board() {
   return React.createElement(
     'div',
-    { className: 'container-fluid' },
+    { className: 'col-xs-8 board' },
     React.createElement(
       'div',
       { className: 'row' },
       React.createElement(
         'div',
-        { className: 'board col-xs-6' },
+        { className: 'buttons col-xs-10' },
         React.createElement(
           'div',
-          { className: 'buttons' },
-          React.createElement(
-            'div',
-            { className: 'row' },
-            React.createElement(Button, { color: 'green' }),
-            React.createElement(Button, { color: 'red' }),
-            React.createElement(
-              'div',
-              { className: 'row' },
-              React.createElement(Controller, null)
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'row' },
-            React.createElement(Button, { color: 'yellow' }),
-            React.createElement(Button, { color: 'blue' })
-          )
+          { className: 'row' },
+          React.createElement(Button, { color: 'green' }),
+          React.createElement(Button, { color: 'red' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'row' },
+          React.createElement(Controller, null)
+        ),
+        React.createElement(
+          'div',
+          { className: 'row' },
+          React.createElement(Button, { color: 'yellow' }),
+          React.createElement(Button, { color: 'blue' })
         )
       )
     )
@@ -256,22 +256,16 @@ var Button_ = function Button_(_ref) {
   var handleClick = _ref.handleClick;
   var buttonsActive = _ref.buttonsActive;
 
-  var klass = active ? 'active ' + 'btn-' + color : color;
+  var klass = active ? 'btn-active btn-' + color : 'btn-' + color;
   var disabled = !!buttonsActive ? false : true;
-  return React.createElement(
-    'div',
-    { className: ' button-cont col-xs-5' },
-    React.createElement('button', {
-      className: "btn btn-game btn-" + klass,
-      disabled: disabled,
-      onClick: function onClick(e) {
-        e.preventDefault();
-        handleClick(color);
-        compareArrays();
-        lightUp(color);
-      }
-    })
-  );
+  return React.createElement('button', { className: "col-xs-5 btn btn-game " + klass,
+    disabled: disabled,
+    onClick: function onClick(e) {
+      e.preventDefault();
+      handleClick(color);
+      compareArrays();
+      lightUp(color);
+    } });
 };
 var mapStateToProps_1 = function mapStateToProps_1(state, ownProps) {
   return {

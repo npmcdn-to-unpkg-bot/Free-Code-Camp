@@ -70,12 +70,12 @@ const removeLight = (color) => {
 }
 const displayMoves = () => {
   return {
-    type: 'START'
+    type: 'START_DISPLAY'
   }
 }
 const stopDisplay = () => {
     return {
-      type: 'STOP'
+      type: 'STOP_DISPLAY'
     }
   }
   //reducers
@@ -125,9 +125,9 @@ const activeButton = (state = '', action) => {
 }
 const buttonsActive = (state = false, action) => {
   switch (action.type) {
-    case 'START':
+    case 'START_DISPLAY':
       return false;
-    case 'STOP':
+    case 'STOP_DISPLAY':
       return true;
     default:
       return state;
@@ -163,7 +163,6 @@ const updateRound = () => {
     case 13:
       store.dispatch(newRound(randz));
       store.dispatch(increaseSpeed());
-      lightUpTiles();
       break;
     case 20:
       store.dispatch({
@@ -175,53 +174,57 @@ const updateRound = () => {
       break;
   }
   lightUpTiles();
+  return;
 }
 const lightUp = (id) => {
-  beep(id);
+  console.log('lightUp called, id: ', id)
   store.dispatch(lightUpButton(id))
-  setTimeout(() => {
-    store.dispatch(removeLight(id));
-  }, store.getState().speed / 2);
+   beep(id);
+  setTimeout(remLight, store.getState().speed / 2);
 
 }
+const remLight = (id) =>{
+  store.dispatch(removeLight(id));
+}
 const lightUpTiles = () => {
+
+  console.log('lightUpTiles called');
   store.dispatch(displayMoves())
   let computerArray = store.getState().computerArray;
   let i = 0;
   var interval = setInterval(() => {
-    lightUp(computerArray[i])
-    i++
-    if (i === computerArray.length) {
+    lightUp(computerArray[i]);
+    i++;
+       if (i >= computerArray.length) {
       clearInterval(interval);
       store.dispatch(stopDisplay())
     }
+   
   }, store.getState().speed);
+ 
 }
 
 //presentational components
 
-
-
 const Board = () => (
-  <div className="container-fluid">
+  <div className="col-xs-8 board">
     <div className="row">
-    <div className="board col-xs-6">
-      <div className="buttons">
-        <div className="row">
-          <Button color="green"/>
-          <Button color='red'/>
+      <div className="buttons col-xs-10">
           <div className="row">
-             <Controller/>
-          </div>
-        </div>
+            <Button color="green"/>
+            <Button color='red'/>
+                      </div>
         <div className="row">
-          <Button color='yellow'/>
-          <Button color='blue'/>
+           <Controller/>
         </div>
+          <div className="row">
+            <Button color='yellow'/>
+            <Button color='blue'/>
+          </div>
       </div>
     </div>
-    </div>
   </div>
+
 );
 //TODO fix variable callout for new ES6 specs
 const Button_ = ({
@@ -230,21 +233,24 @@ const Button_ = ({
   handleClick,
   buttonsActive
 }) => {
-  let klass = active ? 'active ' + 'btn-' + color : color;
+  let klass = active ? 'btn-active btn-' + color : 'btn-' + color;
   let disabled = !!buttonsActive ? false : true;
-  return (
-    <div className=" button-cont col-xs-5">
-      <button 
-        className={"btn btn-game btn-" + klass}
-        disabled={disabled}
-        onClick={e =>{
-          e.preventDefault();
-          handleClick(color);
-          compareArrays();
-          lightUp(color)
-        }}
-      ></button>
-    </div>
+  return ( <
+    button className = {
+      "col-xs-5 btn btn-game " + klass
+    }
+    disabled = {
+      disabled
+    }
+    onClick = {
+      e => {
+        e.preventDefault();
+        handleClick(color);
+        compareArrays();
+        lightUp(color)
+      }
+    } >
+    < /button>
   );
 }
 const mapStateToProps_1 = (state, ownProps) => {

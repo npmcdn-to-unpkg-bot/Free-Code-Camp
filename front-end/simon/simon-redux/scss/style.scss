@@ -18,9 +18,9 @@ body {
 }
 
 .board {
-  //display: block;
   height: 0;
-  padding-top: 50%;
+  padding: 0;
+  padding-bottom: (2 / 3) * 100%;
   background: #212121;
   float: none;
   margin: 0 auto;
@@ -29,42 +29,48 @@ body {
 }
 
 .buttons {
-position: absolute;
-  top: 10%;
-  left: 13%;
-  width: 90%;
-  height: 90%;
-}
-
-.button-cont {
+  position: absolute;
+  left: 55%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #212121;
+  float: none;
+  margin: 0 auto;
+  border-radius: 100%;
   padding: 0;
 }
 
 .btn-game {
   padding: 0;
-  padding-top: 100%;
-  width: 100%;
-  height: 0;
+  padding-bottom: 40%;
 }
 
 .btn-green {
   background-color: $green;
   border-top-left-radius: 100%;
+  margin-right: 2px;
+  margin-bottom: 2px;
 }
 
 .btn-red {
   background-color: $red;
   border-top-right-radius: 100%;
+  margin-left: 2px;
+  margin-bottom: 2px;
 }
 
 .btn-blue {
   background-color: $blue;
   border-bottom-right-radius: 100%;
+  margin-left: 2px;
+  margin-top: 2px;
 }
 
 .btn-yellow {
   background-color: $yellow;
   border-bottom-left-radius: 100%;
+  margin-top: 2px;
+  margin-right: 2px;
 }
 
 .btn {
@@ -83,7 +89,7 @@ position: absolute;
 }
 
 .btn[disabled] {
-  opacity: 0.9;
+  opacity: 1;
   cursor: default;
 }
 
@@ -91,10 +97,11 @@ position: absolute;
   overflow: hidden;
   outline: none;
   border: none;
-  -webkit-box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.81);
-  -moz-box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.81);
-  box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.81);
-  opacity: 0.6;
+  
+  -webkit-box-shadow: 13px 13px 18px 0px rgba(50, 50, 50, 0.81);
+  -moz-box-shadow: 13px 13px 18px 0px rgba(50, 50, 50, 0.81);
+  box-shadow: 13px 13px 18px 0px rgba(50, 50, 50, 0.81);
+  //opacity: 0.2;
 }
 
 .controller {
@@ -108,10 +115,13 @@ position: absolute;
 }
 
 .controller button {
+  position: absolute;
   box-shadow: 3px;
   font-height: 10px;
   border-radius: 100%;
   background: $red;
+  top: 3px;
+  left: 70%;
   &:hover {
     opacity: 0.2;
   }
@@ -125,5 +135,5 @@ position: absolute;
   border-radius: 5px;
   text-align: center;
   margin: 0 auto;
-  top: 5px;
+  top: 0px;
 }
