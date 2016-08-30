@@ -1,8 +1,16 @@
-
 var url = "https://www.googleapis.com/customsearch/v1";
 var lastColor, lastNum;
 
 var quotes = [{
+    quote: 'We don"t rise to the level of our expectations, we fall to the level of our training.',
+    author: 'Archilochos'
+  }, {
+    quote: 'As to the Adjective: when in doubt, strike it out',
+    author: 'Mark Twain'
+  }, {
+    quote: 'There is nothing either good or bad except that thinking makes it so',
+    author: 'William Shakespeare'
+  }, {
     quote: 'The lessons we remember are the lessons we learn the hard way',
     author: 'Seth Godin'
   }, {
@@ -92,11 +100,21 @@ var quotes = [{
 var bgcolorlist;
 var randomColor;
 var randNum;
+class Header extends React.Component {
+  render() {
+    return (
+      <div className="navbar">
+       <h2>Random Quote Machine</h2>
+  </div>
+    )
 
+  }
+}
 class QuoteBox extends React.Component {
   constructor(props) {
     super();
     this.genRand = this.genRand.bind(this)
+    this.handleTweet = this.handleTweet.bind(this)
     this.genRand()
     $("body").css("backgroundColor", randomColor)
     this.state = {
@@ -115,113 +133,86 @@ class QuoteBox extends React.Component {
     ];
     randomColor = bgcolorlist[Math.floor(Math.random() * bgcolorlist.length)];
     randNum = Math.floor(Math.random() * quotes.length);
-
     lastColor = randomColor;
     lastNum = randNum;
-   
   }
   changeBackground() {
     this.genRand();
     //function to ensure color and quote is changed
     if (lastColor !== this.state.randomColor &&
       quotes[lastNum].quote !== this.state.quote) {
-      $("body").css("backgroundColor", randomColor);
-      
+      /*
+      would need jquery color plugin
+      $('body').animate({
+        background: randomColor
+      }, 'slow')
+      */
+     //$("body").css("backgroundColor", randomColor);
+      d3.select('body')
+        .transition(2000)
+        .style('background-color', randomColor);
+        
+        
       this.setState({
         quote: quotes[randNum].quote,
         author: quotes[randNum].author,
         randomColor: randomColor
       });
-      
     }
   }
   handleTweet() {
-    console.log(this.state.quote);
     window.open('https://twitter.com/intent/tweet?text=' + this.state.quote);
   }
-
-  render() {
+  render(){
+    let style = {}
+      style.height = 36;
+      style.width = 36;
+    const twitterImg = 
+      <img
+        className="twitterImg"
+        src="http://icons.iconarchive.com/icons/limav/flat-gradient-social/512/Twitter-icon.png"
+        alt="twitter"
+        style={style}
+          />
     return (
       <div>
-      <div 
-        style= {{ 
-            background: this.state.randomColor
-        }} 
-        className="container card-panel">
+      <Header/>
+      <div className="container-fluid">
+        <div 
+          className="card"
+          style= {{ 
+              background: this.state.randomColor
+          }} 
+        >
          <h4>{this.state.quote} </h4> 
          <h5>-{this.state.author}</h5>
-       </div> <
-      div className = "row" >
-      <
-      button className = "btn"
-      onClick = {
-        () => {
-          console.log('new quote button pressed')
-          this.changeBackground();
-        }
-      }
-      style = {
-        {
-          background: this.state.randomColor
-        }
-      } >
-      New Quote!
-      <
-      /button> <
-      button className = "btn twitter"
-      onClick = {
-        this.handleTweet
-      }
-      style = {
-        {
-          background: this.state.randomColor
-        }
-      } >
-      Tweet! </button> 
+       </div>
+        <div className = "row" >
+          <button className = "btn btn-newQuote"
+            onClick = {() => {
+                this.changeBackground();
+            }}
+            style = {{
+              background: this.state.randomColor
+            }} 
+          >New Quote!
+          </button> 
+          <button 
+            className= "btn twitter"
+            onClick= {this.handleTweet}
+            style={{
+              background: this.state.randomColor
+            }}
+          >{twitterImg}
+          </button> 
       </div> 
-        <AuthorWikipediaPage 
-          randomColor = { this.state.randomColor }
-           author = {    this.state.author }/> 
-      </div>
+     </div>  
+  </div >
     );
   }
 }
-class AuthorWikipediaPage extends React.Component {
-  handleSearch(e) {
-    e.preventDefault();
-    var search = "https://wikipedia.org/wiki/Special:Search?search=" + this.refs.author.value;
-    console.log(search);
-    console.log(this.refs.author.value);
-  }
-  render() {
-    var authorSearch; // change wikipedia search to substring which ends at the comma and only includes author's name
-    return (
-      <div>
-				<form onSubmit={this.handleSearch} >
-				<div className="input-field">
-					<input 
-            type="hidden"
-            name="language" 
-            value="en" 
-          />
-					<input
-            ref="author" 
-            type="text" 
-            value={this.props.author}
-          />
-					<button 
-            style={{ background: this.props.randomColor}}
-            className="btn" 
-            type="submit"
-          >Search Wikipedia
-          </button>
-				</div>
-          </form>
-			
-        </div>
-    );
-  }
-}
+
 ReactDOM.render(
-  <QuoteBox />, document.getElementById('root')
+  <QuoteBox />, 
+  document.getElementById('root')
 );

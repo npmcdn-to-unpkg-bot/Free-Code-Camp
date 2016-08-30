@@ -1,21 +1,13 @@
-$normal-margin: 15px;
-.btn {
+.btn-newQuote {
   border: 1px solid #212121;
-  color: #212121;
-  &.twitter {
-    margin-left: $normal-margin;
-  }
 }
-
+.twitterImg{
+  border-radius: 15px;
+}
 .navbar {
   background-color: rgb(51, 51, 51);
   color: white;
   top: 0;
   margin: 0;
   padding: 0;
-}
-
-.quote {
-  position: relative;
-  margin-top: 30px;
 }

@@ -10,6 +10,15 @@ var url = "https://www.googleapis.com/customsearch/v1";
 var lastColor, lastNum;
 
 var quotes = [{
+  quote: 'We don"t rise to the level of our expectations, we fall to the level of our training.',
+  author: 'Archilochos'
+}, {
+  quote: 'As to the Adjective: when in doubt, strike it out',
+  author: 'Mark Twain'
+}, {
+  quote: 'There is nothing either good or bad except that thinking makes it so',
+  author: 'William Shakespeare'
+}, {
   quote: 'The lessons we remember are the lessons we learn the hard way',
   author: 'Seth Godin'
 }, {
@@ -98,31 +107,55 @@ var bgcolorlist;
 var randomColor;
 var randNum;
 
-var QuoteBox = function (_React$Component) {
-  _inherits(QuoteBox, _React$Component);
+var Header = function (_React$Component) {
+  _inherits(Header, _React$Component);
+
+  function Header() {
+    _classCallCheck(this, Header);
+
+    return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+  }
+
+  Header.prototype.render = function render() {
+    return React.createElement(
+      'div',
+      { className: 'navbar' },
+      React.createElement(
+        'h2',
+        null,
+        'Random Quote Machine'
+      )
+    );
+  };
+
+  return Header;
+}(React.Component);
+
+var QuoteBox = function (_React$Component2) {
+  _inherits(QuoteBox, _React$Component2);
 
   function QuoteBox(props) {
     _classCallCheck(this, QuoteBox);
 
-    var _this = _possibleConstructorReturn(this, _React$Component.call(this));
+    var _this2 = _possibleConstructorReturn(this, _React$Component2.call(this));
 
-    _this.genRand = _this.genRand.bind(_this);
-    _this.genRand();
+    _this2.genRand = _this2.genRand.bind(_this2);
+    _this2.handleTweet = _this2.handleTweet.bind(_this2);
+    _this2.genRand();
     $("body").css("backgroundColor", randomColor);
-    _this.state = {
+    _this2.state = {
       quote: quotes[randNum].quote,
       author: quotes[randNum].author,
       randomColor: randomColor
     };
 
-    return _this;
+    return _this2;
   }
 
   QuoteBox.prototype.genRand = function genRand() {
     bgcolorlist = ["#DFDFFF", "#FFFFBF", "#80FF80", "#EAEAFF", "#C9FFA8", "#F7F7F7", "#DDDD00", '#16a085', '#27ae60', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#BDBB99', '#77B1A9', '#73A857'];
     randomColor = bgcolorlist[Math.floor(Math.random() * bgcolorlist.length)];
     randNum = Math.floor(Math.random() * quotes.length);
-
     lastColor = randomColor;
     lastNum = randNum;
   };
@@ -131,7 +164,14 @@ var QuoteBox = function (_React$Component) {
     this.genRand();
     //function to ensure color and quote is changed
     if (lastColor !== this.state.randomColor && quotes[lastNum].quote !== this.state.quote) {
-      $("body").css("backgroundColor", randomColor);
+      /*
+      would need jquery color plugin
+      $('body').animate({
+        background: randomColor
+      }, 'slow')
+      */
+      //$("body").css("backgroundColor", randomColor);
+      d3.select('body').transition(2000).style('background-color', randomColor);
 
       this.setState({
         quote: quotes[randNum].quote,
@@ -142,124 +182,81 @@ var QuoteBox = function (_React$Component) {
   };
 
   QuoteBox.prototype.handleTweet = function handleTweet() {
-    console.log(this.state.quote);
     window.open('https://twitter.com/intent/tweet?text=' + this.state.quote);
   };
 
   QuoteBox.prototype.render = function render() {
-    var _this2 = this;
+    var _this3 = this;
 
+    var style = {};
+    style.height = 36;
+    style.width = 36;
+    var twitterImg = React.createElement('img', {
+      className: 'twitterImg',
+      src: 'http://icons.iconarchive.com/icons/limav/flat-gradient-social/512/Twitter-icon.png',
+      alt: 'twitter',
+      style: style
+    });
     return React.createElement(
       'div',
       null,
+      React.createElement(Header, null),
       React.createElement(
         'div',
-        {
-          style: {
-            background: this.state.randomColor
-          },
-          className: 'container card-panel' },
-        React.createElement(
-          'h4',
-          null,
-          this.state.quote,
-          ' '
-        ),
-        React.createElement(
-          'h5',
-          null,
-          '-',
-          this.state.author
-        )
-      ),
-      ' ',
-      React.createElement(
-        'div',
-        { className: 'row' },
-        React.createElement(
-          'button',
-          { className: 'btn',
-            onClick: function onClick() {
-              console.log('new quote button pressed');
-              _this2.changeBackground();
-            },
-            style: {
-              background: this.state.randomColor
-            } },
-          'New Quote!'
-        ),
-        ' ',
-        React.createElement(
-          'button',
-          { className: 'btn twitter',
-            onClick: this.handleTweet,
-            style: {
-              background: this.state.randomColor
-            } },
-          'Tweet! '
-        )
-      ),
-      React.createElement(AuthorWikipediaPage, {
-        randomColor: this.state.randomColor,
-        author: this.state.author })
-    );
-  };
-
-  return QuoteBox;
-}(React.Component);
-
-var AuthorWikipediaPage = function (_React$Component2) {
-  _inherits(AuthorWikipediaPage, _React$Component2);
-
-  function AuthorWikipediaPage() {
-    _classCallCheck(this, AuthorWikipediaPage);
-
-    return _possibleConstructorReturn(this, _React$Component2.apply(this, arguments));
-  }
-
-  AuthorWikipediaPage.prototype.handleSearch = function handleSearch(e) {
-    e.preventDefault();
-    var search = "https://wikipedia.org/wiki/Special:Search?search=" + this.refs.author.value;
-    console.log(search);
-    console.log(this.refs.author.value);
-  };
-
-  AuthorWikipediaPage.prototype.render = function render() {
-    var authorSearch; // change wikipedia search to substring which ends at the comma and only includes author's name
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(
-        'form',
-        { onSubmit: this.handleSearch },
+        { className: 'container-fluid' },
         React.createElement(
           'div',
-          { className: 'input-field' },
-          React.createElement('input', {
-            type: 'hidden',
-            name: 'language',
-            value: 'en'
-          }),
-          React.createElement('input', {
-            ref: 'author',
-            type: 'text',
-            value: this.props.author
-          }),
+          {
+            className: 'card',
+            style: {
+              background: this.state.randomColor
+            }
+          },
+          React.createElement(
+            'h4',
+            null,
+            this.state.quote,
+            ' '
+          ),
+          React.createElement(
+            'h5',
+            null,
+            '-',
+            this.state.author
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'row' },
+          React.createElement(
+            'button',
+            { className: 'btn btn-newQuote',
+              onClick: function onClick() {
+                _this3.changeBackground();
+              },
+              style: {
+                background: this.state.randomColor
+              }
+            },
+            'New Quote!'
+          ),
           React.createElement(
             'button',
             {
-              style: { background: this.props.randomColor },
-              className: 'btn',
-              type: 'submit'
+              className: 'btn twitter',
+              onClick: this.handleTweet,
+              style: {
+                background: this.state.randomColor
+              }
             },
-            'Search Wikipedia'
+            twitterImg
           )
         )
       )
     );
   };
 
-  return AuthorWikipediaPage;
+  return QuoteBox;
 }(React.Component);
 
 ReactDOM.render(React.createElement(QuoteBox, null), document.getElementById('root'));
