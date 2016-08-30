@@ -4,6 +4,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.card {
+  float: none;
+  margin: 0 auto;
+}
+
 .axis path,
 .axis line {
   fill: none;
@@ -11,8 +16,8 @@ body {
 }
 
 .card {
-  width: auto;
   margin: 0 auto;
+  margin-top: 15px;
 }
 
 svg {
@@ -21,8 +26,8 @@ svg {
 
 .toolTip {
   background-color: #FFCCBC;
-  height: auto;
-  width: auto;
+  max-height: 80%;
+  max-width: 90%;
   position: absolute;
   padding: 5px;
   border-radius: 5px;

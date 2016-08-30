@@ -21,7 +21,7 @@ var height = 600 - margin.top - margin.bottom;
 var width = 1200 - margin.left - margin.right;
 var barHeight = height / 12;
 var barWidth = width / 263;
-var legendRectWidth = 24;
+var legendRectWidth = 36;
 var legentRectHeight = legendRectWidth;
 
 d3.json(url, function (error, data) {
@@ -88,11 +88,11 @@ d3.json(url, function (error, data) {
   }).attr('y', height + 60).attr('width', legendRectWidth).attr('height', legentRectHeight);
 
   legend.append('text').text(function (d, i) {
-    return parseInt(d + baseTemperature) + " &#8451";
+    return parseInt(d + baseTemperature) + '\xBA';
   }).attr('x', function (d, i) {
-    return width * (2 / 3) + legendRectWidth * i + legendRectWidth / 3;
-  }).attr('y', height + 95);
-  legend.append('text').text('Temperature Legend').attr('y', height + 45).attr('x', width * 0.65);
+    return width * (2 / 3) + legendRectWidth * i + legendRectWidth / 3 - 3;
+  }).attr('y', height + 115);
+  legend.append('text').text('Temperature').attr('y', height + 135).attr('x', width * 0.75);
 
   graph.selectAll('.rect').data(data.monthlyVariance).enter().append('rect').attr('class', 'rect').attr('x', function (d, i) {
     return xScale(new Date(d.year, d.month));
@@ -107,6 +107,7 @@ d3.json(url, function (error, data) {
     toolTip.transition().duration(300).style('opacity', 0);
   });
 });
+
 var chart = $(".graph"),
     aspect = chart.width() / chart.height(),
     container = chart.parent();

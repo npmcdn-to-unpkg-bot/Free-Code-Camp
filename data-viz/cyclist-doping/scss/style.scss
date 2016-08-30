@@ -13,8 +13,8 @@ body {
 .center-text{
   text-align: center;
 }
-.card-panel {
-  width: auto;
+.card {
+margin-top: 15px;
   background-color: $primary-color-text;
   opacity: 0.87;
 }
@@ -41,11 +41,9 @@ body {
   pointer-events: none;
   background-color: $primary-color-light;
 }
-
 .label {
   font-size: 1.4em;
 }
-
 .legend {
   outline: 1px solid black;
   padding: 5px;
@@ -53,11 +51,9 @@ body {
   fill: white;
   box-shadow: 2px 2px 1px #888;
 }
-
 .allegations {
   fill: material-color(red);
 }
-
 .no-allegations {
   fill: material-color(green);
 }
