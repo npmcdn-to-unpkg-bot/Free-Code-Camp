@@ -1,6 +1,6 @@
 ## My Work
 
-This is a collection of the algorithms, and web projects I have completed during the Free Code Camp Course. 
+This is a collection of the algorithms, and web projects I have completed during the Free Code Camp Course. Prior to taking this course I had no programming experience. I have learned quite a bit over the last 6 months and I would recommmend Free Code Camp to any newbie like myself. 
 
 
 ## Completed:  
