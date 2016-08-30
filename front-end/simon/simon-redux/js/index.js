@@ -135,7 +135,7 @@ var activeButton = function activeButton() {
 	}
 };
 var buttonsActive = function buttonsActive() {
-	var state = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+	var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 	var action = arguments[1];
 
 	switch (action.type) {

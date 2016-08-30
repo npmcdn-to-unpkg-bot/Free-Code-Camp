@@ -116,7 +116,7 @@ const activeButton = (state = '', action) =>{
 			return state;
 	}
 }
-const buttonsActive = (state = true, action) =>{
+const buttonsActive = (state = false, action) =>{
   switch(action.type){
     case 'START':
       return false;

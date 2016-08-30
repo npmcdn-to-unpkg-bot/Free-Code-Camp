@@ -9,15 +9,24 @@ body {
   height: 600px;
   border-radius: 100%;
   position: relative;
-  top: 100px;
   background: #212121;
   float: none;
   margin: 0 auto;
+  margin-top: 15px;
 }
 
 .btns {
   position: relative;
   top: 50px;
+}
+
+.shadow {
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow: 3px 3px 5px 6px #ccc;
+  /* Firefox 3.5 - 3.6 */
+  box-shadow: 3px 3px 5px 6px #ccc;
+  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
 
 .btn-green {
@@ -57,11 +66,12 @@ body {
   border-radius: 10px;
 }
 
+.btn[disabled] {
+  opacity: 0.9;
+  cursor: default;
+}
+
 .btn-active {
-  /*
-   background-image: linear-gradient(to top, rgba(255, 255, 255, 0.6), rgba(211, 211, 211, 0.4)) !important;
-  background-blend-mode: screen !important;
-  */
   overflow: hidden;
   outline: none;
   border: none;
@@ -118,14 +128,14 @@ body {
   }
 
   .btn {
-    width: 125px;
-    height: 125px;
+    width: 100px;
+    height: 100px;
   }
 
   .controller {
     top: -150px;
     left: 85px;
     width: 75px;
-    height: 95px;
+    height: 60px;
   }
 }
