@@ -7,6 +7,7 @@ var audio3 = new Audio(
 var audio4 = new Audio(
   'http://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
 var audioBuzzer = new Audio('https://s3-us-west-2.amazonaws.com/guylemon/Buzzer.mp3');
+
 function beep(audio) {
   // Plays the correct audio file.
   //
@@ -29,249 +30,279 @@ function beep(audio) {
   }
 }
 
-const { connect, Provider } = ReactRedux;
-const { createStore, combineReducers } = Redux;
+const {
+  connect,
+  Provider
+} = ReactRedux;
+const {
+  createStore,
+  combineReducers
+} = Redux;
 //actions
-const sendPlayerChoice = (choice) =>{
-	return{
-		type: 'CLICK',
-		choice
-	};
+const sendPlayerChoice = (choice) => {
+  return {
+    type: 'CLICK',
+    choice
+  };
 }
-const newRound = (choice) =>{
-	return{
-		type: 'NEW_ROUND',
-		choice
-	};	
+const newRound = (choice) => {
+  return {
+    type: 'NEW_ROUND',
+    choice
+  };
 }
-const increaseSpeed = () =>{
-	return{
-		type: 'INCREASE'
-	};
+const increaseSpeed = () => {
+  return {
+    type: 'INCREASE'
+  };
 }
-const lightUpButton = (color) =>{
-	return{
-		type: 'LIGHT_UP',
-		color
-	};
+const lightUpButton = (color) => {
+  return {
+    type: 'LIGHT_UP',
+    color
+  };
 }
-const removeLight = (color) =>{
-	return{
-		type: 'REMOVE_LIGHT',
-		color
-	}
+const removeLight = (color) => {
+  return {
+    type: 'REMOVE_LIGHT',
+    color
+  }
 }
-const displayMoves = () =>{
-	return{
-		type: 'START'
-	}
+const displayMoves = () => {
+  return {
+    type: 'START'
+  }
 }
-const stopDisplay = () =>{
-	return{
-		type: 'STOP'
-	}
+const stopDisplay = () => {
+    return {
+      type: 'STOP'
+    }
+  }
+  //reducers
+const round = (state = 0, action) => {
+  switch (action.type) {
+    case 'NEW_ROUND':
+      return state + 1;
+    default:
+      return state;
+  }
 }
-//reducers
-const round = (state = 0, action) =>{
-	switch(action.type){
-		case 'NEW_ROUND':
-			return state + 1;
-		default:
-			return state;
-	}
+const speed = (state = 1200, action) => {
+  switch (action.type) {
+    case 'INCREASE':
+      return state * 1.2;
+    default:
+      return state;
+  }
 }
-const speed = (state = 1200, action) =>{
-	switch(action.type){
-		case 'INCREASE':
-			return state * 1.2;
-		default:
-			return state;
-	}
+const computerArray = (state = [], action) => {
+  switch (action.type) {
+    case 'NEW_ROUND':
+      return [...state, action.choice]
+    default:
+      return state;
+  }
 }
-const computerArray = (state = [], action) =>{
-	switch(action.type){
-		case 'NEW_ROUND':
-			return [...state, action.choice]
-		default:
-			return state;
-	}
+const playerArray = (state = [], action) => {
+  switch (action.type) {
+    case 'CLICK':
+      return [...state, action.choice];
+    case 'NEW_ROUND':
+      return [];
+    default:
+      return state;
+  }
 }
-const playerArray = (state = [], action) =>{
-	switch(action.type){
-		case 'CLICK':
-			return [...state, action.choice];
-		case 'NEW_ROUND':
-			return [];
-		default:
-			return state;
-	}
+const activeButton = (state = '', action) => {
+  switch (action.type) {
+    case 'LIGHT_UP':
+      return action.color;
+    case 'REMOVE_LIGHT':
+      return '';
+    default:
+      return state;
+  }
 }
-const activeButton = (state = '', action) =>{
-	switch(action.type){
-		case 'LIGHT_UP':
-			return action.color;
-		case 'REMOVE_LIGHT':
-			return '';
-		default:
-			return state;
-	}
-}
-const buttonsActive = (state = false, action) =>{
-  switch(action.type){
+const buttonsActive = (state = false, action) => {
+  switch (action.type) {
     case 'START':
       return false;
     case 'STOP':
       return true;
-    default: 
+    default:
       return state;
   }
 }
-const startGame = () =>{
-  if(store.getState().round === 0){
+const startGame = () => {
+  if (store.getState().round === 0) {
     updateRound();
   }
 }
-const compareArrays = () =>{
-	let computerArray = store.getState().computerArray;
-	let equalArrays = store.getState().playerArray.every((choice, i) => {
-		 return choice === computerArray[i];
+const compareArrays = () => {
+  let computerArray = store.getState().computerArray;
+  let equalArrays = store.getState().playerArray.every((choice, i) => {
+    return choice === computerArray[i];
   });
-	if (!equalArrays){
+  if (!equalArrays) {
     beep();
-    store.dispatch({type: 'RESET'})
-	}if (store.getState().playerArray.length === computerArray.length || round === 0){
+    store.dispatch({
+      type: 'RESET'
+    })
+  }
+  if (store.getState().playerArray.length === computerArray.length || round === 0) {
     updateRound();
   }
 }
-const updateRound = () =>{
-  	let random = Math.floor(Math.random() * 4);
+const updateRound = () => {
+  let random = Math.floor(Math.random() * 4);
   let colors = ['green', 'red', 'blue', 'yellow'];
   let randz = colors[random];
- switch(store.getState().round){
-   case 4:
-   case 8:
-   case 13:
-     store.dispatch(newRound(randz));
-     store.dispatch(increaseSpeed());
-     lightUpTiles();
-     break;
-   case 20:
-    store.dispatch({type: 'RESET'});
-     break;
-   default:
-     store.dispatch(newRound(randz))
-     break;
- }
-    lightUpTiles();
+  switch (store.getState().round) {
+    case 4:
+    case 8:
+    case 13:
+      store.dispatch(newRound(randz));
+      store.dispatch(increaseSpeed());
+      lightUpTiles();
+      break;
+    case 20:
+      store.dispatch({
+        type: 'RESET'
+      });
+      break;
+    default:
+      store.dispatch(newRound(randz))
+      break;
+  }
+  lightUpTiles();
 }
-const lightUp = (id) =>{
-    beep(id);
-		store.dispatch(lightUpButton(id))
-		setTimeout( () =>{
-			store.dispatch(removeLight(id));
-		}, store.getState().speed / 2);
-				
+const lightUp = (id) => {
+  beep(id);
+  store.dispatch(lightUpButton(id))
+  setTimeout(() => {
+    store.dispatch(removeLight(id));
+  }, store.getState().speed / 2);
+
 }
-const lightUpTiles = () =>{
-	store.dispatch(displayMoves())
-	let computerArray = store.getState().computerArray;
-	let i = 0;
-	var interval = setInterval( () =>{
-		lightUp(computerArray[i])
-		i++
-		if (i === computerArray.length){
-			clearInterval(interval);
-			store.dispatch(stopDisplay())
-		}
-	}, store.getState().speed);
+const lightUpTiles = () => {
+  store.dispatch(displayMoves())
+  let computerArray = store.getState().computerArray;
+  let i = 0;
+  var interval = setInterval(() => {
+    lightUp(computerArray[i])
+    i++
+    if (i === computerArray.length) {
+      clearInterval(interval);
+      store.dispatch(stopDisplay())
+    }
+  }, store.getState().speed);
 }
 
 //presentational components
 
-const Background = () =>(
-			<div>
-				<Board />
-				<Controller />
-			</div>
-);
-const Board = () =>(
-  <div className="btns">
-    <Button color="green"/>
-    <Button color='red'/>
-    <br></br>
-    <Button color='yellow'/>
-    <Button color='blue'/>
+
+
+const Board = () => (
+  <div className="container-fluid">
+    <div className="row">
+    <div className="board col-xs-6">
+      <div className="buttons">
+        <div className="row">
+          <Button color="green"/>
+          <Button color='red'/>
+          <div className="row">
+             <Controller/>
+          </div>
+        </div>
+        <div className="row">
+          <Button color='yellow'/>
+          <Button color='blue'/>
+        </div>
+      </div>
+    </div>
+    </div>
   </div>
 );
 //TODO fix variable callout for new ES6 specs
 const Button_ = ({
-	active,
-	color,
-	handleClick,
+  active,
+  color,
+  handleClick,
   buttonsActive
-}) =>{
-  let klass = active ? 'active ' + 'btn-' + color : color;  
+}) => {
+  let klass = active ? 'active ' + 'btn-' + color : color;
   let disabled = !!buttonsActive ? false : true;
-	return(
-		<button 
-      className={"btn btn-" + klass}
-			disabled={disabled}
-      onClick={e =>{
-				e.preventDefault();
-        handleClick(color);
-        compareArrays();
-        lightUp(color)
-			}}
-		></button>
-	);
+  return (
+    <div className=" button-cont col-xs-5">
+      <button 
+        className={"btn btn-game btn-" + klass}
+        disabled={disabled}
+        onClick={e =>{
+          e.preventDefault();
+          handleClick(color);
+          compareArrays();
+          lightUp(color)
+        }}
+      ></button>
+    </div>
+  );
 }
-const mapStateToProps_1 = (state, ownProps) =>{
-	return{
-		active: state.activeButton === ownProps.color,
-    buttonsActive: state.buttonsActive
-	}
-}
-//TODO: UPDATE
-const mapDispatchToProps_1 = (dispatch) =>{
-	return{
-		handleClick: (color) => {
-			dispatch(sendPlayerChoice(color))
-		}	
-	}
+const mapStateToProps_1 = (state, ownProps) => {
+    return {
+      active: state.activeButton === ownProps.color,
+      buttonsActive: state.buttonsActive
+    }
+  }
+  //TODO: UPDATE
+const mapDispatchToProps_1 = (dispatch) => {
+  return {
+    handleClick: (color) => {
+      dispatch(sendPlayerChoice(color))
+    }
+  }
 }
 const Button = connect(mapStateToProps_1, mapDispatchToProps_1)(Button_);
-const GameInfo_ = ({round}) =>(
-  
-			<div className='gameInfo' >
+const GameInfo_ = ({
+  round
+}) => (
+
+  <div className='gameInfo' >
 				<p>{round}</p>
 			</div>
-  );
-const mapStateToProps_2 = (state) =>{
-  return{
+);
+const mapStateToProps_2 = (state) => {
+  return {
     round: state.round
   };
 }
 const GameInfo = connect(mapStateToProps_2, '')(GameInfo_)
-const Controller = () =>(
-    <div className="controller">
+const Controller = () => (
+  <div className="controller col-xs-3">
+    <div className="row">
     <GameInfo />
+    </div>
+    <div className="row">
+     
     <h4>Simon</h4>
+    </div>
+    <div className="row">
       <button className="btn btn-start"
         onClick={startGame}
         >
        </button>
+    </div>
       </div>
-  );
+);
 const app = combineReducers({
-	round,
-	speed,
-	computerArray,
-	playerArray,
-	activeButton,
+  round,
+  speed,
+  computerArray,
+  playerArray,
+  activeButton,
   buttonsActive
 })
-const rootReducer = (state, action) =>{
-  if (action.type === 'RESET'){
+const rootReducer = (state, action) => {
+  if (action.type === 'RESET') {
     state = undefined;
   }
   return app(state, action);
@@ -279,8 +310,8 @@ const rootReducer = (state, action) =>{
 let store = createStore(rootReducer, '', window.devToolsExtension ? window.devToolsExtension() : undefined);
 
 ReactDOM.render(
-	<Provider store={store}>
-		<Background />
+  <Provider store={store}>
+		<Board />
 	</Provider>,
-	document.querySelector('#root')
+  document.querySelector('#root')
 );
