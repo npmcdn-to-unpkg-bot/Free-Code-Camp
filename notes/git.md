@@ -172,7 +172,7 @@ Compare against unstaged:
 to compare against last commit:    
 `git diff --staged |  --cached //(staged and cached are synonyms).`    
 for colored output file:  
-`git diff a.csv b.cs > date_compare.diff `  
+`git diff a.csv b.csv > date_compare.diff `  
 
 Be careful, because you can’t always undo some of these undos. This is one of the few areas in Git where you may lose some work if you do it wrong.
 
