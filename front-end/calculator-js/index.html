@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>calculator </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     
     
-    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css'>
+<link rel='stylesheet prefetch' href='css/rrxppg.css'>
 
         <link rel="stylesheet" href="css/style.css">
 
@@ -20,45 +21,49 @@
     <body>
   <div class="container">
     <div class="row">
-      <div class="calc col col-xs-12 col-sm-10 col-md-8 col-lg-6">
-        <div class="row">
-          <input class="col col-xs-10" type="text" id="display" type="text" placeholder=0>
-        </div>
-        <div class="row">
-          <div class="tile col col-xs-2" data-tile='7'>7</div>
-          <div class="tile col col-xs-2" data-tile='8'>8</div>
-          <div class="tile col col-xs-2" data-tile='9'>9</div>
-          <div class="tile tile-operator col col-xs-3" data-tile="+">+</div>
-        </div>
-        <div class="row">
-          <div class="tile col col-xs-2" data-tile='4'>4</div>
-          <div class="tile col col-xs-2" data-tile='5'>5</div>
-          <div class="tile col col-xs-2" data-tile='6'>6</div>
-          <div class="tile col col-xs-3 tile-operator" data-tile="-">-</div>
-        </div>
-        <div class="row">
-          <div class="tile col col-xs-2" data-tile='1'>1</div>
-          <div class="tile col col-xs-2" data-tile='2'>2</div>
-          <div class="tile col col-xs-2" data-tile='3'>3</div>
-          <div class="tile col col-xs-3 tile-operator" data-tile="/">/</div>
-        </div>
-        <div class="row">
-          <div class="tile col col-xs-2" data-tile='0'>0</div>
-          <div class="tile col col-xs-2" data-tile=".">.</div>
-          <div id="clear" class="tile col col-xs-2 tile-operator" data-tile="C">C</div>
-          <div class="tile col col-xs-2 tile-operator" data-tile='*'>X</div>
-        </div>
-        <div class="row">
-          <div class="tile col col-xs-8 tile-equal" id="equal" data-tile="=">=</div>
-
-
-        </div>
-      </div>
+      <table class="calc col-xs-10 col-sm-10 col-md-8 col-lg-6">
+        <thead>
+          <tr class="row">
+            <td>
+              <input class="col-xs-10 display" type="text" id="display" type="text" placeholder=0></input>
+            </td>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row">
+            <td class="tile col-xs-2" data-tile='7'>7</td>
+            <td class="tile col-xs-2" data-tile='8'>8</td>
+            <td class="tile col-xs-2" data-tile='9'>9</td>
+            <td class="tile tile-operator col-xs-3" data-tile="+">+</td>
+          </tr>
+          <tr class="row">
+            <td class="tile  col-xs-2" data-tile='4'>4</td>
+            <td class="tile  col-xs-2" data-tile='5'>5</td>
+            <td class="tile  col-xs-2" data-tile='6'>6</td>
+            <td class="tile  col-xs-3 tile-operator" data-tile="-">-</td>
+          </tr>
+          <tr class="row">
+            <td class="tile col col-xs-2" data-tile='1'>1</td>
+            <td class="tile col col-xs-2" data-tile='2'>2</td>
+            <td class="tile col col-xs-2" data-tile='3'>3</td>
+            <td class="tile col col-xs-3 tile-operator" data-tile="/">/</td>
+          </tr>
+          <tr class="row">
+            <td class="tile col col-xs-2" data-tile='0'>0</td>
+            <td class="tile col col-xs-2" data-tile=".">.</td>
+            <td id="clear" class="tile col col-xs-2 tile-operator" data-tile="C">C</td>
+            <td class="tile col col-xs-2 tile-operator" data-tile='*'>X</td>
+          </tr>
+          <tr class="row">
+            <td class="tile col col-xs-8 tile-equal" id="equal" data-tile="=">=</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</body>
     <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js'></script>
 
         <script src="js/index.js"></script>
 
