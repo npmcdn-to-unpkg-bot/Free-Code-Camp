@@ -1,3 +1,4 @@
 #config file for username and password
 config.js
 .env
+node_modules
