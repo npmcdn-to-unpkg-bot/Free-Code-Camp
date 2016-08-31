@@ -4,6 +4,7 @@ var mongo = require('mongodb').MongoClient,
 	path = require('path'),
 	port = process.env.PORT || 5000,
     helmet = require('helmet'),
+
 	username = process.env.USERNAME,//require('./config.js').username,
 	password = process.env.PASSWORD,//require('./config.js').password,
 	shorten = require('./shortenUrl.js'),
@@ -11,6 +12,7 @@ var mongo = require('mongodb').MongoClient,
 	 db;
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
+
 mongo.connect('mongodb://' + username + ':' + password + '@ds031915.mlab.com:31915/hello-world',
    function(err, database){
 		if (err) throw err;
@@ -21,17 +23,18 @@ mongo.connect('mongodb://' + username + ':' + password + '@ds031915.mlab.com:319
 );
 app.get('/', function(req, res){
 	res.send(path.join(__dirname, 'public', 'index.html'));
+	console.log('home page');
 });
-
-app.get('/favicon.ico', function(req, res){
-	console.log('favicon')
-});
-
 
 
 app.get('/new/*', function( req, res){ 
 	console.log('in app.get/NEW', req.url)
 	
+	if (req.url === '/favicon.ico' || '*[object* || *ject*'){
+		console.log('fav icon, object', req.url)
+		
+	}
+
 var urlz = req.url;
 console.log('req.params.url', urlz.substr(8));
  var validUrl = require('valid-url');
@@ -43,25 +46,35 @@ console.log('req.params.url', urlz.substr(8));
 		  short: shorten() 
 		};
 		console.log('obj to send: ', obj);
-		res.json(obj);
+		res.json(obj).end();
+		db.close();
 		return;
-	var find = coll.find({'obj.enteredUrl':  urlz.substr(8)}).toArray(function(err, docs){
+	var find = coll.find({
+		'obj.enteredUrl':  urlz.substr(8)
+	}).toArray(function(err, docs){
 		if (err) throw err;
-		res.send(docs);
+		console.log(docs);
 	});
 	}else{
 	    console.log('Not a URI');
-		res.send('Not a URI my dude');
+		res.send('Not a URI my dude').end();
 	}
     db.close();
+    res.end();
 });
-/*
+
+app.get('/favicon.ico', function(req, res){
+	res.sendStatus(200);
+	console.log('fav icon requested');
+});
+
 app.get('*[object%20HTMLInputElement]*', function(req, res, next){
+	res.sendStatus(200);
 	console.log('html input', req.url)
-	//res.send('hello');
+	
 
 });
-*/
+
 
 app.get('/:id', function(req, res){
 	console.log('in app.get :id', req.params.id);
