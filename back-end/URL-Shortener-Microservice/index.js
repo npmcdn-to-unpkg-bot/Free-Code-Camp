@@ -4,7 +4,6 @@ var mongo = require('mongodb').MongoClient,
 	path = require('path'),
 	port = process.env.PORT || 5000,
     helmet = require('helmet'),
-
 	username = process.env.USERNAME,
 	password = process.env.PASSWORD,
 	shorten = require('./shortenUrl.js'),
@@ -21,6 +20,12 @@ mongo.connect('mongodb://' + username + ':' + password + '@ds031915.mlab.com:319
 		console.log('connected to database');
 	}
 );
+app.listen(port, function(err){
+	if (err) throw err;
+	console.log(port);
+});
+// NOTE: app works w/o homepage explicit call 
+// guess due to express settings 
 app.get('/', function(req, res){
 	res.send(path.join(__dirname, 'public', 'index.html'));
 	console.log('home page');
@@ -31,43 +36,49 @@ app.get('/:id', function(req, res){
 	var u = coll.find({short: req.params.id}).toArray(function(err, documents){
 		console.log(documents);
 		if (documents.length){
-			res.redirect(documents[0].enteredUrl)
-			res.end();
-			return;
-		}else{
-			res.end('Sorry not found');
-			//return;
+			return res.redirect(documents[0].enteredUrl)
 		}
+		res.end('Sorry not found');
 	});	
-		
-	
 });
 app.get('/new/*', function( req, res){ 
-	console.log('in app.get/NEW', req.url)
 	var urlz = req.url.substr(5);
+	var d = [];
 	console.log('req.params.url', urlz);
  	var validUrl = require('valid-url');
- 
     if (validUrl.isUri(urlz)){
 		var obj = {
 		  enteredUrl: encodeURI(urlz),
 		  short: shorten() 
 		};
-		console.log('OBJECT TO INSERT: \n', obj);
-		coll.insert(obj, {'obj.enteredUrl': 1, 'obj.short': 1}, function(err, data){
-		if (err) throw err;
-		console.log('DATA INSERTED: \n', JSON.stringify(data))
-		});
-		res.json(obj);
-		return;
-	}
-    res.end('No URI');
+		coll.find({enteredUrl: urlz})
+		.toArray(
+			function(err, docs){
+				if (err) throw err;
+				d = docs
+				console.log('DOCS.LENGTH:', d.length, 'DOCS', d);
+				if (!d.length){
+					coll.insert(obj, function(err, data){
+						if (err) throw err;
+						console.log('OBJECT TO INSERT: \n', obj);
+						console.log('DATA INSERTED: \n', JSON.stringify(data))
+						return res.json(obj);
+					});
+				}else{
+					res.json({
+						enteredUrl: obj.enteredUrl,
+						short: docs[0].short
+					});
+				}
+			}
+		);
+	}else{
+    	res.end('No URI');
+    }	
 });
 
-app.listen(port, function(err){
-	if (err) throw err;
-	console.log(port);
-});
+
+/*
 app.get('/favicon.ico', function(req, res){
 	res.sendStatus(200);
 	console.log('fav icon requested');
@@ -79,3 +90,4 @@ app.get('*[object%20HTMLInputElement]*', function(req, res, next){
 	
 
 });
+*/
