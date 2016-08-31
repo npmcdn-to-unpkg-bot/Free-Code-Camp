@@ -55,9 +55,8 @@ app.get('/new/*', function( req, res){
 		.toArray(
 			function(err, docs){
 				if (err) throw err;
-				d = docs
-				console.log('DOCS.LENGTH:', d.length, 'DOCS', d);
-				if (!d.length){
+				console.log('DOCS.LENGTH:', docs.length, 'DOCS', docs);
+				if (!docs.length){
 					coll.insert(obj, function(err, data){
 						if (err) throw err;
 						console.log('OBJECT TO INSERT: \n', obj);
