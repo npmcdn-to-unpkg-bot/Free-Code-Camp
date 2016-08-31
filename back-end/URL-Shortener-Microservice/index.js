@@ -3,12 +3,12 @@ var mongo = require('mongodb').MongoClient,
 	app = express(),
 	path = require('path'),
 	port = process.env.PORT || 5000,
-    helmet = require('helmet'),
+    	helmet = require('helmet'),
 	username = process.env.USERNAME,
 	password = process.env.PASSWORD,
 	shorten = require('./shortenUrl.js'),
 	coll, 
-	 db;
+	db;
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
 
