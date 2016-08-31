@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Tic Tac Toe </title>
     
-
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     
     
@@ -36,7 +36,7 @@
       <!--
 Game Board
 -->
-      <table class="col col-xs-10 col-sm-8 col-md-6" id="table">
+      <table class="col col-xs-10 col-sm-8 col-md-6 col-lg-4 col-xl-3" id="table">
         <tr class="row">
           <td class="card col col-xs-4" data-location="0">
           </td>
@@ -77,12 +77,31 @@ Player Game History Model
       <h3>Player Game History</h3>
     </div>
     <div class="modal-content">
-      <div>Wins: <span class="wins"></span></div>
-      <div>Losses: <span class="losses"></span></div>
-      <div>Ties: <span class="ties"></span></div>
-      <div>Games: <span class="numberGames"></span></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-4">Wins:</div>
+          <div class="wins col-xs-2 col-xs-offset-2"></div>
+        </div>
+          <div class="row">
+            <div class="col-xs-4">Losses: </div>
+            <div class="losses col-xs-2 col-xs-offset-2"></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4">Ties: </div>
+            <div class="ties col-xs-2 col-xs-offset-2"></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4">
+              <span>Games:</span>
+            </div>
+            <div class="col-xs-2 col-xs-offset-2"><span class="numberGames"></span>
+            </div>
+          </div>
+      </div>
     </div>
-  </div>
+    <div class="modal-footer">
+      <a class="close" data-dismiss="modal">x</a>
+    </div>
   </div>
 
 
@@ -90,13 +109,13 @@ Player Game History Model
 Game Token Model
   for: Choosing Game Token
 -->
-  <div class="modal hide fade" id="choose-modal">
+  <div class="modal fade" id="choose-modal">
     <div class="modal-header">
       <h1>Choose Wisely</h1>
       <a class="close" data-dismiss="modal">x</a>
     </div>
-    <div class="modal-body">
-      <div class="row">
+    <div class="modal-content">
+      <div class="row choose">
         <button class="btn O col-xs-6 col-sm-3" data-dismiss="modal">O</button>
         <button class="btn X col-xs-6 col-sm-3" data-dismiss="modal">X</button>
       </div>

@@ -8,17 +8,6 @@ body {
   opacity: 0.87;
 }
 
-.modal {
-  text-align: center;
-  float: none;
-  margin: 0 auto;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.modal-header {
-  color: white;
-}
-
 #table {
   position: relative;
   top: 10%;
@@ -33,11 +22,16 @@ body {
   padding-bottom: 33.33333%;
   height: 0;
   text-align: center;
-  font-size: 4.2em;
+  font-size: 4em;
   margin-top: 0;
   margin-bottom: 0;
   background: #4CAF50;
   line-height: 200%;
+}
+
+.playerHistory {
+  float: none;
+  margin: 0 auto;
 }
 
 #msg {
@@ -62,12 +56,29 @@ body {
   background: material-color(green, 800);
 }
 
+.col-sm-2 span, .numberGames {
+  display: inline-block;
+}
+
+.choose {
+  text-align: center;
+}
+
+.modal-header, .modal-footer {
+  background: material-color(grey, 300);
+  color: #212121;
+  text-align: center;
+}
+
+.modal-content {
+  border: none;
+}
+
 .O,
 .X {
   float: none;
   margin: 0 auto;
   font-size: 4em;
-  border-radius: 5%;
 }
 .O:hover,
 .X:hover {
@@ -84,8 +95,8 @@ body {
 
 @media screen and (max-width: 480px) {
   .card {
-    font-size: 3em;
-    line-height: 250%;
+    font-size: 13vw;
+    line-height: 200%;
   }
 
   #msg {
@@ -93,8 +104,13 @@ body {
   }
 }
 @media screen and (max-width: 300px) {
-  .card, #msg {
-    font-size: 2.5em;
+  .card {
+    font-size: 13vw;
+    line-height: 200%;
+  }
+
+  #msg {
+    font-size: 1.2em;
     line-height: 200%;
   }
 }

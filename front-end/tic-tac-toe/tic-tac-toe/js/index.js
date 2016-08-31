@@ -35,7 +35,7 @@ function showMessage(message) {
   transIn();
   setTimeout(transOut, 1200);
 }
-window.onload = whoGoesFirst;
+
 
 function whoGoesFirst() {
   function choosePiece() {
@@ -65,16 +65,17 @@ function whoGoesFirst() {
   choosePiece();
 }
 $(document).ready(function() {
-  //FIXME!!
   $(".numberGames").text(myGameData.numGames);
   $(".losses").text(myGameData.losses);
   $(".wins").text(myGameData.wins);
   $(".ties").text(myGameData.ties);
   $('.card').click(place);
+  $('#choose-modal').modal('show');
+  $('#msg').hide();
   $('#gameDataButton').click(function() {
-    console.log('game data clicked');
     $('.playerHistory').toggle()
   });
+  whoGoesFirst();
 });
 
 function setComputerPiece() {
@@ -113,14 +114,14 @@ function checkWin() {
     if (player == choice + choice + choice) {
       winningPlayer = "player";
       myGameData.wins++;
-      $("#wins").html("Wins: " + myGameData.wins);
+      $(".wins").text(myGameData.wins);
       lightUpWinningCombo(pattern);
       setTimeout(resets, 750);
       return;
     } else if (player == computerPiece + computerPiece + computerPiece) {
       winningPlayer = "computer";
       myGameData.losses++;
-      $("#losses").html("Losses: " + myGameData.losses);
+      $(".losses").text(myGameData.losses);
       lightUpWinningCombo(pattern);
       setTimeout(resets, 750);
       return true;
@@ -134,7 +135,7 @@ function checkWin() {
   });
   if (tie) {
     myGameData.ties++;
-    $("#ties").html("Ties: " + myGameData.ties);
+    $(".ties").text(myGameData.ties);
     setTimeout(resets, 750);
   }
 }
@@ -161,7 +162,6 @@ function gatherBoardInfo() {
 }
 // computer goes for win if available then blocks, then goes for it's preferred play
 function computerPlay() {
-  console.log('computerPlay', this)
   if (turn === "computer") {
     gatherBoardInfo();
     //need to fix to go for computer piece first. not just O values.
@@ -203,7 +203,6 @@ function computerPlay() {
         return;
       }
     }
-    // console.log('AI');
     AI();
     // play preferred playing piece if there are no winning or blocking moves
     function AI() {
@@ -229,10 +228,11 @@ function resets() {
   $('td').css('color', 'black');
 
   function resetWinningPlayer() {
-    return winningPlayer = null;
+    winningPlayer = null;
   }
 
   function clearBoard() {
+    resetWinningPlayer();
     model.board = ["", "", "", "", "", "", "", "", ""];
     model.win = false;
     $("td").each(function() {
@@ -240,7 +240,7 @@ function resets() {
     });
   }
   myGameData.numGames++;
-  $("#numberGames").html("Game #: " + myGameData.numGames);
+  $(".numberGames").text(myGameData.numGames);
   localStorage.setItem("gamedata", JSON.stringify(myGameData));
   if (winningPlayer === "player") {
     turn = "player";
@@ -255,9 +255,8 @@ function resets() {
     }, 2000)
 
     return;
-  }
-  //if tie game
-  else if (!winningPlayer && turn === "computer") {
+    //if tie game
+  } else if (!winningPlayer && turn === "computer") {
     turn = "player";
     showMessage("Tie Game, You're Move If You Dare!")
     clearBoard();
@@ -269,8 +268,4 @@ function resets() {
     computerPlay()
     return;
   }
-  resetWinningPlayer();
 }
-$(window).load(function() {
-  $('#choose-modal').modal('show');
-});
