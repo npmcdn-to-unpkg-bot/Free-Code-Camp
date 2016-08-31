@@ -42,27 +42,42 @@ console.log('req.params.url', urlz.substr(8));
     if (validUrl.isUri(req.url.substr(8))){
         console.log('Looks like an URI');
 		var obj = {
-		  enteredUrl: encodeURI(urlz.substr(8)),
+		  enteredUrl: encodeURI(urlz.substr(5)),
 		  short: shorten() 
 		};
 		console.log('obj to send: ', obj);
-		res.json(obj).end();
-		db.close();
-		return;
-	var find = coll.find({
-		'obj.enteredUrl':  urlz.substr(8)
-	}).toArray(function(err, docs){
+		coll.insert(obj, {'obj.enteredUrl': 1, 'obj.short': 1}, function(err, data){
 		if (err) throw err;
-		console.log(docs);
-	});
-	}else{
-	    console.log('Not a URI');
-		res.send('Not a URI my dude').end();
+		console.log(JSON.stringify(data))
+		    db.close();
+
+		});
+		res.json(obj).end();
+		return;
 	}
-    db.close();
+    res.send('No URI');
     res.end();
 });
-
+app.get('/:id', function(req, res){
+	console.log('in app.get :id where id=', req.params.id);
+	var u = coll.find({short: req.params.id}).toArray(function(err, documents){
+		console.log(documents);
+		if (documents.length){
+			res.redirect(documents[0].enteredUrl)
+			res.end();
+			return;
+		}else{
+			res.end('Sorry not found');
+			//return;
+		}
+	});	
+		
+	
+});
+app.listen(port, function(err){
+	if (err) throw err;
+	console.log(port);
+});
 app.get('/favicon.ico', function(req, res){
 	res.sendStatus(200);
 	console.log('fav icon requested');
@@ -76,16 +91,4 @@ app.get('*[object%20HTMLInputElement]*', function(req, res, next){
 });
 
 
-app.get('/:id', function(req, res){
-	console.log('in app.get :id', req.params.id);
-	var u = coll.find({"obj.short": req.params.id}).toArray(function(err, documents){
-		var a = documents[0].obj.enteredUrl;
-		console.log(a);
-		res.redirect(a);
-	});	
-	console.log(u);
-});
-app.listen(port, function(err){
-	if (err) throw err;
-	console.log(port);
-});
+

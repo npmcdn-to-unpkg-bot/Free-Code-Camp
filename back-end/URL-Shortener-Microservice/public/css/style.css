@@ -22,7 +22,9 @@ h1 {
   text-align: center;
 }
 
-
+input{
+  color: #212121;
+}
 .urlLabel {
   font-size: 2em;
 }
