@@ -22,7 +22,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col col-xs-10">
-				<h4>User Stories</h4>
+				<h4>In summary:</h4>
+				<hr></hr>
 				<ul>
 					<li>I can submit a URL and will recieve a shortened URL resonse</li>
 					<li>When i visit the shortened URL, it will redirect me to original link</li>
@@ -32,24 +33,36 @@
 <div class="row">
 			<div class="col col-xs-10">
 				<h4>Example</h4>
-					<h5>Input: <code>http://www.voat.co</code></h5>
-					<h5>Response: <code>http://www.voat.co</code></h5>
-				<code>ADDDDDDDDD</code>
-				<h5>Will redirect you to:</h5>
-				<code>http://www.voat.co</code>
+					<h5>Append Address Bar URL: <code>http://www.voat.co</code></h5>
+					<h5>Response:</h5></h5> 
+						<code>'enteredUrl': http://www.voat.co</code><br></br>
+						<code>'short': </code>
+				<h4>Use</h4>
+				<h5>Appending the shortened wil redirect you to the entered url</h5>
+				<!-- todo add -->
+				<code>short</code>
 			</div>
         </div>			
-			<form  id="form">
-			   <label class="urlLabel" for="url">URL:</label>
-			   <div class="row">
-					<div class="col col-xs-10">
-						<input class="col col-xs-10" type="text" id="url" name="url" />
-					</div>
+			<form id="form">
+			   <div class="form-group row">
+  				  <label class="urlLabel col-form-label col-xs-3" for="url">URL:
+  				  </label>
+  				  <div class="col-xs-9">
+				    <input 
+				      class="form-control"
+				      type="text"
+				      id="url"
+				      name="url"
+				    />
+				  </div>
+				
 				</div>
-				<div class="row">
-					<div class="col col-xs-10">
-						<button type="submit" class="btn col-xs-10 default-primary-color " id="submit" >Encode URL</button>
-					</div>
+				<div class="form-group row">
+				  <button 
+					class="btn default-primary-color" 
+					id="submit"
+				    type="submit" 
+					>Encode URL</button>
 				</div>
 			</form>
 	</div>

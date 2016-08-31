@@ -5,8 +5,8 @@ var mongo = require('mongodb').MongoClient,
 	port = process.env.PORT || 5000,
     helmet = require('helmet'),
 
-	username = process.env.USERNAME,//require('./config.js').username,
-	password = process.env.PASSWORD,//require('./config.js').password,
+	username = process.env.USERNAME,
+	password = process.env.PASSWORD,
 	shorten = require('./shortenUrl.js'),
 	coll, 
 	 db;
@@ -26,38 +26,6 @@ app.get('/', function(req, res){
 	console.log('home page');
 });
 
-
-app.get('/new/*', function( req, res){ 
-	console.log('in app.get/NEW', req.url)
-	
-	if (req.url === '/favicon.ico' || '*[object* || *ject*'){
-		console.log('fav icon, object', req.url)
-		
-	}
-
-var urlz = req.url;
-console.log('req.params.url', urlz.substr(8));
- var validUrl = require('valid-url');
- 
-    if (validUrl.isUri(req.url.substr(8))){
-        console.log('Looks like an URI');
-		var obj = {
-		  enteredUrl: encodeURI(urlz.substr(5)),
-		  short: shorten() 
-		};
-		console.log('obj to send: ', obj);
-		coll.insert(obj, {'obj.enteredUrl': 1, 'obj.short': 1}, function(err, data){
-		if (err) throw err;
-		console.log(JSON.stringify(data))
-		    db.close();
-
-		});
-		res.json(obj).end();
-		return;
-	}
-    res.send('No URI');
-    res.end();
-});
 app.get('/:id', function(req, res){
 	console.log('in app.get :id where id=', req.params.id);
 	var u = coll.find({short: req.params.id}).toArray(function(err, documents){
@@ -74,6 +42,28 @@ app.get('/:id', function(req, res){
 		
 	
 });
+app.get('/new/*', function( req, res){ 
+	console.log('in app.get/NEW', req.url)
+	var urlz = req.url.substr(5);
+	console.log('req.params.url', urlz);
+ 	var validUrl = require('valid-url');
+ 
+    if (validUrl.isUri(urlz)){
+		var obj = {
+		  enteredUrl: encodeURI(urlz),
+		  short: shorten() 
+		};
+		console.log('OBJECT TO INSERT: \n', obj);
+		coll.insert(obj, {'obj.enteredUrl': 1, 'obj.short': 1}, function(err, data){
+		if (err) throw err;
+		console.log('DATA INSERTED: \n', JSON.stringify(data))
+		});
+		res.json(obj);
+		return;
+	}
+    res.end('No URI');
+});
+
 app.listen(port, function(err){
 	if (err) throw err;
 	console.log(port);
@@ -89,6 +79,3 @@ app.get('*[object%20HTMLInputElement]*', function(req, res, next){
 	
 
 });
-
-
-
