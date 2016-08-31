@@ -52,27 +52,26 @@ app.get('/new/*', function( req, res){
 	  short: shorten() 
 	};
 	coll.find({enteredUrl: urlz})
-	.toArray(
-		function(err, docs){
-			if (err) throw err;
-			console.log('DOCS.LENGTH:', docs.length, 'DOCS', docs);
-			if (!docs.length){
-				coll.insert(obj, function(err, data){
-					if (err) throw err;
-					console.log('OBJECT TO INSERT: \n', obj);
-					console.log('DATA INSERTED: \n', JSON.stringify(data))
-					return res.json(obj);
-				});
-			}else{
-				res.json({
-					enteredUrl: obj.enteredUrl,
-					short: docs[0].short
-				});
-			}
+	.toArray(function(err, docs){
+		if (err) throw err;
+		console.log('DOCS.LENGTH:', docs.length, 'DOCS', docs);
+		if (!docs.length){
+			coll.insert(obj, function(err, data){
+				if (err) throw err;
+				console.log('OBJECT TO INSERT: \n', obj);
+				console.log('DATA INSERTED: \n', JSON.stringify(data))
+				return res.json(obj);
+			});
+		}else{
+			res.json({
+				enteredUrl: obj.enteredUrl,
+				short: docs[0].short
+			});
 		}
+	}
 	);
 	}else{
-    		res.end('No URI');
+	    	res.end('No URI');
 	}	
 });
 
