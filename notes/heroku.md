@@ -27,6 +27,7 @@ make changes, add, commit, and `git push heroku master`
 heroku local will automatically set up the env based on the contents of the `.env file` in local directory. 
 ##### To set the config var on Heroku, execute the following:
 `heroku config: set TIMES=2`
+or can set in website. 
 to view the config vars:
 `heroku config`
 ### Provision a Database
