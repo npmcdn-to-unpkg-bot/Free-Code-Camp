@@ -74,11 +74,6 @@ body {
   outline: none;
 }
 
-.btn-start {
-  border: none;
-  border-radius: 10px;
-}
-
 .btn[disabled] {
   opacity: 1;
   cursor: default;
@@ -99,30 +94,30 @@ body {
   background-color: #555;
   border-radius: 10px;
   top: 40%;
-  left: 40%;
+  left: 35%;
+  height: 0;
+  padding-bottom: 20%;
   z-depth: 99999;
 }
 
 .controller button {
-  position: absolute;
+  position: relative;
   box-shadow: 3px;
-  font-height: 10px;
-  border-radius: 100%;
   background: #F44336;
-  top: 3px;
-  left: 70%;
 }
 .controller button:hover {
-  opacity: 0.2;
+  opacity: 0.6;
 }
 
 .gameInfo {
   color: #212121;
-  position: absolute;
+  position: relative;
   background: #777;
   width: 30px;
   border-radius: 5px;
   text-align: center;
   margin: 0 auto;
-  top: 0px;
+  margin-top: 5px;
+  display: inline-block;
+  margin-right: 5px;
 }

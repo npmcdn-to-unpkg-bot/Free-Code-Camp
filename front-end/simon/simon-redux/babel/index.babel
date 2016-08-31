@@ -191,6 +191,25 @@ const lightUpTiles = () => {
   console.log('lightUpTiles called');
   store.dispatch(displayMoves())
   let computerArray = store.getState().computerArray;
+  /*
+  let r = store.getState().round;
+  let rArr = [0]
+  const ret = () =>{
+    if(r >= 1){
+    rArr.push(r)
+    r--;
+  }
+    return rArr;
+  } 
+  for (let i = 0, ln = computerArray.length; i < ln; i++){
+    setTimeout((y) =>{
+      lightUp(computerArray[y])
+          store.dispatch(stopDisplay())
+    }, i * 1000, ...rArr)
+  }
+        
+
+  */
   let i = 0;
   var interval = setInterval(() => {
     lightUp(computerArray[i]);
@@ -214,14 +233,14 @@ const Board = () => (
             <Button color="green"/>
             <Button color='red'/>
                       </div>
-        <div className="row">
-           <Controller/>
-        </div>
           <div className="row">
             <Button color='yellow'/>
             <Button color='blue'/>
           </div>
       </div>
+      <div className="row">
+           <Controller/>
+        </div>
     </div>
   </div>
 
@@ -273,7 +292,7 @@ const GameInfo_ = ({
 }) => (
 
   <div className='gameInfo' >
-				<p>{round}</p>
+				<span>{round}</span>
 			</div>
 );
 const mapStateToProps_2 = (state) => {
@@ -284,20 +303,18 @@ const mapStateToProps_2 = (state) => {
 const GameInfo = connect(mapStateToProps_2, '')(GameInfo_)
 const Controller = () => (
   <div className="controller col-xs-3">
-    <div className="row">
-    <GameInfo />
-    </div>
-    <div className="row">
-     
+      <div className="row">
     <h4>Simon</h4>
     </div>
     <div className="row">
+    <GameInfo />
       <button className="btn btn-start"
         onClick={startGame}
         >
        </button>
     </div>
-      </div>
+  
+    </div>
 );
 const app = combineReducers({
   round,

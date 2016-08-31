@@ -205,6 +205,24 @@ var lightUpTiles = function lightUpTiles() {
   console.log('lightUpTiles called');
   store.dispatch(displayMoves());
   var computerArray = store.getState().computerArray;
+  /*
+  let r = store.getState().round;
+  let rArr = [0]
+  const ret = () =>{
+    if(r >= 1){
+    rArr.push(r)
+    r--;
+  }
+    return rArr;
+  } 
+  for (let i = 0, ln = computerArray.length; i < ln; i++){
+    setTimeout((y) =>{
+      lightUp(computerArray[y])
+          store.dispatch(stopDisplay())
+    }, i * 1000, ...rArr)
+  }
+        
+   */
   var i = 0;
   var interval = setInterval(function () {
     lightUp(computerArray[i]);
@@ -237,14 +255,14 @@ var Board = function Board() {
         React.createElement(
           'div',
           { className: 'row' },
-          React.createElement(Controller, null)
-        ),
-        React.createElement(
-          'div',
-          { className: 'row' },
           React.createElement(Button, { color: 'yellow' }),
           React.createElement(Button, { color: 'blue' })
         )
+      ),
+      React.createElement(
+        'div',
+        { className: 'row' },
+        React.createElement(Controller, null)
       )
     )
   );
@@ -288,7 +306,7 @@ var GameInfo_ = function GameInfo_(_ref2) {
     'div',
     { className: 'gameInfo' },
     React.createElement(
-      'p',
+      'span',
       null,
       round
     )
@@ -307,11 +325,6 @@ var Controller = function Controller() {
     React.createElement(
       'div',
       { className: 'row' },
-      React.createElement(GameInfo, null)
-    ),
-    React.createElement(
-      'div',
-      { className: 'row' },
       React.createElement(
         'h4',
         null,
@@ -321,6 +334,7 @@ var Controller = function Controller() {
     React.createElement(
       'div',
       { className: 'row' },
+      React.createElement(GameInfo, null),
       React.createElement('button', { className: 'btn btn-start',
         onClick: startGame
       })
