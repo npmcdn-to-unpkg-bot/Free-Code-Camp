@@ -1,4 +1,6 @@
-
+//dotenv loads env variables without assinging to var
+//default is false. will not give warning. 
+require('dotenv').config({silent: true})
 var API_KEY = process.env.API_KEY;
 var cx = '007471495301481402097:_hffddgxiva';
 var request = require('request');
