@@ -1,19 +1,17 @@
-var mongo = require('mongodb').MongoClient,
+var mongo = require('mongodb').MongoClient, 
 	express = require('express'),
 	app = express(),
 	path = require('path'),
 	port = process.env.PORT || 5000,
     	helmet = require('helmet'),
-	username = process.env.USERNAME,
-	password = process.env.PASSWORD,
+	URI = process.env.MONGOLAB_URI,
 	shorten = require('./shortenUrl.js'),
 	coll, 
 	db;
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
 
-mongo.connect('mongodb://' + username + ':' + password + '@ds031915.mlab.com:31915/hello-world',
-   function(err, database){
+mongo.connect(URI, function(err, database){
 	if (err) throw err;
 	db = database;
 	coll = db.collection('shorten-url') ;
